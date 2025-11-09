@@ -1,12 +1,6 @@
 // API configuration
-// Force localhost for development to avoid network IP issues
 const getApiUrl = () => {
   const envUrl = import.meta.env.VITE_API_URL;
-  // If env URL is set and it's not localhost, use localhost instead for development
-  if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
-    console.warn(`VITE_API_URL is set to ${envUrl}, but using localhost:8000 for development`);
-    return 'http://localhost:8000';
-  }
   return envUrl || 'http://localhost:8000';
 };
 
