@@ -19,6 +19,7 @@ try:
     from app.services.chat_service import ChatService
     HAS_CHAT_SERVICE = True
 except ImportError:
+    ChatService = None  # type: ignore
     print("Chat service unavailable - some features will be limited")
     HAS_CHAT_SERVICE = False
 
@@ -33,24 +34,31 @@ app = FastAPI(
 )
 
 # Configure CORS
+allowed_origins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://ai-health-chatbot-mu.vercel.app",
+    "https://backend-eswars-projects-2dbd246c.vercel.app"
+]
+
+# Add support for all Vercel preview deployments
+if os.getenv("VERCEL_ENV") == "preview":
+    allowed_origins.append("*")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "https://ai-health-chatbot-mu.vercel.app",
-        "https://backend-eswars-projects-2dbd246c.vercel.app"
-    ],
-    allow_credentials=False,  # Set to False for now
-    allow_methods=["*"],
+    allow_origins=allowed_origins if os.getenv("VERCEL_ENV") != "preview" else ["*"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
 
 # Initialize services
 symptom_analyzer = SymptomAnalyzer()
 ai_service = AIService()
 chat_service = None
-if HAS_CHAT_SERVICE:
+if HAS_CHAT_SERVICE and ChatService:
     chat_service = ChatService()
 
 # Request/Response Models
@@ -95,8 +103,8 @@ async def analyze_symptoms(request: SymptomAnalysisRequest):
     try:
         # Get rule-based analysis
         rule_based = symptom_analyzer.analyze_fever(
-            temperature=request.temperature,
-            duration_hours=request.duration_hours,
+            temperature=request.temperature or 0.0,
+            duration_hours=request.duration_hours or 0,
             age_years=request.age_years,
             additional_symptoms=request.symptoms
         )
@@ -147,8 +155,12 @@ async def search_medicines(query: str):
     Search for medicines in the database
     """
     try:
-        results = ai_service._search_medicine_database(query)
-        return {"results": results if results else []}
+        # Access the private method using getattr for type safety
+        search_method = getattr(ai_service, '_search_medicine_database', None)
+        if search_method:
+            results = search_method(query)
+            return {"results": results if results else []}
+        return {"results": []}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -166,7 +178,7 @@ async def chat_endpoint(chat_message: ChatMessage):
     try:
         response = await chat_service.process_message(
             message=chat_message.message,
-            chat_history=chat_message.history
+            chat_history=chat_message.history or []
         )
         return response
     except Exception as e:
