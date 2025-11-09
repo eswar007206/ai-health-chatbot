@@ -8,6 +8,7 @@ import { Auth } from "@/components/Auth";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Plus, LogOut, Stethoscope } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
@@ -35,6 +36,7 @@ const Index = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -375,7 +377,7 @@ const Index = () => {
             </div>
             <Button 
               variant="secondary"
-              onClick={() => window.location.href = '/doctor'}
+              onClick={() => navigate('/doctor')}
               className="hidden sm:flex items-center gap-2"
             >
               <Stethoscope className="h-4 w-4" />
