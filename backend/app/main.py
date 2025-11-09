@@ -1,5 +1,5 @@
 """
-ByteMed Backend - Main Application Entry Point
+FeverEase Backend - Main Application Entry Point
 
 This file contains the FastAPI application setup and main endpoints,
 integrating AI-powered medical analysis and information retrieval.
@@ -29,7 +29,7 @@ load_dotenv()
 
 # Create FastAPI app
 app = FastAPI(
-    title="ByteMed API",
+    title="FeverEase API",
     description="AI-powered medical guidance API",
     version="1.0.0",
 )
@@ -74,7 +74,7 @@ class SymptomsResponse(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"message": "ByteMed API", "version": "1.0.0", "status": "running"}
+    return {"message": "FeverEase API", "version": "1.0.0", "status": "running"}
 
 @app.get("/health")
 async def health_check():

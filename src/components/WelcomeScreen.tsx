@@ -1,4 +1,5 @@
-import { Activity, Heart, Thermometer, Clock, AlertTriangle } from "lucide-react";
+import { Activity, Heart, Thermometer, Clock, AlertTriangle, Stethoscope } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
@@ -8,6 +9,13 @@ interface WelcomeScreenProps {
 }
 
 const quickActions = [
+  {
+    icon: Stethoscope,
+    title: "Doctor Consultation",
+    description: "Talk to a doctor",
+    action: "doctor",
+    isLink: true,
+  },
   {
     icon: AlertTriangle,
     title: "Emergency Guide",
@@ -42,10 +50,11 @@ const quickActions = [
 ];
 
 export const WelcomeScreen = ({ onQuickAction }: WelcomeScreenProps) => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center space-y-6 p-6">
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">ByteMed</h1>
+        <h1 className="text-4xl font-bold tracking-tight">FeverEase</h1>
         <p className="text-muted-foreground text-center max-w-sm">
           Your AI health companion. Ask me about symptoms, medical conditions,
           medications, or general health advice.
@@ -71,7 +80,13 @@ export const WelcomeScreen = ({ onQuickAction }: WelcomeScreenProps) => {
                   ? 'hover:border-red-500 hover:bg-red-50/50'
                   : 'hover:border-primary hover:bg-primary/5'
               }`}
-              onClick={() => onQuickAction(item.action)}
+              onClick={() => {
+                if (item.isLink) {
+                  navigate(`/${item.action}`);
+                } else {
+                  onQuickAction(item.action);
+                }
+              }}
             >
               <div className="flex items-start gap-4">
                 <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-colors ${

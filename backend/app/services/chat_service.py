@@ -560,7 +560,7 @@ class ChatService:
             # Build concise prompt - if no local data, rely on Gemini
             if context_sections:
                 context_text = "\n".join(context_sections)
-                prompt = f"""You are ByteMed, a medical AI assistant. Use the following data from our trained models and knowledge base, BUT if this data is limited or missing, use your extensive medical knowledge to provide the best answer.
+                prompt = f"""You are FeverEase, a medical AI assistant. Use the following data from our trained models and knowledge base, BUT if this data is limited or missing, use your extensive medical knowledge to provide the best answer.
 
 {context_text}
 

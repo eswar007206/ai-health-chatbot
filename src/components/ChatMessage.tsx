@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { Activity, Bot, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ByteMedAvatar } from "./ByteMedAvatar";
+import { FeverEaseAvatar } from "./FeverEaseAvatar";
 
 interface ChatMessageProps {
   role: "user" | "assistant" | "system";
@@ -37,13 +37,13 @@ export const ChatMessage = ({ role, content, timestamp, userName }: ChatMessageP
         ) : isSystem ? (
           <Activity className="h-4 w-4" />
         ) : (
-          <ByteMedAvatar />
+          <FeverEaseAvatar />
         )}
       </div>
       <div className="flex-1 space-y-2 overflow-hidden">
         <div className="flex items-center gap-2">
           <p className="text-sm font-semibold leading-none">
-            {isUser ? (userName || "You") : isSystem ? "System" : "ByteMed"}
+            {isUser ? (userName || "You") : isSystem ? "System" : "FeverEase"}
           </p>
           {timestamp && (
             <p className="text-xs text-muted-foreground">

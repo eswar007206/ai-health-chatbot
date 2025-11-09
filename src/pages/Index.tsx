@@ -7,7 +7,7 @@ import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { Auth } from "@/components/Auth";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Plus, LogOut } from "lucide-react";
+import { Menu, Plus, LogOut, Stethoscope } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
@@ -368,8 +368,19 @@ const Index = () => {
               />
             </SheetContent>
           </Sheet>
-          <div className="flex-1">
-            <h1 className="text-lg font-semibold">ByteMed</h1>
+          <div className="flex-1 flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="FeverEase" className="h-16 w-16 object-contain" />
+              <h1 className="text-2xl font-semibold">FeverEase</h1>
+            </div>
+            <Button 
+              variant="secondary"
+              onClick={() => window.location.href = '/doctor'}
+              className="hidden sm:flex items-center gap-2"
+            >
+              <Stethoscope className="h-4 w-4" />
+              Doctor Consultation
+            </Button>
           </div>
           <div className="w-10" />
         </div>

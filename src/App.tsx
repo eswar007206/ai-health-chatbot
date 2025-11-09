@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import DoctorConsultPage from "./pages/DoctorConsultPage";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<Index />} />
+      <Route path="/doctor" element={<DoctorConsultPage />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

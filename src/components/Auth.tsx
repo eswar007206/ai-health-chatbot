@@ -69,10 +69,10 @@ export const Auth = () => {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-medical-primary/10 via-background to-medical-secondary/10 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-medical-primary/10">
-            <Activity className="h-6 w-6 text-medical-primary" />
+          <div className="mx-auto mb-6 flex h-32 w-32 items-center justify-center">
+            <img src="/logo.png" alt="FeverEase" className="h-full w-full object-contain" />
           </div>
-          <CardTitle className="text-2xl">ByteMed</CardTitle>
+          <CardTitle className="text-4xl">FeverEase</CardTitle>
           <CardDescription>Your AI Health Companion for Fever Care</CardDescription>
         </CardHeader>
         <CardContent>
