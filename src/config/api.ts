@@ -1,8 +1,21 @@
-// API configuration
-const getApiUrl = () => {
-  return 'https://backend-eswars-projects-2dbd246c.vercel.app';
+// ✅ API configuration
+
+// Function to get API base URL safely
+const getApiUrl = (): string => {
+  const url = import.meta.env.VITE_API_URL;
+
+  if (!url) {
+    console.error(
+      "❌ Missing VITE_API_URL! Please set it in Render environment variables."
+    );
+    throw new Error("VITE_API_URL not found in environment variables");
+  }
+
+  console.log("✅ Using API URL:", url);
+  return url;
 };
 
+// Base URL for API
 export const API_BASE_URL = getApiUrl();
 
 // API endpoints
