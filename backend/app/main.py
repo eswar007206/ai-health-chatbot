@@ -35,11 +35,15 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins temporarily
-    allow_credentials=True,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://ai-health-chatbot-mu.vercel.app",
+        "https://backend-eswars-projects-2dbd246c.vercel.app"
+    ],
+    allow_credentials=False,  # Set to False for now
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["*"]
 )
 
 # Initialize services
