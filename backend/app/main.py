@@ -34,24 +34,12 @@ app = FastAPI(
 )
 
 # Configure CORS
-allowed_origins = [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://ai-health-chatbot-mu.vercel.app",
-    "https://backend-eswars-projects-2dbd246c.vercel.app"
-]
-
-# Add support for all Vercel preview deployments
-if os.getenv("VERCEL_ENV") == "preview":
-    allowed_origins.append("*")
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins if os.getenv("VERCEL_ENV") != "preview" else ["*"],
-    allow_credentials=False,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["*"],
-    expose_headers=["*"]
+    allow_origins=["http://localhost:8080", "http://127.0.0.1:8080", "http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
 # Initialize services
