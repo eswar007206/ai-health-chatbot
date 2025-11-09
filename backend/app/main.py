@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 
 from app.services.symptom_analyzer import SymptomAnalyzer
 from app.services.ai_service import AIService
+
 # Optionally import ChatService
 try:
     from app.services.chat_service import ChatService
@@ -33,21 +34,23 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Configure CORS
+# ✅ Configure CORS properly for Render deployment
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080", "http://127.0.0.1:8080", "http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://fever-ai-helper.onrender.com",  # ✅ your frontend on Render
+    ],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
 # Initialize services
 symptom_analyzer = SymptomAnalyzer()
 ai_service = AIService()
-chat_service = None
-if HAS_CHAT_SERVICE and ChatService:
-    chat_service = ChatService()
+chat_service = ChatService() if HAS_CHAT_SERVICE and ChatService else None
 
 # Request/Response Models
 class SymptomAnalysisRequest(BaseModel):
@@ -59,11 +62,11 @@ class SymptomAnalysisRequest(BaseModel):
 
 class MedicineRequest(BaseModel):
     name: str
-    
+
 class ChatMessage(BaseModel):
     message: str
     history: Optional[List[Dict]] = None
-    
+
 class SymptomsResponse(BaseModel):
     ai_analysis: Dict[str, Any]
     rule_based_analysis: Dict[str, Any]
@@ -71,33 +74,22 @@ class SymptomsResponse(BaseModel):
 
 @app.get("/")
 async def root():
-    """Root endpoint"""
-    return {
-        "message": "ByteMed API",
-        "version": "1.0.0",
-        "status": "running"
-    }
+    return {"message": "ByteMed API", "version": "1.0.0", "status": "running"}
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint"""
     return {"status": "healthy"}
 
 @app.post("/api/analyze-symptoms", response_model=SymptomsResponse)
 async def analyze_symptoms(request: SymptomAnalysisRequest):
-    """
-    Analyze symptoms using both rule-based system and AI
-    """
     try:
-        # Get rule-based analysis
         rule_based = symptom_analyzer.analyze_fever(
             temperature=request.temperature or 0.0,
             duration_hours=request.duration_hours or 0,
             age_years=request.age_years,
             additional_symptoms=request.symptoms
         )
-        
-        # Get AI analysis
+
         patient_info = {
             "age": request.age_years,
             "temperature": request.temperature,
@@ -105,32 +97,28 @@ async def analyze_symptoms(request: SymptomAnalysisRequest):
         }
         if request.additional_info:
             patient_info.update(request.additional_info)
-            
+
         ai_results = await ai_service.analyze_symptoms(
             symptoms=request.symptoms,
             patient_info=patient_info
         )
-        
-        # Combine recommendations
+
         all_recommendations = set(
             rule_based.get("recommendations", []) +
             ai_results.get("recommendations", [])
         )
-        
+
         return {
             "ai_analysis": ai_results,
             "rule_based_analysis": rule_based,
             "combined_recommendations": list(all_recommendations)
         }
-        
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/medicine-info")
 async def get_medicine_info(request: MedicineRequest):
-    """
-    Get detailed medicine information using both database and AI
-    """
     try:
         result = await ai_service.get_medicine_info(request.name)
         return result
@@ -139,11 +127,7 @@ async def get_medicine_info(request: MedicineRequest):
 
 @app.get("/api/medicine-search")
 async def search_medicines(query: str):
-    """
-    Search for medicines in the database
-    """
     try:
-        # Access the private method using getattr for type safety
         search_method = getattr(ai_service, '_search_medicine_database', None)
         if search_method:
             results = search_method(query)
@@ -154,15 +138,12 @@ async def search_medicines(query: str):
 
 @app.post("/api/chat")
 async def chat_endpoint(chat_message: ChatMessage):
-    """
-    Handle chat messages and return AI responses with integrated symptom analysis
-    """
     if not chat_service:
         return {
             "response": "Chat service is currently unavailable. Please try the symptom analysis endpoint instead.",
             "error": "Chat service not initialized"
         }
-        
+
     try:
         response = await chat_service.process_message(
             message=chat_message.message,
