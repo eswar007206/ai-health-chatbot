@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "source": "Cincinnati Children’s Hospital Fever of Unknown Source Guideline",
+    "version": "1.0",
+    "last_updated": "2025-11-09"
+  },
+  "risk_rules": [
+    {
+      "criteria": {
+        "age_days": "<21",
+        "appearance": "ill",
+        "temperature_c": "≥38.0"
+      },
+      "risk_level": "High",
+      "action": "Admit and perform full work-up (CBC, UA, CSF, PCT)"
+    },
+    {
+      "criteria": {
+        "age_days": "22-60",
+        "appearance": "well",
+        "PCT_ng_ml": ">0.5",
+        "ANC": ">4000"
+      },
+      "risk_level": "Intermediate",
+      "action": "Admit for observation, consider antibiotics"
+    },
+    {
+      "criteria": {
+        "age_days": "22-60",
+        "appearance": "well",
+        "PCT_ng_ml": "≤0.5",
+        "ANC": "<4000"
+      },
+      "risk_level": "Low",
+      "action": "Outpatient management and follow-up in 24h"
+    }
+  ]
+}

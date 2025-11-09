@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "source": "IMA Treatment Algorithm for Acute Fever",
+    "version": "1.0",
+    "last_updated": "2025-11-09"
+  },
+  "decision_points": [
+    {
+      "id": "history_check",
+      "question": "Is the patient immunocompromised or pregnant?",
+      "options": [
+        {
+          "condition": "Yes",
+          "next_step": "high_risk_protocol",
+          "recommendation": "Immediate medical evaluation"
+        },
+        {
+          "condition": "No",
+          "next_step": "clinical_exam",
+          "recommendation": "Proceed to clinical examination"
+        }
+      ]
+    },
+    {
+      "id": "clinical_exam",
+      "question": "Any localized infection signs (e.g. cough, rash, urinary symptoms)?",
+      "options": [
+        {
+          "condition": "Yes",
+          "next_step": "localized_treatment",
+          "recommendation": "Treat accordingly"
+        },
+        {
+          "condition": "No",
+          "next_step": "systemic_assessment",
+          "recommendation": "Evaluate for AUFI"
+        }
+      ]
+    },
+    {
+      "id": "systemic_assessment",
+      "question": "How long has fever lasted?",
+      "options": [
+        {
+          "condition": "<2 days",
+          "next_step": "observe",
+          "recommendation": "Symptomatic care & hydration"
+        },
+        {
+          "condition": "≥3 days",
+          "next_step": "lab_investigation",
+          "recommendation": "Do CBC, malaria, dengue, UA tests"
+        }
+      ]
+    }
+  ]
+}

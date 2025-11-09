@@ -1,0 +1,4460 @@
+{
+  "common_questions": [
+    {
+      "question": "What brings you back into the clinic today, miss?",
+      "expected_answer": ""
+    },
+    {
+      "question": "It looks like Doctor Kumar followed up with you last time regarding your hypertension, osteoarthritis, osteoporosis, hypothyroidism, allergic rhinitis and kidney stones.  Have you noticed any changes or do you have any concerns regarding these issues?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any fever or chills, cough, congestion, nausea, vomiting, chest pain, chest pressure?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great. Also, for our records, how old are you and what race do you identify yourself as?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you taking any over the counter medicines?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No alternative medicine, naturopathy or anything?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I hear someone has a birthday coming up, how old are you turning, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You're here for a follow up not very long after your first visit. What seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, I saw your blood pressure reading for today, and it's much better. Are you taking the higher dose of Mavik we recommended?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How did you tolerate the higher dose?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That was one M G per day, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, so back to that right arm, how is that doing today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you have x rays taken today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Well, look right here. The humeral head is pretty high in the glenoid in the right shoulder, but do you have any pain here?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How has this pain developed and progressed recently?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What medicines are you taking right now, then?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you think this could be acid reflux, or heartburn?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. How long have you worn dentures?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do they come and go, the sores?",
+      "expected_answer": ""
+    },
+    {
+      "question": "It's hard to tell if you have a tremor today, ma'am, but do you think the Lexapro is helping otherwise?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you right handed or left handed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Was there any sensation like having pins and needles? Was there any weakness? Is there any change in your visual or mental status? Were you able to walk?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did you first start noticing these symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you recently have any cold or flu like symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Were diagnosed with a thing called multiple sclerosis?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you ever have a feeling where you felt like there's an electric is going up or down your spine?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about any fatigue or pain? Any frequency in your urination? Any urgency in that?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did the nausea and vomiting start?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How many episodes of vomiting have you had?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any abdominal pain, fever, chill, or other symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I will ask you some regular questions, okay?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any pain in urination?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you noticed any blood while urinating? Any blood in your urine?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does it taper off in the afternoon or night?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any leakage in the night?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you apply a lot of force to urinate?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about this stream? Is it good or less? Are you emptying well? And what about the bowel movement?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you lost weight?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about anything like fever, nausea, vomiting, pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And you get urine infections too?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And as discussed, your drainage is similar to past episodes when you had such infection?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me what problems you have had in the past. Or what medical issues are currently going on?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, what stomach symptoms are you experiencing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When do you feel this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hi miss. How old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What race do you identify as?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you okay? You have a headache?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay can you point to where you are feeling it the most?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay so mostly on the right frontal side and it's been forty eight hours now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I can understand the discomfort. Is it continuous or throbbing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "On the scale of one to ten, ten being the worst, how would you rate it?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever experienced similar symptoms in the past?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you hit your head buy any chance?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay can you tell me if you have any fever or chills, congestion, cough cold like symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any nausea, vomiting, diarrhea or trauma anywhere?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Anything from head to toe?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Around what time did the car crash take place?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you happen to remember how fast you were driving at the time of the crash?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What kind of car were you driving?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Were you wearing a seatbelt? And did the airbag deploy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any passengers in the car with you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you hit your head anywhere?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you think you lost consciousness at any point in time?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any pain elsewhere?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How would you rate this pain, ten being the worst pain ever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any knee, ankle, or foot pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about pain in your shoulders, elbows, or wrists?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember walking before or after the ambulance arrived?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Just to confirm, no chest pain or difficulty breathing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you noticed any cuts on your skin?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any headache, nausea, or vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any chance of pregnancy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When was your last period?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you taking anything besides birth control?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me more about your parents, please? How are they doing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's great to hear. How old are they?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Wonderful, do you have any siblings?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are they?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do they have any history of medical conditions that you know about?",
+      "expected_answer": ""
+    },
+    {
+      "question": "We also need to address the blood clotting. I am going to give you an anticoagulant to prevent any further clotting issues. Do you have any questions?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me more about your daughter's injury?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did she have surgery on this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Remind me, how old are you, dear?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You said you are feeling dizziness, so what makes it worse?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do these headaches change with changing the positions or standing straight?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does the patient have any known medical history?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, your headaches-- how long has this been going on?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you smoke?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has there been any weight loss?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, ma'am, before we begin, how old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, thank you. So, how are you feeling today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is this your dominant hand?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did you first notice these symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any symptoms in any other parts of your body?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did this tingling sensation go away?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have these symptoms returned at any point?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have these symptoms spread to any other part of the body?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do these symptoms interfere with your ability to move?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any cold or flu like symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you feel any significant fatigue?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any significant weight loss?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you feeling today, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you still having the diarrhea and decreased appetite?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you been peeing a normal amount?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When was the last time you peed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having any fever symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, young lady. Is this your mother?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, mom. Can you tell me more about your daughter, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What's been the problem with her feet?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, how has she been since that procedure?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Your heel is out of alignment, sweetie. Do you have pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, young man. Are these your parents?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, can you tell me more about your son, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "After he fell, how was he treated?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any nausea, vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any blood in sputum or chest pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "They took some fluid out of your back remember?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That is good. but did that help you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see that they gave you some antibiotics in E R?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long have you had this cough?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you bringing anything up when you cough?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any shortness of breath or chest pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about fevers or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello! How are you doing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you still undergoing treatment?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any other medical conditions?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you take medication for the G E R D?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, ma'am. What is the reason for your visit today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thank you. Let me take a look.  I see here it says you had severe sinusitis two to three months ago, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No problem. Would you be able to describe to me what you had been feeling two to three months ago?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever been prescribed any medication?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see you were given antibiotics, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Your report states you had a severe infection. Do you remember if the antibiotics helped?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. Did your doctor order any advanced imaging's?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No problem. Going back to your list of medications, I know you took antibiotics for your infection, but did you take any medication for your sinuses?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. Looks like the cream you used was a topical nasal corticosteroid. Are there any other symptoms that you have been experiencing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I want to ask a few more questions about your ears. Do you feel any fullness or pressure?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you hear any humming, buzzing, or roaring sounds?",
+      "expected_answer": ""
+    },
+    {
+      "question": "We checked your ears and now understand more about the problem, but I wonder why your balance is affected. When did you start noticing your balance was affected?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Was the medicine called Allegra?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. Did you ever feel any dizziness too?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And who are we seeing today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Well, hello young man how are you feeling today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "For how long now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No, I mean when did he start complaining of stomach pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh okay, let me check him. Did he have any nausea or vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And then he is complaining of tummy pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any diarrhea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hm, but no blood or anything in the stools or vomit?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you still taking Micronase every morning?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay and you have recently had right side C V A?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You have pain on the right side now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And you take thyroid medications too?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What surgeries have you had in the past?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And now pacemaker placement, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old is the baby? When did you first notice it?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you get the test result?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So how is the blister on the umbilicus now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You did good. I will start the treatment. How are her eating and sleeping habits?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did she have any fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has she been lethargic or crying more than normal?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any other changes in her daily routine that you might have noticed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good afternoon, young man, are these your parents?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me more about your son, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How many times has he had diarrhea per day since this began?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How many times has he thrown up per day?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has he been throwing up today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has he gone to the bathroom today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has he had any fever symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has he eaten any solid food?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Was he able to keep the food down?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What has he drank?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay.  What brings you in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long has this been going on?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had a fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does the abdominal pain come during one of these coughing episodes?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good afternoon, dear, how old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, and what brings you in for a visit today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh no, how long has this knee been hurting you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you seen another doctor for this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see, and what did this doctor recommend?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thank you, yes, so this shows left patellar chondromalacia. Has she been to P T?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see, has she been wearing her brace?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's good, and how is your pain today, dear?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What brings you in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any other symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any history of kidney stones?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, you are here today because you are having some vision difficulties? Tell me about what has been going on, ma'am.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Was the loss sudden or gradual?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did that start happening?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any fluctuations in your symptoms in the last year? Have you gained any vision back?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you experienced any weakness, dizziness, vertigo, nausea or vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any double vision or headaches?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any pain in or behind the eye at all?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any other health concerns or complains?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good afternoon, ma'am. Before we begin, can you confirm your age for me, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, thank you. What seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How have you been treated for this in the past?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Which hand was worse?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you seen anyone else for this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What did they do for you at that time?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did they give you any topical creams?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see, have your symptoms gotten worse since they began?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Which fingers do you feel it in? If any?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, these are your second, third, and fourth fingers. Do you have any other symptoms of note?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What symptoms have you been experiencing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any night sweats or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any chest pain or discomfort?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about shortness of breath, or G I problems?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello. Looks like we are here for a six months follow up. How are we doing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Alright. How are the thyroid issues?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you experienced any of the following: temperature intolerance, palpitations, muscle weakness, tremors, nausea, vomiting, constipation, or diarrhea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How has you weight been?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any muscle weakness closest to the body's center?",
+      "expected_answer": ""
+    },
+    {
+      "question": "My nurse tells me you're thirty four years old, is that correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You identify as African American, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You're here for a follow up? What brings you back in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is there an injury associated with this pain, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yes, that's common. Is this messing with your ability to work?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What do you do for a living?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having trouble sleeping at night?",
+      "expected_answer": ""
+    },
+    {
+      "question": "With ten being the worst pain imaginable, how would you rate your pain today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When it's the worst, how would you rate it?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you take any medicines for this pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any other complaints?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any loss of balance when you hold something with this arm?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any signs of infection? That'd be anything like fever or chills, anything like that?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How's the little dude?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is he sleeping well?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about wet and dirty diapers?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about any diarrhea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any rashes or acne?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old is he? And, sorry this is odd, but what ethnicity do you identify as? I need it foe the paperwork.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you notice him getting blue at all? Or does this area sink in when he tried to breathe?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is he having any trouble breathing in general?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you still taking the Trizivir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How much are you taking?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you taking any other medications?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, how old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thank you, what seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Like what, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see, do you have any food allergies?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any headache or body pains?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any nausea vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you observe any blood?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, any diarrhea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh, how long have you had this problem?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hm, I see, does it hurt you to pass stool? Did you notice any blood?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any complains of heart burn or acidity or stomach pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yeah, you can get that kind of pain with constipation. Any cough or cold like symptoms? Any cough with sputum?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any sudden weight gain or loss?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any headaches, nose bleeds, coarse voice, blurry vision or loss or change of vision?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No fever or chills, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any chest pain, shortness of breath or shortness of breath while sleeping?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any palpitation, swelling or varicose veins or pain in your legs?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any sore throat or cough or cough with mucous or blood sputum?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No wheezing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any heart burn, nausea or vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Loss of appetite or blood in stool or abdominal pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Constipation?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How is the color of your urine? Is it dark or cloudy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any pain while urinating or burning sensation?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any flank or groin pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, any joint pain, muscle stiffness or pain? Any backache? Ligament, tendon pain or strain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you experience any blackouts or seizures lately?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any hallucinations or memory loss?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any weakness? Numbness or tingling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any anxiety, irritability, apathy or depression like feeling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How is your sleep?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And how is your appetite?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How is your mental state? Any suicidal thoughts crossing your mind?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any unusual hair loss or hair or nail breakage?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you notice any skin lesion or discoloration?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good afternoon, sir. My nurse has it written down here that that you're a thirty three year old black male, is that correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, what seems to be the problem today, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What makes you think this, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is there anything else of note, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What was this quiz like?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having difficulty maintaining an erection until completion?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, do you have any significant medical conditions in the past that you have been treated for?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about testicular infections?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any traumatic injuries to the groin?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about hernias? You can get them from playing sports or lifting weights. Have you ever had one of these?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How's he feeling today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I'm sorry to hear that he hasn't been feeling well. What symptoms has he been having?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. What was his temperature?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I suspect that he has an upper respiratory infection, possible pertussis. Is he still experiencing apnea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, let me quickly examine him. Mom do you give the permission? I will quickly check his genitalia. Can you pull his pants down?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hi, how can I help you, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have urine bag?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yes, it looks like five hundred M L came out. So possible urinary obstruction. Also, they started you on steroids and colchicine. How are you feeling now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay that is good. Any fever and chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any problem with urination like pain or frequency or blood in urine?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay I will evaluate that. How about any cough, blood in sputum?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any chest pain, or difficulty breathing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Anything else that is going on?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay no fever, nausea, anything of that sort?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You recently turned sixty seven, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you right or left handed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When were you first diagnosed with Parkinson's?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember who diagnosed you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you lose consciousness during any of your falls?",
+      "expected_answer": ""
+    },
+    {
+      "question": "By slower, do you mean the movements of your arms and legs were slower and impaired?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you notice any improvement while taking it?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you experiencing any other symptoms, such as stroke like events, vision changes, seizures, or problems with moving and coordinating your arms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any headache, nausea, vomiting, chills, or fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hi there! How are the both of you doing today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What are his symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "During his coughing episode this morning, did you notice any loss of breath or gasping for air?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has he had a runny nose?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is anyone else in the household sick?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is anyone in the household a smoker?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, ma'am. Can you confirm your age for me?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thank you, so, how is your knee doing today? Hope the osteoarthritis is getting better.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any improvement with the rest and antiinflammatories we've talked about before?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, you are here to review your sleep study results, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Sure. But first tell me, how is your sleeping routine like?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you able to sleep as soon as you go to bed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How would you compare your sleep here in the lab and at your home?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How do you feel when you wake up in the morning?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you snore?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you ever feel that you have difficulty breathing while you are asleep?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You said you used to, so it is not anymore?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How's your daily routine? Do you nap in the daytime?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you smoke?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you noticed any change in your weight?",
+      "expected_answer": ""
+    },
+    {
+      "question": "If that was your maximum how is your weight now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, for your health care, you are coming here in the outpatient psychiatry and also going to your maintenance clinic, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, I see you were diagnosed with an acid reflux problem and high blood pressure twenty years back?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Also, you had a brain stroke?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And currently are you on any medications?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are you, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, what brings you in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay and did you move with your family?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Your Mesothelioma?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, and who all are there in your family?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And do you drink or smoke?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any funny drugs like heroine or coke?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So what brings you in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When was the last time you took your temperature?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. Did the nurse take your temperature when you came in?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you been experiencing cold like symptoms, such as cough, nasal congestion, headache, or nausea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you tried taking any medicine to help with the fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had recent sick contacts?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me more about your son, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long has he used his walker?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old was he when he started walking?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, what seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you sit on the table, young man? Yes, I'm bending his legs, we call this the popliteal angle, and both sides flex to only about twenty.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I think we should do surgery on this leg. How does he walk? Can I see?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, sir. Before we begin your visit, could you verify your age and ethnicity for me, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thank you. What brought you in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. What seems to be happening?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What part of your leg?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. So just the leg?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Was that severe?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I can see you still have an external fixation on your knee so that the fracture heals. Did the hospital give you a report on the surgery?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I don't think so. Are you feeling any symptoms of a fever or anything?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Doctor X referred you to us, is that correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Doctor Kim's notes said that you have had pain in the left flank pain. Can you tell me more about the pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Have you had any nausea or vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you noticed any blood, pain and or burning during urination?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, miss. How can I help you today? The nurse said the matter was urgent.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you describe what type of dizzy spells you are having? What do they feel like?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you feeling okay right now or are you experiencing symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Let me take a look at the rash on your legs. Are the bruises new?",
+      "expected_answer": ""
+    },
+    {
+      "question": "In the past couple days have you had a fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about chest pains?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does the dizziness make you nauseous?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about diarrhea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are there any parts of your body that are hurting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you measured your blood sugar at all? I ask because the notes state there is a history of gestational diabetes and when blood sugars are out of the normal limits this can cause some of the symptoms you are having.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you, Mary?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh, is it like the one you got last time?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh, I am sorry dear. So, how long since you have had this ulcer?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yeah, good thing you came. We need to treat it. Did you experience any chills or fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any other symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Your chest x ray showed diffuse pulmonary edema. This means that you have fluid in your lungs. That would explain your chest pain and the difficulies with your breathing. I would like to start you off with a course of antibiotics to prevent any possible infection. I will also send in a prescription for Furosemide. It will reduce the fluid accumulation in your lungs. Do you have any questions?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay I will look at it. But other than that, everything else looks good? Any other problems related to circumcision?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are you? What brings you here today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does changing positions helps you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is it only in your legs or it starts there and goes somewhere else as well?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did you first notice it?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever noticed any night sweats?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any other issue? Anything else going on? Your body temperature is a little on the higher end.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are your sugar numbers?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's good. How much is your fasting sugar?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Anything else going on? How is everything else?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I am so sorry for your loss. How old was your mother when she passed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How did your brother pass away?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I have a support group I can refer you to for people to have been through loss. Would you be interested a referral, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I will ask some simple questions, okay?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are you and how would you define yourself in terms of ethnicity?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great. What brings you to the emergency room?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you noticed any other symptoms other than weakness?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you have wet cough?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any shortness of breath?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about while sleeping or doing something else?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Which side left or right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "For how long?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you ever get any type of injury in the area?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about your bowel movements?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any change in urinary habits?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any changes in your skin? Any rash? Any kind of eyesight issue?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about pain? Like headache or any joint pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, sir. You're sixty one years old, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, and you identify as Caucasian, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thank you, do you have any medical conditions that I should know about?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you handling your diabetes?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, thank you for telling me. What seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any itchiness or pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you seen any other doctors about this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any images from this visit?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, sir. How are you doing today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, ma'am. What seems to be the problem with your husband?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long have you been running a fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you taken anything for the fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When was the last time you took your temperature?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you experiencing any other symptoms, such as shortness of breath, nausea, vomiting, diarrhea, or others?",
+      "expected_answer": ""
+    },
+    {
+      "question": "It could be. We're still waiting on your urine results. Do you have a history of cataracts or glaucoma?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, great. Any signs of pneumonia or valley fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about blood in your vomit or feces?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any neurological symptoms like T I A or C V A? That is slurred speech or stroke symptoms.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great to here. With the pandemic I wanted to check on your mental health too. Any depression or anxiety?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Cool. Do you have any issues with blood disorders?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, sir. So, remind me, how long ago was your procedure?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yep, and where are you living now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's really good. Are you in any pain today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, have you been going to P T?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are there any signs of infection, like drainage from the incision?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, are you having any fever symptoms, like cough, runny nose, sore throat, fatigue, anything like that?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, this is your follow up visit, right? Welcome back! Have you been taking your Plaquenil for lupus, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Your prescription is two hundred M G twice a day, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have your eye report with you today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, thank you, what seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did this pain start?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is there any associated trauma? Did you fall?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having any fever or chills, or cold or flu like symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about swelling? Are any of your joints swollen?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How're your other children doing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "For the same?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You are referred for some abdominal infection right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had a recent vaccination?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any planned in the near future?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How's he doing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long has it been since you noticed any behavioral changes?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is he complaining of any pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "He's been?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is he having any other symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any vomiting with the nausea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, sir. Remind me please, when was your surgery?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yeah, it's great, eliminates some need for P T in fact. How are you doing today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having any flu like, or infection symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No need to worry. Are you doing your range of motion exercises? Those are imperative.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, and do you have any numbness or tingling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello. How are you both doing today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. Did he have a fracture before?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great. Let me take a look. It looks like he had a distracted left lateral condyle fracture. He then underwent screw compression to fix the fracture, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Perfect. So, now we just have to remove the hardware that was used to fix the fracture, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What brings this little guy in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Sorry to hear that. Did he have a fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And did you give him anything for the fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. And how has he felt otherwise?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has he been coughing at all?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any shortness of breath?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about any episodes of vomiting, diarrhea, or stomach pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you notied her behaving strangly in any way?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has she been gagging, coughing, vomiting or any other symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you see her ingest any of the fluid?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any past medical problems I should know of?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any recent weight loss?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How's your appetite? Any nausea, vomiting, diarrhea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about fever, chills, sweats, cough?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And any chest pain with your shortness of breath?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How're you feeling today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I'm sorry, why is that?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How would you describe the headache?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is it constant?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How would you rate it on a scale of ten with ten being the worst?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have a headache currently?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any other symptoms associated with the headache, such as fever, chills, nausea, vomiting, blurred vision, or sensitivity to light?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any recent injuries to the head?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And your neck and lower back pain, is this new?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How so?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I would like to get a detailed history of your inperforated anus and the curvature of the penis. It is a genetic condition. And do you know if you had surgery soon after birth?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you know all the surgeries that you have had for this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What did the biopsy show?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Any other surgeries for your condition?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Um hum. Any other surgeries unrelated to your condition?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had any complications during any of your surgeries?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are you, young man?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you right handed or left handed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, tell me what brings you here today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You said that you felt decreased coordination or less coordination between your legs, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any issue with the bowel movements?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about this weakness or the numbness anywhere else except your legs?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did anything help you with those symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any recent flu like symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did anyone in your family have anything like that or any other medical issues that was like going on in your family?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you have any surgery before?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about any other major health issues in the past?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you taking any kind of medication for anything?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any history of rheumatic fever as a child?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any history of anything other then usual childhood illnesses?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever, chills or rigors?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any blurring of vision or history of glaucoma or cataract?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you experience any shortness of breath?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any stomach discomfort?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you observe blood in your stool or in vomit?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, good. Did you notice any increase in your urine frequency or urgency?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you feel any muscle weakness or tiredness?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any known history of arthritis?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And no fever due to any fungal infection or anything, right? Like valley fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any history of pneumonia?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No thyroid or hormone related problem?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And you do not have any blood disorders, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, how are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, what brings you here today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What seems to be the problem today, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long have you had this pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When is the pain the worst?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does it get worse throughout the day?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What treatments have you had for this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Where is your heel pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any change in your medical history since your last visit?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any flu like symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about chest pain or shortness of breath?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I am well, how's the baby? I see that he is eight pounds and thirteen ounces, and he was born via…?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, have you had any infections during pregnancy like G B S or S T D infections?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you smoke during pregnancy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Sir, have you had any S T D while she was pregnant?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What's bringing her in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What time did she wake up today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Remind me, how did he hurt himself?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Which hand does he write with?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. That fracture appears to have healed very well; kids generally heal pretty well. How does it feel today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good afternoon, ma'am. Before we begin, may I ask how old you are?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, thank you. What seems to be the problem today, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Why would that be, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you struggling to make food for just two people?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I understand, are you busy, do you work?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I am afraid I don't have better news for you, but your diabetes is out of control. It's way too high and you must be really careful. Are you taking your medicines?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How bout diet?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Let me examine you. Tell me, did you have any fever or chills, any sweating or that sort of thing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about abnormal weight loss or weight gain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you experiencing any chest pain on exertion or shortness of breath normally or when you try to sleep?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Let me see your legs. They look good I don't see any pedal edema. Usually that happens due to excess water retention. Any palpitations?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any feeling of numbness or tingling? Did you faint or lose consciousness anytime?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any double and or blurred vision?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any difficulty hearing or any wired continuous sound you may hear?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, um tell me if you had any um, allergies, or sneezing, or runny nose?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any indigestion, or heart burn? Did you notice any blood in stool or black stool?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any diarrhea or vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you feeling thirsty frequently?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any pain while passing urine though? Any blood?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And how is the urine frequency? Do you have to wake up at night to urinate?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How bout the stream while passing urine? You think it's normal or somewhat slow?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, so any cough or cold like symptoms any sputum?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No wheezing, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I don't see any lesions, that's good. Any mood swings, feeling depressed or have anxiety?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any joint pain in the legs, back or anywhere?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, so no erythema in the joints. Any heat or cold intolerance?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, any difficulty swallowing? Let me check here, lymph nodes look fine. And do you bleed easily and does the bleeding stop normally?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you bruise easy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Any abnormal skin lesions?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember when your last flu vaccine was?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, and do you remember your last pneumonia vaccine?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thank you, now, tell me more about your parents. Do you know their medical histories?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old is your father?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, what about your mother?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I'm sorry to hear that. Do you have any brothers or sisters?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hi, the weather outside is beautiful, did you get some sunshine?",
+      "expected_answer": ""
+    },
+    {
+      "question": "ok so what's going on?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Since when?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me more about your pain like how did it start and what exactly are you feeling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me if it is stabbing pain and if it is related to any specific time of the day?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me when exactly you noted it?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Ok tell me how are your bowel movements and if you see any blood in stools?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you taking any pain medication over the counter? Do you drink alcohol and maybe you are vomiting blood?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me if any change in position changes the quality of pain? do you have any fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you been exercising before all this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh, how long?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about fever nausea vomiting diarrhea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, miss. How are you doing today? It looks like we are evaluating C O P D and emphysema.",
+      "expected_answer": ""
+    },
+    {
+      "question": "It has been quite some time. How are you feeling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "In spite of all of that how are your respiratory issues?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Do you have any fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you experience any chest pains? I want to check especially since you have been coughing up some mucus.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old is your son?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What seems to be the problem?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And we are evaluating your right shoulder injury. Correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Was this a workrelated injury?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How did the work injury happen?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What is the date of the incident?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you currently working?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I am required to ask some specific questions for the L and I paperwork. What is your ago, ethnicity and gender?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had a prior injury to your right shoulder?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are right or left hand dominant?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Other then your shoulder injury, do you have any other chronic health problems?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you experiencing any fever, chills or illnesses?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What treatments have you done?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did either of those treatments help?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Brachial plexopathy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How have you been handing erectile dysfunction since your last visit, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you seen any improvement?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any side effects?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, can you describe your erections for me, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, are you having any chest pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, are you having any fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having any pain with urination, or blood in the urine?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How often do you urinate during the day?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you wake up at night to go to the bathroom?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, do you have any other conditions that I should know about?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you know what that P S A value was?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had any heart problems in the past?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yes, type two diabetes. Do you know of any other things that you had in the past?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. What surgeries have you had in the past?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is it worse when you exert yourself?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did these symptoms start around the same time?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Where does your chest feel most congested? And how would you rate the pain right now? Ten being the worst.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does it send pain or numbness or tingling down your arms? How about any jaw pain as a result?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is this your first time experiencing this type of congestion?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did that improve on its own?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, sir how can I help you? Looks like we are talking about snoring today.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yes, I see on your chart that you were given ten centimeters of H two O nasal pressure and that you predominately suffer from hypopnea. Hypopnea is shallow breathing. How has the device been working?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So what is your sleep pattern now? When do you usually go to bed and wake up?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How has work been? Do you think it has been stressful at all?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Who is this young lady, is this your grandmother, or sister?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, my chart says that you're fourteen years old. Is that correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, so what seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you remember a specific injury to this knee?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember the date of your injury, young man?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, so how have you been treated for this so far?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have they taken x rays yet?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hi there, what's going on?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh, you did the right thing. Ma'am, how are you feeling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh, okay.How old is she?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh, I see. She has expressive aphasia, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, let me check her. She does have a droop to her right side of the face. Ma'am, do you feel any weakness on the right side of your body?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello there, how are you doing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Don't worry, I will check you up. We will figure it out. Do you remember when you had your last physical?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What are you experiencing exactly? What are your symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Were you feeling tired or fatigued?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What else are you feeling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you noticed anything that you are doing or anything else that kind of increasing these symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is it the same when you are doing a lot of physical stuff like physical activities or something like that?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any history of any heart issues in the past?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. What did you do that time? How did you recover?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember what they gave you? Like name or anything of the medicine.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Anything else going on?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you seen any color change in your bowel movements?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever noticed blood in the stools?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is there any pain in your tummy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How's your appetite?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you smoke?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you feeling today, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay so you are having some partial weakness on this side?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any problems like headache, fever, rash, oral ulcer?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any problem with vision? Like unable to see or double vision?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Do you get palpitations, like are you aware of your own heart?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about breathlessness while lying down or do you have to get up in the middle of the night to catch a breath?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's great. Any diarrhea, constipation, or red blood come out in stool? Or pale stool? Like any change in the color of stool?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Any jaundice recently?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have problems with appetite?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Because of that have you noticed any weight loss?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Before we begin, how old are you? And which gender do you identify?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thank you, what happened?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How far did you fall?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had your x rays taken yet?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any other pain from the fall, aside from the ankle?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What's bringing you in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Where are you experiencing the most pain? And when did this pain start?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That doesn't sound the least bit comfortable. Let's get you feeling better. Do you think it's related to your tooth?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. When was the last time you visited the dentist?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you noticed any facial swelling since all of this started?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any headaches, throat swelling, sore throat, difficulty swallowing or chewing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about any neck pain, swollen lymph nodes, chills, fever, or other symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Nice to meet you ladies. So, Miya how old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, so tell me what is going on with you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh wow. Can you tell me where exactly the pain is?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. Did you get hurt or bump your head?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does she have any history of headaches?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, any nausea or vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hm, are you able to see properly though, any change in your vision?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Remind me, please, how old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thank you, what seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is the pain messing with your ability to do activities?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What kind of treatments have you had so far?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember what kind of injections you've had?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did these relieve the pain at all?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How's this little guy doing today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did that seem to help?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has he been running any fevers?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is his cough productive?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does it seem to be keeping him up at night? How does the mucous look?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And no shortness of breath or wheezing that you've noticed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "First time for everything I guess! When did you first notice the sensation?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Hm, are you experiencing any eye pain, blurred vision, or sensitivity to light?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What brings you in today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did it start?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you noticed any abnormal discharge?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any abdominal pain, nausea, vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Near your pelvis?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you started any new lotions or products?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you tried anything for the pain or itching?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you been sexually active prior to or after noticing these concerns?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. You may have an infection, which is why I'd also like to send out samples to the lab. Did you use protection?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So how are you feeling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any illness or fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any headache or nausea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any vomiting or stomach upset?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, any numbness tingling or loss of sensation in the hand?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Otherwise feeling well?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, how are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you related to the patient?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello. How old is he?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. Do you think he will be able to provide me with his medical history?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What is his living status?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's good. So what brings you here in the emergency today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any previous reports?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember when was this scan done?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember of any medical issues before?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did he ever complain of pain during urination or nausea and vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hey, what's going on with you today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You have fever too?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, ma'am. My nurses tell me that you're thirty nine years old, is that correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, what seems to be the problem today, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember the mechanism of injury to this knee?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Well, was it a twisting, pulling, snapping kind of injury?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, have you seen another doctor for this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can I see the report?",
+      "expected_answer": ""
+    },
+    {
+      "question": "This M R I shows an A C L tear. Do you have any instability in this knee?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have there been any dislocations?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello! Who do we have here today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old is he? What is the issue?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you notice any change in his toilet habits or routine?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever or chills or any other issue?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any change in his eating habits?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How is his nose now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, Is there anything else like runny nose or any pain in his ear or bad throat? How about cough or congestion? Or any other issues you have noticed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is he complaining of any pain or discomfort on bowel movements? Is there any increase in the frequency of urination?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Were there any other complications with the pregnancy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. I see he has previously had an operation on the right knee, can you tell me more about that?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When was this operation?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How did he respond to the operation?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did you first start noticing this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any chest pain or tightness with the shortness of breath?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever, chills, or sweats?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any cough or coughing up blood?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about wheezing or swelling in your legs?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good afternoon, who's the victim today, sir? Is it you, or your daughter?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Remind me, how old is she?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, what happened? My nurses tell me she fell today.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Where does it hurt, young lady?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Which hand do you write with?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Before seeing me, have you seen anyone else?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What else did they do?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have those x rays with you right now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Well, in short, you broke the inside part of your elbow. In addition to the pain, do you have any burning or tingling feelings in that arm?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you have this before they tried to do a reduction?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is this feeling getting worse?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did it all start?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever or any other symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I can notice that his voice is a little bit hoarse. How's he eating and drinking?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any shortness of breath or pain in your stomach?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any diarrhea or vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any muscular pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any problem in walking?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Let me check your toes and fingers. Can you move them for me?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any tenderness?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about any congestion? Is it one week or more?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Don't worry let me see, can you tell me everything from the beginning?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, what else?",
+      "expected_answer": ""
+    },
+    {
+      "question": "It is possible, have you seen any change in his breathing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you feeling? You have been sick?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you get wet cough or it's dry? What color sputum comes out?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about fever, chills, nausea, vomiting, diarrhea anything like that? Are you sleeping well?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you need anything for cough?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay then why are you crying, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you take anything for acid reflux?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is that twenty M G once a day?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you feeling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You're seventy seven, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did you first start experiencing joint pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "In what ways has it worsened?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you noticed any increased swelling?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see here that you take the generic of Daypro. Is that helping?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And no redness to the area, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you going to the bathroom more often, experiencing excessive thirst, or other problems?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How has your blood sugar been?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you checked your blood pressure recently?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any new medications?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, tell me what's going on with you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Where exactly did it hurt?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, how do you feel now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Did you have these symptoms before?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Any chills or shivering?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When was your last bowel movement?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you notice any blood in your stool or any rectum bleeding?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And you felt well after the surgery?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you feel any weakness or tiredness?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any uneasiness or illness?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any chills or high temperature?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any excessive sweating or night sweating?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about allergies, are you allergic to anything?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, sir. I see you're being seen for an evaluation for your allergy. Can you please confirm your age?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Let me take a look at your medical records. I see you were treated at the A B C Medical Center for an allergic reaction, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Who told you to have a follow up?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yeah, there is. It says here you have a history of renal failure, so you needed dialysis. They believe the allergic reaction was due to this medicine called, Keflex, which was used during your dialysis treatment. Does that name ring a bell?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I would like to ask you more about your allergies. What would you say you're allergic to?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. I'll put that down as grass allergies, and environmental and inhalant allergies. Do you have any life-threatening allergic reactions?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had any swelling under the skin due to something you ate or touched?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's great. I'm taking a look at your medications. I see you aren't taking anything for your allergies, but you are taking Atenolol. Do you have high blood pressure?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You do not look so well today. What seems to be the problem?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have a history of drug use?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What kind of drugs have you been using?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. How long have you been using?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had a fever, chills, vomiting or diarrhea?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Remind me, how young are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, and you've had a rotator cuff repair before, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, well, what seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh no, have you had any recent imaging done on this shoulder?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old is your daughter?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any other children?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had any miscarriages or abortions prior to having your daughter?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How far along were you when you gave birth?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you have a vaginal birth or a C section?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Were any tools used during the birth to help with the birthing process?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long were you in labor for?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Were you given any anesthesia during the birth?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What was her birth weight?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you recall her Apgars score?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long did you stay in the hospital after the birth?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Let us move to questions regarding your daughter. Has she had any development problems?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. How old was she when she spoke her first words?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did she start to feed herself, using her hands?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has she been toilet trained yet?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Thanks, nurse. How are you feeling today, miss? Welcome back to the Pulmonary Medicine Clinic. What happened yesterday?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's good to hear. What happened yesterday that caused you to want to come in so urgently?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you experiencing any coughing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you been producing any mucus the times that you do cough?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Any fevers or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any other symptoms currently?",
+      "expected_answer": ""
+    },
+    {
+      "question": "During physical activity do you seem out of breath or more tired than usual? I want to see if your pulmonary system is inhibited.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, ma'am. Before we begin today, can you confirm your age for me?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, thank you. What seems to be the problem today, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Yes, how would you describe your arthritis?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see, so the antiinflammatories and rest haven't helped at all?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What gender do you identify with?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long have you had this back and buttock pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How have you been managing this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has there been any improvement?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Awesome, I agree. Do you have control over your bladder and bowel movements?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you wear a brace or corset normally?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, last question, can you notice any weakness in your body?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, Nurse. Could you give me a run down on the eleven month old patient?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great. Did he have a follow up after?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did he receive any chemotherapy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What did they do after chemotherapy?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, ma'am. It's nice to see you again. How is your little boy doing?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is it getting worse?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's good to hear. Has he been sick or had any fevers?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has he been able to eat anything?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does he still have a reduced appetite?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did he have any nausea or vomiting after he ate?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's great. Is he able to pee and poop fine? No diarrhea, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great. Would you be able to open his mouth for me? I just want to check if everything's fine inside.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does this help the pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, sir. My nurse's chart says that you're thirty four years old. Is that correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long have you had this back pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Does the pain go into your legs?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is there any injury that started this pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had back pain or surgeries before this injury?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having weakness in the legs?",
+      "expected_answer": ""
+    },
+    {
+      "question": "We have you scheduled for a follow up and to have the staples removed in one week with Doctor X Y Z. Do you have your wound care instructions?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any questions?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had sinus issues before?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, to double check, you have a history of hay fever and asthma, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "And are you planning to follow up with your O B G Y N in the upcoming months?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hi there! What brings you back to see me so soon?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long have you had the sores?",
+      "expected_answer": ""
+    },
+    {
+      "question": "We have been currently treating your rheumatoid arthritis with methotrexate. How much have you been taking?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did we recently increase your dosage? I see in your chart that we have changed your dosage a few times.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had any side effects from the methotrexate in the past?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you taking any other medications?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you know what the antibiotic the doctor gave you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long was your antibiotic course?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had any allergic reactions to medications?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any history of mouth sores?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you taking anything to help with the pain of the mouth sores?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had any other problems with your skin? Any new rashes?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Sorry to side track, but where is your accent from? My family is Cuban and my mom and you speak the same.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good afternoon, sir. Did you see the nurse already?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, you're seventy eight years old, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Who is? What seems to be the problem today, sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having numbness sir?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Which fingers are you having these symptoms in?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are your fingers catching?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having any problems extending your fingers?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you seen another doctor for this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "It's in both hands, but the right is worse than the left, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What treatments have you had for this?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did this help at all?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, ma'am. Can you confirm your age for me, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you recovering from your operation?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Absolutely, do you have the results of your pelvic C T?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having any pain with swallowing food?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Chest pain is probably due to tertiary contractions with some delayed emptying. Is it tender?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long has this calf been enlarged?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had D V T?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having any abnormal weight loss?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about any cold or flu symptoms? Any fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any new aches or pains?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about shortness of breath while at rest or difficulty breathing with exercise?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No nausea and vomiting or black stool? Did you notice any blood in your stools?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you notice any blood in urine or painful urination?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, any chest pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any shortness of breath, cough or cold like symptoms?",
+      "expected_answer": ""
+    },
+    {
+      "question": "No diabetes or thyroid problem, right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What brings you back to the clinic today, Miss? Patient: I came for a refill of my blood pressure medication.  It seems that Dr. Kumar followed with you the last time about your hypertension, osteoarthritis, osteoporosis, hypothyroidism, allergic rhinitis and kidney stones. Have you noticed any changes or have you any concerns about these problems? Patient: No.  Have you had fever or chills, cough, congestion, nausea, vomiting, chest pain, chest pressure? Patient: No.  Super. Also, for our records, what age and race do you identify as? Patient: I am seventy-six years old and I identify you as a white woman.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you take any counter medicine? Patient: No, only those that have been prescribed.  No alternative medicine, naturopathy or anything? Patient: No, only what is here in this prescription.  Okay let me take a look... so you have been prescribed Salmeterol Inhaler- Patient: Based on needs.  Okay and the other is Fluticasone Inhaler, which is- Patient: Which is a nasal inhaler.  Okay.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I hear someone has a birthday coming up, how old are you turning, ma'am?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You're here for a follow up not very long after your first visit. What seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great, I saw your blood pressure reading for today, and it's much better. Are you taking the higher dose of Mavik we recommended?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How did you tolerate the higher dose?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That was one M G per day, correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, so back to that right arm, how is that doing today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you have x rays taken today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Well, look right here. The humeral head is pretty high in the glenoid in the right shoulder, but do you have any pain here?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How has this pain developed and progressed recently?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What medicines are you taking right now, then?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you think this could be acid reflux, or heartburn?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. How long have you worn dentures?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do they come and go, the sores?",
+      "expected_answer": ""
+    },
+    {
+      "question": "It's hard to tell if you have a tremor today, ma'am, but do you think the Lexapro is helping otherwise?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did nausea and vomiting begin? Patient: About a few hours ago. I can't seem to stomach anything.  How many episodes of vomiting have you had? Patient: At least four.  Any abdominal pain, fever, chill, or other symptoms? Patient: Just nausea and vomiting.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I'm going to ask you a few regular questions, okay? Patient: Of course.  Any pain in urine? Patient: No.  Any fever or chills? Patient: None of them.  Did you notice any blood during urine? Patient: No. I'm fleeing, especially when I change my positions as if I sat down to stand up so I feel that there's a certain involuntary urination. It's more like a craving. I'm charging data as every one hour in the morning, especially when I take this Lasix.  Do you apply a lot of force to the urine? Patient: No.  How does this flow? Do you feel nothing.  Any leak in the night doesn't take place. Patient: No.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you lost weight? Patient: No, I don't have, you can ask my daughter.  How about something like fever, nausea, vomiting, pain? Pattor: No.  And as we discussed you have problems talking and understanding. Pattor: Yes.  And you get urine infections too? Pattor: Yes.  And as discussed, your drainage is similar to past episodes when you had such an infection? Pattor: Yes.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I'm going to do a quick exam on you. Patient: What kind of exam?  I'm just checking the lymph nodes. Every time there's an infection, these guys are the first to be noticed with the swelling.  Okay, so we'll first check your neck area. It looks good. I don't feel any inflamed lymph nodes. Your armpits also seem good and the last place to check is your groin area. It's all good. No sign of infection.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me what problems you've had in the past. Or what medical problems are going on? Patient: You mean my heart problem and things?  Yes. Patient: Okay, I've had hypertension and kidney problems for many years.  Okay. Patient: I get frequent urinary infections.  Your urine creatinine is normal. Patient: Okay. I also have severe aortic stenosis.",
+      "expected_answer": ""
+    },
+    {
+      "question": "So what are the stomach symptoms you feel? Patient: I feel an intense burn in my throat.  When do you feel that? Pattor: It really hurts after eating food, especially junk food.  It's quite consistent with reflux disease. Pattor: Ah, yes.  I have the results of your survey as well, let's discuss it. Pattor: Absolutely, please, what does it show.  According to your answers, it seems that you also have depression.",
+      "expected_answer": ""
+    },
+    {
+      "question": "What is the race you identify as? Patient: White.  Are you okay? You have a headache? Patient: No, I have a very bad migraine.  Okay, can you indicate where you feel it most? Patient: Here, since Monday.  Agree for most of the right frontal side and it's been forty-eight hours now? Patient: Yes, I feel a lot of pressure.  I can understand the discomfort. Is it continuous or agitated? Patient: He is agitated.  On the scale of one to ten, ten being the worst, how would you judge it? Patient: Nine or more.  Have you ever experienced similar symptoms in the past? Patient: No I didn't.  Have you hit your head buy a chance? Patient: No.  Can you tell me if you have fever or chills, congestion, cold cough as symptoms? Patient: No.  Have you hit your head?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me more about your parents, please? How are they? Patient: Thank you for asking, they're both doing well.  How old are they? Patient: My mother is fifty years old, and my father is forty years old.  Wonderful, do you have brothers and sisters? Patient: Yes, I have two sisters, one is a half-sister, and the other we have the same mother and dad.  How old are they? Patient: My half-sister and I have the same mother, and she is thirty-four years old. My other sister is ten years old.  Do they have a history of diseases that you know? Patient: My half-sister, um, no. My other sister has had yeast infections.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Guest_family: So, you mean it's something simple?  Yes, it's probably a sinus infection and then the cough secondary to this infection. Guest_family: Is it treatable?  Yes, it's. Guest_family: OK well.",
+      "expected_answer": ""
+    },
+    {
+      "question": "You have an infection that has become septic. We will have to start you with intravenous antibiotics. Patient: Okay.  We also have to treat blood clotting. I will give you an anticoagulant to avoid any other clotting problem. Do you have any questions? Patient: No.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Please represent the patient's case. Guest_clinician: The patient is a man of seventy-six years of age. He complains of generalized weakness and malaise for several months. He has a history of two weeks of worsening orthostatic dizziness. He denies recent symptoms of fever or shortness of breath, cough, vomiting, diarrhoea, haemoptysia, melena, haematochia, bright red blood per rectum, polyuria, night sweats, visual changes or syncopal episodes.  You said that you feel dizzy, which makes him worse? Patient: It's bad when I try to stay straight. I also have these intermittent headaches where he feels like someone inside.  Does these headaches change with changing positions or staying straight? Patient: No.  Does the patient have a known medical history? Guest_clinician: Yes, he has a history.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How do you feel today, madam? Patient: Honestly, overall, I feel much better.  Do you still have diarrhea and decreased appetite? Patient: Yes, but I feel even better.  Have you pissed a normal amount? Patient: Yes, no problems there. I measured it as you said to me at six hundred M. L.  When did you piss for the last time? Patient: Hum, it was about seven this morning.  Do you have symptoms of fever? Patient: No, I feel good enough.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, young lady. Is this your mother?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, mom. Can you tell me more about your daughter, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What's been the problem with her feet?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, how has she been since that procedure?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Your heel is out of alignment, sweetie. Do you have pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You have nausea, vomiting? Patient: Yes to both.  How about fever? Patient: Yes, I do.  No blood in sputum or chest pain? Patient: Yes, I do.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long do you have this cough? Patient: Three weeks past, Doc. Doc.: Do you raise something when you cough? Patient: No.  Any shortness of breath or chest pain? Patient: No.  How about fevers or chills? Patient: None of this.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Tell me about your medical history. Patient: I was diagnosed with stage three ovarian cancer two years ago. They found a tumor in my upper abdomen. I underwent surgery and they removed everything. Dr. King is my oncologist.  Are you still under treatment? Patient: Yes.  Do you have any other medical problems? Patient: Do you have a heart murmuring. It was not a problem. I also have acid reflux.  Do you take any medicine for G E R D? Patient: Yes. I am taking omeprazole.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I didn't have any nasal infections. Here's my report from my previous doctor who sent me back to you. Thank you. Let me look. I see here that you had severe sinusitis two to three months ago, is that correct? Patient: Is that what they call my nasal problems?  Yes, it is true. Sinusitis is the inflammation of your nasal airways. Patient: I see. Thank you for describing it to me. Patient: No problem. Could you describe to me what you felt two to three months ago? Patient: Yes, I can. My face would be uncomfortable, my nose was stifled, my eyes hurt, and I felt something you left in the back of my throat. Patient: Have you ever received any medicines?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you still take Micronase every morning? Patient: Yes, I take um two points five M G once a day.  Great. Keep taking Micronase by mouth every day. As for your infection, I want you to start taking Bactrim twice a day. I will prescribe thirty pills. It will be Bactrim four hundred M G and eighty M G tablets.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I think three weeks ago for recurrent urinary infections.  Yes, it says here that you have bladder problems for a long time, mainly related to tone and ability. Patient: Yes, that's why they put me in catheter.  Okay and you have recently had the right side C V A? Patient: Yes, because of my heart problems, they had to put pacemaker in it.  Okay. Patient: I have hereditary diabetes.  Okay and your neuronal problem is also associated with that. Patient: That's true. Patient: You have pains on the right side now? Patient: Yes, because of my stroke.  And you are also taking thyroid medications? Patient: Yes, for my hypothyroidism.  Ok. Patient: Yes. Patient: What procedures have you had in the past? Patient: I have had many exact surgerys. They've taken my bladder, and now they've been put out of the biliary bladder.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old is the baby? When did you first notice it?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you get the test result?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So how is the blister on the umbilicus now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "You did good. I will start the treatment. How are her eating and sleeping habits?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did she have any fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Has she been lethargic or crying more than normal?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any other changes in her daily routine that you might have noticed?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me more about your son, please? Guest_family: Well, he's seven years old, and he's had diarrhea for four days, and he's been vomiting for three days. Patient: Yes, my brother did this too. Guest_family: We had a little chicken one day, and then we had more of it the next day. After they ate they started to feel bad and still feel bad.  How many times did he have diarrhea a day from that beginning? Guest_family: Well, it was about five or six times a day during the last four days.  How many times did he vomit a day? Guest_family: Um, it was frequent.  Has he vomited today? Patient: No, I didn't have it today.  Did he go to the bathroom today? Patient: Yes, I pissed this morning.  He had symptoms of fever?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Welcome to the clinic! I would like to start with your medical history. Patient: I have high blood pressure and macular deterioration. Last year I caught pneumonia but it became clear.  Okay. What brings you today? Patient: I had this cough and pain on the right side of my abdomen.  How long did it last? Patient: Two days. I had bodily pain and felt sick too.  Did you have a fever? Patient: I think so. I was cold and my forehead was hot. The cough is a dry cough.  Did abdominal pain occur during one of these cough episodes? Patient: Yes.",
+      "expected_answer": ""
+    },
+    {
+      "question": "What brings you today? Patient: My back started to hurt last night. I have stomach pain. I have had pain with urination for two days.  Do you have any other symptoms? Patient: I just coughed and now I have fever.  Do you have a history of kidney stones? Patient: Yes. I had kidney stones less than a year ago. I had a urinary infection at the same time. It was horrible.",
+      "expected_answer": ""
+    },
+    {
+      "question": "You are here today because you have difficulties of vision? Tell me what is happening, madame. Patient: Yes. It all started a year ago. It started with losing color in my vision.  Was the loss sudden or progressive? Patient: Gradual. And now I'm starting to have a blurred vision.  When did this start? Patient: I noticed it two months ago.  Is the blurred vision all blurred or is there a blind angle of blurred vision. Patient: It's a blurred vision and then I have a blind angle in my right eye.  Have you had any fluctuations of your symptoms over the last year? Do you have a vision back? Patient: Some days, I feel like a little better, but not much.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I stayed relatively the same. My main complaint is that I feel tired throughout the day. The C P A P is doing well and I wake up refreshed, but I don't like how I crash.  Okay. How are the thyroid problems? Patient: I seem to be fine. My thyroid gland doesn't seem enlarged and I can breathe as normal. No fever or anything.  Have you experienced any of the following situations: temperature intolerance, palpitations, muscle weakness, tremors, nausea, vomiting, constipation or diarrhoea? Patient: Nothing like it.  How was the weight? Patient: He was stable.  Any muscle weakness closest to the center of the body? Patient: No, nothing at all. Not bad for forty-five.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How's the little guy? Guest_family: He has fever and bad congestion during the last two days. He's had fever for one. I'm trying to suck the discharge through the nose.  I guess he has some breathing problems during the diet. Guest_family: Yes, that's right. He drinks milk every two hours, only ten minutes instead of twenty minutes. Guest_family: He has fever too, so she gave him Tylenol. Guest_family2: He's very restless.  Is he sleeping well? Guest_family: Yes, he's sleeping. But he's not able to breathe well even with albuterol.  What's wrong with diarrhea and dirty diapers? Guest_family: He pisses less because he had between eight and ten wet diapers, but now it's up to four hours a day.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I think this is our first meeting. Patient: Hello, doctor. Yes, this is my first time.  Great, how old are you? Patient: I am fifty-five years old, doctor.  Thank you, what seems to be the problem today? Patient: Well, I have a list of the symptoms of laundry coinciding with my allergies.  Like what, ma'am? Patient: Well, my sense of taste is diminished, dry mouth, um, acid reflux, and G I problems, and then I have asthma, and reactions to things like aerosols.  I see, do you have food allergies? Patient: Hum, I think.",
+      "expected_answer": ""
+    },
+    {
+      "question": "No sudden gain or loss of weight? Patient: No.  No headache, bleeding of the nose, coarse voice, blurred vision or loss of vision. Patient: No, not at all.  No fever or chills, not at all. Patient: No fever or anything. Patient: No pain in the chest, shortness of breath or shortness of breath during sleep? Patient: No palpitation, swelling or varicose veins or pain in the legs? Patient: No pain in the throat or cough or cough with mucous membrane or sputum? Patient: I have this cough prolonged, but not anything. Patient: No breathing? Patient: No wheezing. Patient: No heart burn, nausea or vomiting? Patient: No pain in the stool or urine? Patient: No pain in the back or abdominal pain? Patient: No pain in the back or back. Patient: No pain in the back. Patient: No pain in the back.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How does he feel today? Guest_family: I think it's the worst he's felt all week long.  I'm sorry to learn that he's not feeling well. What are the symptoms he's had? Guest_family: He's been very crowded for a long time and seems to cough much more than usual. He also suffered a fever yesterday.  I see. What was his temperature? Guest_family: The thermometer read one hundred and one degrees Fahrenheit. Should he go to hospital?  Let me evaluate and see what we can do for him today. Guest_family: Thank you, Doctor.  I suspect he has a superior respiratory infection, a possible whooping cough.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay, let me examine it quickly. Mom gives you permission? I will quickly check his genitals. Can you pull his pants down? Guest_family: Of course, you can check it out.  Well, everything looks good, his penis and testicles are the normal shape and size for his age. No accumulation of fluid or swelling in the scrotum area, no evidence of hernia there.",
+      "expected_answer": ""
+    },
+    {
+      "question": "All right, but tell me what's going on and we can understand that. Patient: Okay, so my right hand and my left foot were very swollen and very painful, and that's why I came to the emergency room.  Do you have a bag of urine? Patient: Yes, I couldn't go for them to put it in.  Yes, it seems that five hundred ML have come out. So much possible urinary obstruction. Also, they started you on steroids and colchicin. How do you feel now? Patient: I feel a little better, my pain is getting better, and the swelling is getting better.  Okay, that's good. Any fever and chills? Pattor: No, no fever.  Any urine problem like pain or frequency or blood in the urine? Patient: No, but I'm not able to empty my bladder well, the pipi has decreased a lot, I couldn't urinate.  All right, I'll evaluate that.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Okay. Patient: I have nothing else.  Okay, no fever, no nausea, nothing like that? Patient: No.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello! How do you do today? Guest_family: I am fine, but my son is sick. He is two and a half years old.  What are his symptoms? Guest_family: He has a bad cough. He has been sick for three or four days. There seems to be a phlegm that swings there when he coughs. He had a bad cough this morning. I was nervous and I decided to bring him.  During his cough episode this morning, did you notice a loss of breath or gas for air? Guest_family: No.  Did he have a rough nose? Guest_family: No.  No fever? Guest_family: No. He didn't eat much.  Was anyone else in the house sick? Guest_family: No.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, ma'am. Can you confirm your age for me? Patient: Well, doctor, I am now sixty-six years old.  Thank you, how is your knee going today? Let's hope that the osteoarthritis improves. Patient: It's so bad, doctor.  Have you had any improvements with the rest and anti-inflammatorys we talked about before? Patient: No, they didn't help at all.  I see, you would be a good candidate for knee replacement. Patient: What is the risk of surgery infection?  Historically, it's less than one percent, we use prophylaxis antibiotics to control infection all the time. Patient: Great, and will I sleep for that?  Yes, you won't feel anything.",
+      "expected_answer": ""
+    },
+    {
+      "question": "So I see you were diagnosed with acid reflux and high blood pressure 20 years ago? Patient: Yes.  And then you also have arthritis and Parkinson's. Patient: Yes, both.  Also, you had a cerebral stroke? Patient: Yes, mini-AVC!  Ah, yes. We also call him T I A. Patient: OK.  And now you're taking medication? Patient: Just Coumadin, for my chronicle A Fib. I've been there for three years.  Yes, atrial fibrillation. Patient: Yes.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, young man. Patient: Hello, doctor.  How old are you, sir? Patient: I'm thirteen years old.  What brings you today? Guest_family: Well, at the beginning we went to Sierra Pacific Orthopaedic Group, and he had an MR that I showed, um, O C D in the left knee.  Yes, I see that in the report. Guest_family: So we're here for a second opinion on this.  Yes, we should do surgery on this knee. There's a serious instability of the fragment, and we don't want that to get worse. Guest_family: Ok, that's about what we've heard so far. What are the risks of infection of the procedure?  It's less than one percent. We use antibiotics to control the infection.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Patient: Yes, I always knew how to speak English before I was even a teenager. So, when I moved to America, I didn't have a language problem.  Okay and did you move with your family? Patient: No, my family moved to the eastern side of Germany that was occupied by Russia at that time, but I decided to move to America in nineteen fifty-seven years. Patient: I had a high school diploma from Germany, and I could speak German and English fluently. Patient: As soon as I landed here in America, I started working. I started as a secretary in a private company and later I worked at I B M. Now I am retired for almost twenty years because of my complications of cancer.  Your Mesothelioma? Patient: Yes.  Okay, and who are all there in your family? Patient: I am alone without a companion. I am a son who lives in Santa Cruz, he doesn't drink a lot.",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did you take your temperature for the last time? Patient: Just before I drive here.  I see. Did the nurse take your temperature when you entered? Patient: Yes, she did.  Did you experience a cold like symptoms such as cough, nasal congestion, headache or nausea? Patient: No, not really.  Did you try to take a medication to help with fever? Patient: Yes. I took Tylenol and it helped a little.  Have you had any recent sick contacts? Patient: I don't think so. I live with three other roommates and they seem good.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you tell me more about your son, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long has he used his walker?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old was he when he started walking?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, what seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you sit on the table, young man? Yes, I'm bending his legs, we call this the popliteal angle, and both sides flex to only about twenty.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I think we should do surgery on this leg. How does he walk? Can I see?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I am forty-nine years old, and I identify myself as white.  Thank you. What brought you today? Patient: I was referred to you so that I could have everything that goes wrong with me under control.  I see. What is going on? Patient: I have a pain in my back of my leg this year when I was in A B C D.  What part of your leg? Patient: The back of my left thigh.  I see. Just the leg? Patient: I also have a pain in my knee of a boat when I was out fishing with water.  Was it serious? Patient: It was a complete spectacle. A helicopter came down and threw me to X Y Z infections?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Doctor X has sent you back to us, is that correct? Patient: Yes. He is my primary care doctor.  It seems that you have a birthday to come. Happy birthday! Patient: Thank you. Yes, I'm going to be seventy-seven years old.  Dr. Kim's notes say you had pain in your left flank. Can you tell me more about the pain? Patient: Yes. The pain started four or five days ago. He was in my stomach and back on my left side. Here.  Okay. Did you have nausea or vomiting? Patient: Yes. I had nausea, and I vomited a few times.  Did you notice any blood, pain and/or burns during urination? Patient: No.  Any fever or chills? Patient: No.  I have the ultrasound results that Dr. X ordered the other day.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I also noticed a new rash on my right calf.  Can you describe what kind of dizziness you have? What are they feeling? Patient: It's general dizziness and dizziness. I'm also dizzy during episodes.  Are you feeling well now or are you feeling symptoms? Patient: I have headaches and randomity, but nothing now. Neck pain and muscle pain are also intermittent.  Let me look at the rash on your legs. Are the bruises new? Patient: They are new, I think. I noticed them more than usual.  In the last few days you had fever or chills? Patient: No, nothing like that.  What is chest pain? Patient: I had a little tightness in my chest, but not now.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Your chest x ray showed diffuse pulmonary edema. This means that you have fluid in your lungs. This would explain your chest pain and difficulties with your breathing. I would like to start with a course of antibiotics to prevent any possible infection. I will also send a prescription for Furosemide. This will reduce the accumulation of fluid in your lungs. Do you have any questions? Patient: When should I begin to feel better?  You should start to feel better within three to five days.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Guest_family: My nipples are cracked, and they bleed.  Oh, I'm really sorry to hear that. Guest_family: He has a little fluid coming out of his belly button as well as his penis.  Okay, I'm going to look at it. But other than that, everything else looks good? Any other problem related to circumcision? Guest_family: No, no other problems.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I'm here for this pain in my legs. It hurts especially in the night.  Does changing your position help you? Patient: Yes, it helps. Every time I'm standing, it just leaves.  Is it only in your legs where it starts there and goes elsewhere too? Patient: Normally starts in my hips and then it goes down my leg and sometimes in my ankles too.  When did you notice a first? Patient: Everything started after taking this medication. What does he call? Something with L? Yes, Lipitor.  Have you ever noticed night sweats? Patient: Sometimes I sweat at night.  Any other problem? Your body temperature is a little on the upper end. Patients: Yes, I feel feverish and nausea too.  How are your sugars? Patient: They have been low for a while.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I'm Dr. Smith. Patient: Hello! It's nice to meet you.  Let's start with your family medical history. Patient: My mother had breast cancer. My father had lung cancer that ended up taking his life. He was seventy years old when he died. My mother also died but not of an illness but of an infection that she had after having had elective surgery.  I'm so sorry for your loss. How old was your mother when she died? Patient: Thank you. She was eighty years old when she died. I'm an orphan now. My only alive brother died at the age of forty. He had a difficult life. He had a mental illness.  How did your brother die? Patient: He had pancreatitis. Oh, my father had glaucoma.  You had a lot of loss. Patient: Yes, I have. My good friend died a year and a half ago.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I will ask some simple questions, okay?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How old are you and how would you define yourself in terms of ethnicity?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Great. What brings you to the emergency room?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you noticed any other symptoms other than weakness?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you have wet cough?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any shortness of breath?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How about while sleeping or doing something else?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Which side left or right?",
+      "expected_answer": ""
+    },
+    {
+      "question": "For how long?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you ever get any type of injury in the area?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about your bowel movements?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any change in urinary habits?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any changes in your skin? Any rash? Any kind of eyesight issue?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about pain? Like headache or any joint pain?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I also have chills.  Did you take anything for fever? Patient: Tylenol and Advil. I take them interchangeably.  When did you take your temperature for the last time? Patient: An hour ago. The thermometer read an O one point four.  Do you feel any other symptoms, such as shortness of breath, nausea, vomiting, diarrhea, or others? Patient: I had a stronger desire to pee much more than usual. Patient: I don't know if it's related. Patient: It could be. We still wait on your urine results. Do you have a history of cataracts or glaucoma? Patient: No.  Very good. Any signs of pneumonia or valley fever? Patient: Nothing like that.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Your prescription is two hundred MG twice a day, that's it.  Do you have a report on your eyes with you today? Patient: Yes, doctor. That's it.  Well, thank you, what's the problem today? Patient: Well, I have some pain in my hands and elbows.  When did you start this pain? Patient: It's been a few weeks now.  Is there a related trauma? Did you fall? Patient: No, no falls or anything. It just started one day, and it really bothers me.  Do you have fever or chills, or symptoms of cold or flu like that? Patient: No, I'm not.  How do you get a swelling? Are your joints swollen? Patient: No, everything is normal there.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are your other children? Guest_family: Not so wonderful. They're all on antibiotics.  For the same thing? Guest_family: Yes. They all have ear infections and chest colds.  Your hands are full then. Guest_family: Talk to me, doctor. I can't take a lot of breaks.  It's certainly a difficult winter for you and your family.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Guest_clinician: Is the patient admitted for a disseminated C M V infection?  Yes. I suspect that there is also a possible C M V pneumonitis. Guest_clinician: Are they immunosuppressive?  Yes. They have polymyositis and they take Prednisone and Methotrexate. Guest_clinician: I understand.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you fired for a right abdominal infection? Patient: Yes, they told me I could have C Diff?  Yes that's why we're going to evaluate you.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you had a recent vaccination? Patient: I had an influenza vaccine last winter but I didn't have and recent vaccines.  Did you plan anything in the near future? Patient: I was going to have another influenza vaccine but I don't think I'm due for that for another three months.  Super.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long has he been since you noticed behavior changes? Guest_family: A few days ago.  Did he complain about any pain? Guest_family: Yes, he was-  Was he? Guest_family: Sorry, my phone was on vibrates and I had to turn it off.  No problem. Guest_family: He pointed to his stomach and said it hurts.  Does he have any other symptoms? Guest_family: He told me he was feeling calm. I took his temperature the other night and he was running a fever of an O two.  Everything vomited with nausea? Guest_family: Yes, he vomited a few times.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Very well, and just to remind you, you had a withdrawal of the Ex Fix from the right knee with a M U A following O R I F of a fracture of the right tibial plateau. Patient: Yes, it looks familiar. What is M U A?  This is manipulation under anesthesia. We folded the knee in order to break by force some scar tissue. Patient: Oh, wow.  Yes, it's great, eliminates a certain need for P T in fact. How do you do it today? Patient: Overall, my pain is under control.  You have an influenza like, or symptoms of infection? Patient: No, nothing like that.  So, no fever, or chills, or sweating during the night. Patient: Yes, nothing like that.  Super. I see you have no drainage of the pining sites, but it doesn't bother me too much. Pattor: Ok, good, no sweat.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello. How do you do today? Guest_family: We are doing very well. The ED told us to come here. We are here to see if we could get things out in his leg.  I see. Did he have a fracture before? Guest_family: Yes, he did. Here is the report of the October surgery two thousand seven.  Great. Let me look. It seems that he had a lateral fracture of distracted condyl. He then underwent a screw compression to repair the fracture, correct? Guest_family: That's right.  Perfect. So now we have to remove the material that was used to repair the fracture, correct? Guest_family: Yes, that's correct. What are the risks of surgery?  The risks include the risk of anesthesia, infection, bleeding, change of sensation and movement of the end, failure of removal of the material, inability to relieve pain or improvement of movement.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I noticed that his eyes were really swollen before going to bed and that's where I gave him Benadryl. At that time, he also seemed nasal.  Sorry to hear that. Did he have a fever? Guest_family: When I took his temperature last night, it was an O.  And did you give him anything for the fever? Guest_family: I was worried to give him something on top of Benadryl.  I see. And how did he feel differently? Guest_family: It seems more loose than usual. Fortunately, he eats and drinks well.  Did he cough at all? Guest_family: No, but his voice was a sort of raspy.  Any shortness of breath? Guest_family: Hum no.  Why not episodes of vomiting, diarrhea, or stomach pain? Guest_family: No, I don't think so.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I am forty-three years old and this is the first time that I have had a major problem. It is only this month that I have felt weaker than usual. I am much tireder and short of breath every time I move.  Recent weight loss? Patient: Yes, I have lost about fifteen pounds in less than two or three months.  How is your appetite? Nausea, vomiting, diarrhoea? Patient: The appetite is good enough. No nausea, vomiting, or diarrhea.  How is fever, chills, sweating, cough? Patient: No, ma'am.  And all chest pain with your breathlessness? Patient: No, ma'am.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I had a headache all week with the neck and the pain of the lower back.  How would you describe the headache? Patient: Is it constant? Patient: He comes and goes for the most part.  How would you judge him on a scale of ten with ten being the worst? Patient: One seven or eight.  Do you have a headache now? Patient: No, not well this second.  Did you take - Patient: Nothing for pain?  Yes. Patient: I took a little Ibuprofen, but it does not seem to help much.  Any other symptoms associated with headaches, such as fever, chills, nausea, vomiting, blurred vision or sensitivity to light? Patient: No, not really.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have a history of rheumatic fever during your childhood? Patient: No.  A history of other usual childhood diseases? Patient: No.",
+      "expected_answer": ""
+    },
+    {
+      "question": "You have observed blood in your stools or in your vomiting? Patient: No, nothing like that. Patient: No, nothing like that. Patient: Okay, well. Have you noticed an increase in your frequency of urine or your emergency? Patient: No.  Do you feel muscle weakness or fatigue? Patient: No, nothing like that. Patient: None of the known history of arthritis? Patient: No. Patient: And no fever due to fungal infection or something, is it not? Patient: No, nothing like that. Patient: None of the history of pneumonia? Patient: No. Patient: And I am looking at your record, so no antecedents of stroke, C V A, or a convulsive disorder. Patient: That's right. Patient: No problem related to thyroid or hormone? Patient: No.  And you have no blood problems, that's correct. Patient: No problem with thyroid or hormone.",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, what brings you here today? Patient: Well, I have a lot of medical problems and I see Doctor X for them, but I wanted a second opinion, so he sent me back here.  Yes, he's a good man! Don't worry, we'll take care of you. Patient: Thank you.  So, let me start by getting your medical history. Patient: Of course, I had skin cancer that was treated by the withdrawal of this part.  Ok. Patient: Other than that, I have an anaemia and an acid reflux problem. I also have a history of C O P D.  Very well. Patient: I also suffer from sciatica that was caused mainly by my arthritis.  I see.",
+      "expected_answer": ""
+    },
+    {
+      "question": "What is the problem today, sir? Patient: When is the pain the worst? Patient: Honestly, it starts with the first stage of the morning.  Does it get worse throughout the day? Patient: Yes, it gets worse all day with activities. Patient: What treatments have you had for that? Patient: Well, nothing to this day. Patient: Where is your heel pain? Patient: It's on the right heel, then it's on the lower part of the heel and inside the heel. Patient: Have you changed your medical history since your last visit? Patient: No, it's the same old as you. Patient: Do you have symptoms like flu? Patient: Like fever or chills? Patient: This, or vomiting or headache? Patient: No, it's the same old doctor as you.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see that he has eight pounds and thirteen ounces, and that he was born by...? Guest_family: Yes, section C. Yes, he was never hospitalized. He was born a week earlier.  Okay, I would like to ask you a few questions about pregnancy and other history. Guest_family: Yes, of course go there.  Great, did you have infections during pregnancy like G B S or S T D? Guest_family: No, I didn't, I only had infections to the thumb and toes and we treated this with alcohol. We had boils in the family, so I'm not afraid of minor infections like this one.  Did you smoke during pregnancy? Guest_family: Yes, I did, but I stopped after five months.  Sir, did you have D's while she was pregnant? Guest_family_2: No, I wasn't diagnosed with anything.",
+      "expected_answer": ""
+    },
+    {
+      "question": "What brings her today? Guest_family: Oh, doctor. She didn't do well at all. Guest_family: I think she's getting worse.  I understand. I'm sorry to hear she doesn't feel well. Let me see what we can do for her today. Guest_family: I haven't taken her temperature since this morning. It was one hundred three degrees when she woke up.  What time did she wake up today? Guest_family: Um, about eight I think. She also suffers from apnea.  It looks like she has a superior respiratory infection. Guest_family: Will she get better?  Yes, she should feel better once we start treating the infection.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Before you start, can I ask you how old you are? Patient: Hello, doctor. I am fifty-six years old, now.  Great, thank you. What is the problem today, madam? Patient: Well, I need some support for food recommendations for a healthy diet for my husband and me.  Why would that be, madam? Patient: Hum, I have a lot to do, high cholesterol, high blood pressure, acid reflux, and I just want to lose weight. My husband also has a high cholesterol level.  Tell me more about your eating habits, please. Patient: Well, we live alone now that our children are gone, but I'm used to cooking very large portions.  Do you have trouble doing food for only two people? Patient: Yes, that's a good way to say it.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Guest_family: What do you think doctor, what does she have?  Well, I think she has hay fever. Otherwise, she looks like a good two-year-old girl. Guest_family: Hm, okay.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Guest_family: Doctor, can you check my baby?  Yes, it is. Guest_family: He has fever.",
+      "expected_answer": ""
+    },
+    {
+      "question": "You have an infection of the urinary tract. Patient: I knew it was an I U T. I have already had it, but nothing so painful and severe. I feel like I'm going to die!  Oh yes, it's because you have something called acute cystitis and its usually very painful and can cause serious complications. Patient: Well, is it because of my diabetes?  I'm afraid I don't have any better news for you, but your diabetes is out of control. It's way too high and you need to be really careful. Do you take your medication? Patient: Yes!  How to eat? Patient: Yes, sometimes I don't care about my diet.  Well, you have to monitor your diet, you can't just be careless. I'm going to change your treatment for diabetes. And let yourself take care of the antibiotic that should relieve you.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember when your last influenza vaccine was? Patient: I don't remember what month, but it was in nineteen-nine.  Good, and you remember your last vaccine against pneumonia? Patient: Let me look at my notes here, um, it was in nineteen-sixteen.  Thank you, now tell me about your parents. Do you know their medical history? Patient: Let me think, my father is still there, he had a stroke. Oh yes, and he has high blood pressure.  How old is your father? Patient: He is seventy-nine years old now.  Good, and your mother? Patient: She died when she was seventy-four years old, she had a heart failure and an emhysema.  I'm sorry to hear that. Do you have brothers or sisters? Patient: Thank you doctor, no, he's my only father and I now.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Guest_family: Congestion and cough.  Oh, how long? Guest_family: It's been three weeks now.  Ok. Guest_family: It's been like this for so long, but nothing else.  How about sick fever vomit diarrhea? Guest_family: No fever, no vomiting, nothing else.  Ok great.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I have had side effects.  Have you had side effects? Patient: No, not yet.  Good, can you describe your erections for me, sir? Patient: Well, they were firm now, and I can enter again for about ten minutes.  Well, do you have chest pain? Patient: No sir, I stopped using my nitroglycerin too.  Good, do you have fever or chills? Patient: No, nothing like that.  Do you have pains with urination, or blood in the urine? Patient: No, nothing like that, sir, everything is normal.  How many times do you urinate during the day? Patient: No, nothing like that.  Do you have pains with urine, or blood in the urine? Patient: No, nothing like that, sir, everything is normal.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had any heart problems in the past? Patient: I remember that I had something heart, but I don't know what it was. I don't understand the medical terms.  Okay, that's good, I totally understand. We'll try to look for your medical history. Patient: I have hypertension and diabetes, you know that well?  Yes, type 2 diabetes. Do you know any other things you've had in the past? Patient: Yes, four years later I had a pulmonary embolism. I also get frequent infections in the urine.  Ok. And I can see on the record that you have a high cholesterol level and a gastric ulcer too. Patient: Yes, that's pretty right.  Ok. What surgery did you have in the past? Patient: I've had my appendix, then Section C, cataract surgery and repair of hernia in the past.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Who is this young lady, is this your grandmother, or sister?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, my chart says that you're fourteen years old. Is that correct?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, so what seems to be the problem today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Can you remember a specific injury to this knee?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember the date of your injury, young man?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good, so how have you been treated for this so far?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have they taken x rays yet?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have problems like headache, fever, rash, mouth ulcer? Patient: None.  A problem with vision? As unable to see or double vision? Patient: Um no, I can see everything.  Okay. Do you have palpitations, as you know about your own heart? Patient: No, nothing like that.  What about breathlessness while you lie down or you have to get up in the middle of the night to breathe? Pattor: No, I don't feel anything like it lately. Pattor: It's great. Any diarrhea, constipation, or red blood coming out in the stools? Or pale stools? Like any change in the color of the stools? Pattor: No, it's okay.  All right. Any jaundice recently? Patient: No. No. No jaundice.  Do you have appetite problems? Patient: Yes, I want to say less that you are hungry.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, I am Dr James. Guest_family: Hello Doctor, this is my daughter Miya, and I am Jena.  Nice to meet you ladies. So, Miya, how old are you? Patient: I am fifteen years old.  Okay, then tell me what's going on with you? Patient: Well, I have serious headaches. Guest_family: She has been complaining about it for almost six hours now.  Oh wow. Can you tell me exactly where the pain is? Patient: Um, it started from my neck and then it went up to the back of my head.  I see. Did you get hurt or hit in the head? Patient: No.  Can she have a history of headaches? Guest_family: No.  All right, nausea or vomiting? Patient: I have nausea, but it's going without vomiting. Also, I can't tolerate the light at all?  Are you capable of seeing any fever?  Are you correctly?  Are you able to see all?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh, I'm sorry to hear it. Let's see. Guest_family: He told me again and again that his left ear was hurting him. He was here on April 14 and prescribed Amoxicillin.  Did this seem to help? Guest_family: He first did, but the pain came back.  Did he suffer fevers? Guest_family: No, no fever.  He looks a little crowded. Guest_family: He is. When he blows his nose, he makes very thick mucous membranes rise. It never really disappeared even with antibiotics. He also coughed a good amount.  Is his cough productive? Guest_family: Yes.  He seems to keep it at night? How the mucous membranes look? Guest_family: No, I don't think.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How do you feel? Patient: I feel good.  Any illness or fever? Patient: No, nothing like that.  Any headache or nausea? Patient: No.  Any vomiting or upset stomach? Patient: No.  All right, all numbness tingling or loss of sensation in the hand? Patient: No, not at all.  Otherwise feel good? Patient: Yes.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello, how are you?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you related to the patient?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Hello. How old is he?",
+      "expected_answer": ""
+    },
+    {
+      "question": "I see. Do you think he will be able to provide me with his medical history?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What is his living status?",
+      "expected_answer": ""
+    },
+    {
+      "question": "That's good. So what brings you here in the emergency today?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have any previous reports?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember when was this scan done?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you remember of any medical issues before?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did he ever complain of pain during urination or nausea and vomiting?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What's going on with you today? Patient: Oh, I have chest pain.  You have fever too? Patient: Yes, I did.",
+      "expected_answer": ""
+    },
+    {
+      "question": "What's his age? Guest_family: He's two. He always complains about pain in his stomach and back. He's active otherwise.  Have you noticed any changes in his toilet or routine habits? Guest_family: No.  Any fever or chills or any other problem? Guest_family: No, we didn't notice any such problems, he was active and acted very normally differently.  Any change in his eating habits? Guest_family: No, he ate and drank as usual. He acted normally but we noticed a pudic smell coming from his nose. He was on antibiotics after removing this piece of cotton from his right side of the nose in our previous visit?  How is his nose now? Guest_family: He was better but now we can notice that the smell of his nose comes from his side.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Patient: Oh doc, I've had a lot of trouble breathing lately.  I'm sorry to hear that. We're going to get to the bottom. Patient: Yes, I'm losing my breath so quickly with only one to two flights of stairs.  When did you start to notice that? Patient: I think two weeks ago.  Any chest pain or oppression with breathlessness? Patient: No, fortunately.  Any fever, chills or sweats? Patient: No.  Any cough or cough of blood? Patient: No.  What would you say to whistle or swelling in your legs? Patient: No.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good afternoon, who's the victim today, sir? Is it you, or your daughter?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Remind me, how old is she?",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, what happened? My nurses tell me she fell today.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Where does it hurt, young lady?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Which hand do you write with?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Before seeing me, have you seen anyone else?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What else did they do?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you have those x rays with you right now?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Well, in short, you broke the inside part of your elbow. In addition to the pain, do you have any burning or tingling feelings in that arm?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Did you have this before they tried to do a reduction?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Is this feeling getting worse?",
+      "expected_answer": ""
+    },
+    {
+      "question": "When did it all start? Guest_family: It started yesterday. Suddenly, he started complaining, saying, \"Mama my nose doesn't work,\" and yes, I noticed that he was breathing from his mouth.  Any fever or any other symptom? Guest_family: Yes, he had a low-level fever. He looked very tired and when I asked him that he said, \"I feel like I can't stay up. I don't have any energy. I just want to lie down.\"  I can notice that his voice is a little wrapped up. How does he eat and drink? Guest_family: He eats and drinks normally.",
+      "expected_answer": ""
+    },
+    {
+      "question": "A muscle pain? Patient: No, not really.  A problem in walking? Pattor: No, it's normal.  Let me check your toes and fingers. Can you move them for me? Pattor: Yes.  Everything looks good. Nails seems good too. No bluish discoloration any signs of infection. Can you push your legs against my hand. Pattor: Both legs? Pattor: Yes, both. Well, your muscle strength is equal and stable in both legs, so it's good. Motion seems right.  Any tenderness? Pattor: No.  And I don't see any swelling or accumulation of fluid. Pattor: Ok.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Guest_family: It has been coughing for a week now.  What about congestion? Is it a week or more ago? Guest_family: No did I say that? I wanted to say two to three weeks. I'm so worried. It's only a year ago.  Don't worry, can you tell me everything from the start? Guest_family: Of course. It started with congestion, but it started coughing a week ago and it gets worse.  Ok, what else? Guest_family: In fact, it had Pop Can three days ago and I never wondered if he had swallowed that.  It's possible, did you see a change in his breathing? Guest_family: His breathing hasn't increased since.  Any fever? Guest_family: No. No fever.  Ok.",
+      "expected_answer": ""
+    },
+    {
+      "question": "How do you feel? Have you been sick? Patient: Yes, I do not feel well for the last three days. I have a pain in the body, cough and throat.  Do you have the wet cough or it is dry? What color the sputum comes out? Patient: It is wet and green things of color comes out.  Okay, we will have to send them to the culture, maybe an infection.  How about fever, chills, nausea, vomiting, diarrhea something like that? Are you sleeping well? Patient: Everything is fine except a few chills? I sleep well.  Do you need anything for cough? Patient: I don't need anything for cough. I called yesterday and I received a refill of my keflex. Then I took two keflex this morning and I feel a little better now.  Okay then why are you crying, ma'am? Patient: I'm just feeling tired: I'm sorry. I'm just feeling tired: I'm sorry.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Do you take anything for acid reflux? Patient: Yes, I take Aciphex.  Is 20 M G once a day? Patient: It is. I also take a baby Aspirin in the morning.",
+      "expected_answer": ""
+    },
+    {
+      "question": "You are seventy years old, that's right? Patient: When did you begin to feel joint pain? Patient: A few years ago. Patient: How did it worsen? Patient: He made me less active in general. My hands and wrists aren't as mobile.  Have you noticed an increase in swelling? Patient: No, but everything has become a little too uncomfortable.  I see here that you are taking Daypro's credits. Does that help? Patient: No.  And no redness in the bathroom, right? Patient: No.  Fever or chills? Patient: I had diarrhea for a few days, but it went much better. I also had trouble holding my bladder.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Where did it hurt you? Patient: Ah, my upper part of the chest and it turned all around my right side up to my back.  Okay, how do you feel now? Patient: I feel very weak and tired, I don't feel like doing anything other than rest.  Any fever? Patient: Yes, the nurse just took my temperature at 100 points three.  Okay. Did you have these symptoms before? Patient: No, the first time. I never felt like that.  Okay. You had chills or chills? Patient: No.  When did you have your last intestinal movement? Patient: It was yesterday.  Did you notice blood in your stools or a rectum bleeding? Patient: No.  How old are you? Patient: I am twenty-eight years old.  And you had a gastric bypass, one year ago. Patient: Yes, almost a year ago.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I have to ask you a few questions. Patient: Of course.  Do you feel weakness or fatigue? Patient: No.  No malaise or disease? Patient: No, nothing like this.  No chill or high temperature? Patient: No.  Any excessive sweating or night sweating? Patient: Um, no.  How about allergies, are you allergic to anything? Patient: No, no allergies.  Very good.",
+      "expected_answer": ""
+    },
+    {
+      "question": "You don't look so good today. What's the problem? Patient: Well, I'm having trouble. My whole body hurts and I'm in pain.  Do you have a history of drug use? Patient: Well, yes. I'm detoxing.  What kind of medication have you taken? Patient: Hero.  How long have you been using? Patient: I don't feel well. Maybe a year. I can't sleep or eat.  Have you had fever, chills, vomiting or diarrhea? Patient: I think I have fever. I feel cold. I had diarrhea.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Oh doctor, you flatter me. I'm sixty-two years old.  Great, and you've already had a rotator wrist repair, that's right? Patient: Yes, that's right.  Well, well, what seems to be the problem today? Patient: I still have a lot of pain in this shoulder.  Oh no, did you have a recent imaging done on this shoulder? Patient: Yes, I had an MR I didn't have too long, can you take a look at it? I have it here.  Thank you, yes, this MR I show that you still tore the rotator handle. Patient: Oh no, can we do another operation to fix it again?  Yes, we will have to. Patient: What is the risk of infection of surgery?  It's less than one percent.",
+      "expected_answer": ""
+    },
+    {
+      "question": "I'm Dr. Welch. Guest_family: Thank you! It's nice to meet you.  How old is your daughter? Guest_family: She's three years old now.  Hello! Patient: Hello!  Mom I would like to start with some questions about pregnancy, childbirth, and previous children. Guest_family: Do you have any other children? Guest_family: No. It's my only child.  Have you ever had any miscarriages or abortions before you had your daughter? Guest_family: I had a very young miscarriage before I was pregnant with her.  I'm sorry to hear that. Guest_family: Thank you. I was difficult but when I got pregnant with her, we were so happy.  Did you have any difficulties or problems during your pregnancy. Guest_family: I had the flu in my seventh or eighth month of pregnancy.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Of course, I'm seventy-nine years old.  Well, thank you. What is the problem today, madam? Patient: Well, I have this arthritis, as you know.  Yes, how would you describe your arthritis? Patient: Well, at this stage, I would say it's debilitating.  I see, so anti-inflammatory and rest didn't help at all? Patient: No, I haven't had any improvement, Doctor. It's still so bad.  I see, I think you would be a good candidate for a knee replacement. Patient: Yes, I thought so. What are the risks of infection for surgery?  Uh, it's less than one percent, we use prophylaxis antibiotics to control infection all the time. Patient: It's great, and about anesthesia, am I going to sleep for that?  Yes, you haven't experienced surgery, I want to.",
+      "expected_answer": ""
+    },
+    {
+      "question": "You have plans to follow up and remove staples in a week with Dr. X Y Z. Do you have any instructions for wound care? Patient: Yes.  Do you have any questions? Patient: No.  If you have any questions or concerns that may arise, do not hesitate to call the office. Patient: OK.  If you develop a fever greater than one hundred and one point four, chills, nausea, vomiting, or persistent diarrhea, please call the office.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Because it's more allergic. Patient: Okay.  So we call it allergic rhinitis. Patient: Is it different from sinus infection?  Yes, it's different. Patient: Okay.",
+      "expected_answer": ""
+    },
+    {
+      "question": "So, to check, you have a history of hay fever and asthma, right? Patient: Yes. I was also recently diagnosed with cervical dysplasia. I discovered shortly after my last visit O B G Y N.  And do you intend to follow your O B G Y N in the coming months? Patient: Yes, the next visit is scheduled and everything.",
+      "expected_answer": ""
+    },
+    {
+      "question": "Good morning, ma'am. Can you confirm your age for me, please?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How are you recovering from your operation?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Absolutely, do you have the results of your pelvic C T?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having any pain with swallowing food?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Chest pain is probably due to tertiary contractions with some delayed emptying. Is it tender?",
+      "expected_answer": ""
+    },
+    {
+      "question": "How long has this calf been enlarged?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Have you ever had D V T?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Are you having any abnormal weight loss?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about any cold or flu symptoms? Any fever or chills?",
+      "expected_answer": ""
+    },
+    {
+      "question": "Any new aches or pains?",
+      "expected_answer": ""
+    },
+    {
+      "question": "What about shortness of breath while at rest or difficulty breathing with exercise?",
+      "expected_answer": ""
+    }
+  ]
+}

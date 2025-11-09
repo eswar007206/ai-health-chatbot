@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "source": "IMA Red Flag Section",
+    "version": "1.0",
+    "last_updated": "2025-11-09"
+  },
+  "markers": [
+    {
+      "symptom": "Temperature >41.5°C or <36°C",
+      "severity": "Critical",
+      "action": "Immediate emergency referral"
+    },
+    {
+      "symptom": "Altered consciousness or convulsions",
+      "severity": "Severe",
+      "action": "Admit to hospital"
+    },
+    {
+      "symptom": "Respiratory distress, RR>22, SpO₂<92%",
+      "severity": "High",
+      "action": "Urgent oxygen & referral"
+    },
+    {
+      "symptom": "Hypotension (SBP <100 mmHg) or capillary refill >3s",
+      "severity": "High",
+      "action": "Fluid resuscitation and emergency care"
+    },
+    {
+      "symptom": "Petechiae or purpura",
+      "severity": "Critical",
+      "action": "Hospital admission and investigation"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "source": "IMA & Cincinnati Guidelines",
+    "version": "1.0",
+    "last_updated": "2025-11-09"
+  },
+  "flows": [
+    {
+      "id": "mild_fever",
+      "conditions": {
+        "duration_days": "<2",
+        "temperature_c": "37.5–38.3"
+      },
+      "steps": [
+        "Encourage fluids",
+        "Give paracetamol if >38°C",
+        "Monitor for worsening symptoms"
+      ]
+    },
+    {
+      "id": "moderate_fever_no_focus",
+      "conditions": {
+        "duration_days": "≥3",
+        "no_localizing_signs": true
+      },
+      "steps": [
+        "Perform malaria/dengue/typhoid tests",
+        "Provide symptomatic care",
+        "Reassess after 48 hours"
+      ]
+    },
+    {
+      "id": "localized_infection",
+      "conditions": {
+        "infection_site": "identified"
+      },
+      "steps": [
+        "Treat site-specific infection",
+        "Prescribe antibiotics if indicated"
+      ]
+    }
+  ]
+}
