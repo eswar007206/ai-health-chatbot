@@ -1,7 +1,6 @@
 // API configuration
 const getApiUrl = () => {
-  const envUrl = import.meta.env.VITE_API_URL;
-  return envUrl || 'http://localhost:8000';
+  return 'https://backend-eswars-projects-2dbd246c.vercel.app';
 };
 
 export const API_BASE_URL = getApiUrl();
