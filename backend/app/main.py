@@ -33,23 +33,14 @@ app = FastAPI(
 )
 
 # Configure CORS
-origins = [
-    "http://localhost:5173",  # Development
-    "http://localhost:3000",  # Development alternative
-    "https://bytemedai.vercel.app",  # Production frontend
-    "https://fever-ai-helper.vercel.app"  # Alternative production domain
-]
-
-if os.getenv("ADDITIONAL_CORS_ORIGINS"):
-    additional_origins = os.getenv("ADDITIONAL_CORS_ORIGINS").split(",")
-    origins.extend([origin.strip() for origin in additional_origins])
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # Allows all origins temporarily
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["*"])
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"]
+)
 
 # Initialize services
 symptom_analyzer = SymptomAnalyzer()
