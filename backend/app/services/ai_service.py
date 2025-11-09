@@ -24,51 +24,15 @@ class AIService:
                 print("Warning: GEMINI_API_KEY not set. AI features will be limited.")
     
     def _initialize_gemini_model(self):
-        """Try to initialize Gemini model by first listing available models, then using the best one"""
-        # FIRST: Try to list available models from the API
+        """Initialize Gemini model with gemini-pro model"""
         try:
-            print("🔍 Listing available Gemini models from API (AI Service)...")
-            available_models = genai.list_models()
-            model_list = []
-            for model in available_models:
-                if 'generateContent' in model.supported_generation_methods:
-                    model_name = model.name
-                    # Extract just the model name (remove 'models/' prefix if present)
-                    if '/' in model_name:
-                        model_name = model_name.split('/')[-1]
-                    model_list.append({
-                        'full_name': model.name,
-                        'short_name': model_name,
-                        'model_obj': model
-                    })
-                    print(f"  ✓ Found: {model.name} (short: {model_name})")
-            
-            if model_list:
-                # Try models in order of preference
-                preferred_order = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro', 'gemini-2.0-flash']
-                
-                for preferred in preferred_order:
-                    for model_info in model_list:
-                        if preferred in model_info['short_name'].lower() or preferred in model_info['full_name'].lower():
-                            try:
-                                print(f"🎯 Attempting to use preferred model: {model_info['full_name']}")
-                                model_instance = genai.GenerativeModel(model_info['full_name'])
-                                print(f"✅ Successfully initialized AI service model: {model_info['full_name']}")
-                                return model_instance
-                            except Exception as e:
-                                print(f"⚠️  Failed to initialize {model_info['full_name']}: {str(e)[:150]}")
-                                continue
-                
-                # If preferred models didn't work, try the first available one
-                for model_info in model_list:
-                    try:
-                        print(f"🎯 Attempting to use model: {model_info['full_name']}")
-                        model_instance = genai.GenerativeModel(model_info['full_name'])
-                        print(f"✅ Successfully initialized AI service model: {model_info['full_name']}")
-                        return model_instance
-                    except Exception as e:
-                        print(f"⚠️  Failed to initialize {model_info['full_name']}: {str(e)[:150]}")
-                        continue
+            print("🔍 Initializing Gemini model...")
+            model = genai.GenerativeModel('gemini-pro')
+            print("✅ Successfully initialized Gemini AI model")
+            return model
+        except Exception as e:
+            print(f"❌ Failed to initialize Gemini model: {str(e)}")
+            return None
         except Exception as e:
             print(f"⚠️  Could not list models from API: {e}")
             print("🔄 Falling back to hardcoded model names...")

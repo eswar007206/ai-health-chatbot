@@ -9,7 +9,7 @@ passlib[bcrypt]==1.7.4
 python-dotenv==1.0.0
 
 # AI/LLM Integration
-google-generativeai==0.2.0
+google-generativeai>=0.3.2
 langchain==0.0.335
 tiktoken==0.5.2
 sentence-transformers==2.2.2
