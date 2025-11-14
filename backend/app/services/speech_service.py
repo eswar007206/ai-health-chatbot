@@ -35,15 +35,44 @@ class SpeechService:
     
     def __init__(self):
         self.api_key = os.getenv("GEMINI_API_KEY")
+        self.speech_model_name = self._resolve_speech_model_name()
+        self.speech_api_version = self._determine_api_version(self.speech_model_name)
         if not self.api_key:
             print("Warning: GEMINI_API_KEY not found in environment variables")
         
         if HAS_GEMINI and self.api_key:
             genai.configure(api_key=self.api_key)
             print(f"SpeechService configured with Gemini API key: {self.api_key[:5]}...")
+            print(f"SpeechService using Gemini model: {self.speech_model_name} (API {self.speech_api_version})")
         
         self.max_retries = 2
         self.timeout = 30
+
+    def _resolve_speech_model_name(self) -> str:
+        """Determine which Gemini model to use for audio transcription."""
+        candidates = [
+            os.getenv("GEMINI_SPEECH_MODEL"),
+            os.getenv("GEMINI_VISION_MODEL"),
+            "gemini-pro-vision",
+            "gemini-1.0-pro-vision-001",
+            "gemini-1.5-flash",
+        ]
+        for name in candidates:
+            if not name:
+                continue
+            normalized = name.strip()
+            if normalized.startswith("models/"):
+                normalized = normalized.split("/", 1)[1]
+            if normalized:
+                return normalized
+        return "gemini-pro-vision"
+
+    @staticmethod
+    def _determine_api_version(model_name: str) -> str:
+        """Pick the correct Gemini API version for the requested model."""
+        if any(tag in model_name for tag in ("1.5", "2.0")):
+            return "v1"
+        return "v1beta"
     
     async def transcribe_audio(self, audio_data: bytes, mime_type: str = "audio/webm") -> Dict[str, Any]:
         """
@@ -116,7 +145,7 @@ class SpeechService:
             print(f"File uploaded: {uploaded_file.uri}")
             
             # Create model for transcription
-            model = genai.GenerativeModel("gemini-1.5-flash")
+            model = genai.GenerativeModel(self.speech_model_name)
             
             def generate_transcription():
                 response = model.generate_content([
@@ -154,7 +183,10 @@ class SpeechService:
         
         # Gemini API endpoint for speech (as of Nov 2024)
         # TODO: Verify this is the latest endpoint - check Google's documentation
-        endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+        endpoint = (
+            f"https://generativelanguage.googleapis.com/"
+            f"{self.speech_api_version}/models/{self.speech_model_name}:generateContent"
+        )
         
         headers = {
             "Content-Type": "application/json",

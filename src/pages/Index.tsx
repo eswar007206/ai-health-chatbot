@@ -15,7 +15,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Menu, Plus, LogOut, Stethoscope, AlertCircle } from "lucide-react";
+import { Menu, Plus, LogOut, Stethoscope, AlertCircle, FileText } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { useNavigate } from "react-router-dom";
@@ -453,11 +453,28 @@ const Index = () => {
             </div>
             <Button 
               variant="outline"
+              onClick={() => navigate('/report-diagnosis')}
+              className="hidden sm:flex items-center gap-2 border-emerald-300 hover:bg-emerald-50"
+            >
+              <FileText className="h-4 w-4" />
+              <span className="hidden md:inline">Report Diagnosis</span>
+            </Button>
+            <Button 
+              variant="outline"
               onClick={() => navigate('/doctor')}
               className="hidden sm:flex items-center gap-2 border-blue-300 hover:bg-blue-50"
             >
               <Stethoscope className="h-4 w-4" />
               <span className="hidden md:inline">Consult Doctor</span>
+            </Button>
+            <Button 
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate('/report-diagnosis')}
+              className="sm:hidden"
+              title="Upload medical report"
+            >
+              <FileText className="h-5 w-5 text-emerald-600" />
             </Button>
             <Button 
               variant="ghost"

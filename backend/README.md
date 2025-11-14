@@ -92,8 +92,13 @@ backend/
 ```
 DATABASE_URL=postgresql://user:password@localhost:5432/fever_helpline
 OPENAI_API_KEY=your_openai_api_key
-JWT_SECRET=your_jwt_secret
+JWT_SECRET=your_secret
 ENVIRONMENT=development
+GEMINI_API_KEY=your_gemini_key
+# Optional overrides (fall back to safe defaults if omitted):
+GEMINI_TEXT_MODEL=gemini-pro
+GEMINI_VISION_MODEL=gemini-pro-vision
+GEMINI_SPEECH_MODEL=gemini-pro-vision
 ```
 
 ## Development Status

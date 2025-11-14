@@ -230,7 +230,7 @@ Browser automatically selects best available format. Frontend defaults to WebM, 
 
 ### Current Implementation
 
-- **Model**: `gemini-1.5-flash` (optimized for speed)
+- **Model**: Configurable via `GEMINI_SPEECH_MODEL` (defaults to `gemini-pro-vision`)
 - **Method**: Files API (recommended for audio)
 - **Fallback**: Direct HTTP to Gemini API
 - **Timeout**: 30 seconds

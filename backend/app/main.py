@@ -236,6 +236,183 @@ async def speech_to_text(file: UploadFile = File(...)):
             detail="Speech recognition failed — please try again or type your message."
         )
 
+@app.post("/api/analyze-report")
+async def analyze_report(file: UploadFile = File(...)):
+    """
+    Analyze a medical report image using Gemini's vision capabilities.
+    
+    Accepts image files (JPG, PNG, etc.) and returns medical analysis including
+    diagnosis, risk level, abnormalities, and treatment recommendations.
+    
+    Example curl:
+    curl -X POST "http://localhost:8000/api/analyze-report" \
+      -H "accept: application/json" \
+      -F "file=@report.jpg"
+    """
+    try:
+        # Validate file
+        if not file.filename:
+            raise HTTPException(status_code=400, detail="No file provided")
+        
+        # Validate image type
+        if not file.content_type or not file.content_type.startswith("image/"):
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid file type. Please upload an image file (JPG, PNG, etc.)"
+            )
+        
+        # Read image data
+        image_data = await file.read()
+        
+        # Validate image size (min 100 bytes, max 10MB)
+        if len(image_data) < 100:
+            raise HTTPException(
+                status_code=400,
+                detail="Image is too small. Please upload a valid image file."
+            )
+        
+        if len(image_data) > 10 * 1024 * 1024:  # 10MB
+            raise HTTPException(
+                status_code=413,
+                detail="Image file too large (max 10MB)"
+            )
+        
+        # Get MIME type from file
+        mime_type = file.content_type
+        
+        # Analyze using AI service
+        try:
+            if not ai_service.vision_model:
+                raise HTTPException(
+                    status_code=500,
+                    detail="AI vision service not configured. Please try again later."
+                )
+            
+            # Use Gemini Vision to analyze the medical report
+            import base64
+            image_base64 = base64.standard_b64encode(image_data).decode("utf-8")
+            
+            prompt = """You are a medical analysis expert. Analyze this medical report image and provide a comprehensive medical analysis.
+
+Please extract and provide the following information in JSON format:
+
+{
+    "raw_text": "Extracted text from the report",
+    "biobert": {
+        "diagnosis": "Primary diagnosis identified",
+        "abnormal_values": "Any abnormal lab values or findings",
+        "issues": "Key medical issues found",
+        "treatment": "Recommended treatment based on findings",
+        "summary": "Brief summary of findings"
+    },
+    "final_report": {
+        "diagnosis": "Confirmed diagnosis",
+        "abnormal_values": ["list", "of", "abnormal", "findings"],
+        "issues_found": ["list", "of", "medical", "issues"],
+        "treatment_plan": {
+            "medications": ["medication1", "medication2"],
+            "home_care": ["care recommendation 1", "care recommendation 2"],
+            "diet": ["diet recommendation 1"],
+            "lifestyle": ["lifestyle recommendation 1"]
+        },
+        "risk_level": {
+            "level": "low/moderate/high",
+            "reason": "Reason for risk assessment"
+        },
+        "danger_alerts": ["Alert 1 if any critical findings", "Alert 2 if severe"],
+        "follow_up": {
+            "tests": ["Recommended follow-up tests"],
+            "doctor_visit": "When to see a doctor"
+        },
+        "patient_summary": "Comprehensive patient summary for consultation with doctor"
+    }
+}
+
+Ensure the response is valid JSON. If any field cannot be determined from the image, use appropriate null values or empty arrays."""
+
+            response = ai_service.vision_model.generate_content(
+                [
+                    {
+                        "mime_type": mime_type,
+                        "data": image_base64
+                    },
+                    prompt
+                ]
+            )
+            
+            # Parse the response
+            import json
+            response_text = response.text
+            
+            # Try to extract JSON from the response
+            try:
+                # Look for JSON block in response
+                if "```json" in response_text:
+                    json_str = response_text.split("```json")[1].split("```")[0].strip()
+                elif "```" in response_text:
+                    json_str = response_text.split("```")[1].split("```")[0].strip()
+                else:
+                    json_str = response_text
+                
+                analysis = json.loads(json_str)
+            except (json.JSONDecodeError, IndexError):
+                # If JSON parsing fails, create a structured response
+                analysis = {
+                    "raw_text": response_text,
+                    "biobert": {
+                        "summary": response_text,
+                        "diagnosis": "Unable to parse structured data",
+                        "abnormal_values": "",
+                        "issues": "",
+                        "treatment": ""
+                    },
+                    "final_report": {
+                        "diagnosis": "Analysis in progress",
+                        "abnormal_values": [],
+                        "issues_found": [],
+                        "treatment_plan": {
+                            "medications": [],
+                            "home_care": ["Please consult with a healthcare provider"],
+                            "diet": [],
+                            "lifestyle": []
+                        },
+                        "risk_level": {
+                            "level": "moderate",
+                            "reason": "Report analysis pending medical review"
+                        },
+                        "danger_alerts": [],
+                        "follow_up": {
+                            "tests": [],
+                            "doctor_visit": "As soon as possible for professional review"
+                        },
+                        "patient_summary": response_text
+                    }
+                }
+            
+            return {
+                "analysis": analysis.get("final_report", {}),
+                "final_report": analysis.get("final_report", {}),
+                "biobert": analysis.get("biobert", {}),
+                "raw_text": analysis.get("raw_text", "")
+            }
+        
+        except AttributeError:
+            raise HTTPException(
+                status_code=500,
+                detail="AI model not properly initialized. Please try again later."
+            )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Unexpected error in analyze-report: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Report analysis failed: {str(e)}"
+        )
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -13,6 +13,8 @@ import {
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import DoctorConsultPage from "./pages/DoctorConsultPage";
+import { ReportDiagnosisPage } from "./pages/ReportDiagnosisPage";
+import ReportResults from "./pages/ReportResults";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,8 @@ const router = createBrowserRouter(
     <Route>
       <Route path="/" element={<Index />} />
       <Route path="/doctor" element={<DoctorConsultPage />} />
+      <Route path="/report-diagnosis" element={<ReportDiagnosisPage />} />
+      <Route path="/report-results" element={<ReportResults />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )
