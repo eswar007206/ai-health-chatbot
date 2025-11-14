@@ -1,5 +1,5 @@
 import os
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Set
 from .medical_knowledge import MedicalKnowledgeBase
 
 try:
@@ -14,73 +14,132 @@ class AIService:
         self.knowledge_base = MedicalKnowledgeBase()
         self.model = None
         self.vision_model = None  # For image analysis
+        self.available_model_names: Set[str] = set()
         
         # Try to configure Gemini if available
         if HAS_GEMINI:
             api_key = os.getenv('GEMINI_API_KEY')
             if api_key:
                 genai.configure(api_key=api_key)
+                self.available_model_names = self._list_supported_models()
                 self.model = self._initialize_gemini_model()
                 self.vision_model = self._initialize_vision_model()
             else:
                 print("Warning: GEMINI_API_KEY not set. AI features will be limited.")
-    
-    def _initialize_gemini_model(self):
-        """Initialize Gemini model with gemini-pro model"""
+
+    def _list_supported_models(self) -> Set[str]:
+        """
+        Return a set of model names that support generateContent for the configured key.
+        Includes both the full API name (models/xyz) and the short name (xyz).
+        """
+        names: Set[str] = set()
         try:
-            print("🔍 Initializing Gemini model...")
-            model = genai.GenerativeModel('gemini-pro')
-            print("✅ Successfully initialized Gemini AI model")
+            print("🔍 Fetching available Gemini models for this API key...")
+            for model in genai.list_models():
+                supported_methods = getattr(model, "supported_generation_methods", [])
+                if "generateContent" not in supported_methods:
+                    continue
+                full_name = model.name
+                names.add(full_name)
+                if "/" in full_name:
+                    names.add(full_name.split("/")[-1])
+            if names:
+                print(f"✅ Available models detected: {sorted(names)}")
+        except Exception as e:
+            print(f"⚠️  Could not list Gemini models: {e}")
+        return names
+
+    def _build_model_priority(self, env_var: str, defaults: List[str]) -> List[str]:
+        """
+        Build a priority-ordered model list, allowing env override (comma separated).
+        """
+        env_override = os.getenv(env_var, "")
+        override_list = [item.strip() for item in env_override.split(",") if item.strip()]
+        seen = set()
+        ordered: List[str] = []
+        for name in override_list + defaults:
+            short = name.split("/")[-1]
+            if short not in seen:
+                ordered.append(name)
+                seen.add(short)
+        return ordered
+
+    def _model_available(self, model_name: str) -> bool:
+        """
+        Determine if a model looks available for this API key.
+        If we failed to list models, optimistically return True.
+        """
+        if not self.available_model_names:
+            return True
+        short_name = model_name.split("/")[-1]
+        candidate_names = {
+            model_name,
+            short_name,
+            f"{short_name}-latest" if not short_name.endswith("-latest") else short_name[:-7],
+        }
+        return any(name in self.available_model_names for name in candidate_names if name)
+
+    def _warm_model(self, model_name: str) -> Any:
+        """
+        Try to initialize a GenerativeModel and run a lightweight count_tokens call
+        to ensure the API key actually has access to it.
+        """
+        try:
+            if not self._model_available(model_name):
+                print(f"↷ Skipping {model_name}: not available for this key.")
+                return None
+
+            print(f"🔄 Attempting to initialize Gemini model: {model_name}")
+            model = genai.GenerativeModel(model_name)
+            # Lightweight warm-up call to surface 404/permission issues early
+            model.count_tokens("warmup check")
+            print(f"✅ Successfully warmed model: {model_name}")
             return model
         except Exception as e:
-            print(f"❌ Failed to initialize Gemini model: {str(e)}")
+            print(f"✗ Model {model_name} not usable: {str(e)[:150]}")
             return None
-        except Exception as e:
-            print(f"⚠️  Could not list models from API: {e}")
-            print("🔄 Falling back to hardcoded model names...")
-        
-        # FALLBACK: Try hardcoded model names if listing failed
-        fallback_models = [
-            'gemini-1.5-flash',
-            'gemini-1.5-pro', 
-            'gemini-pro',
-            'gemini-2.0-flash-exp',
-        ]
-        
-        for model_name in fallback_models:
-            try:
-                print(f"🔄 Trying fallback model: {model_name}")
-                model = genai.GenerativeModel(model_name)
-                print(f"✅ Successfully initialized AI service model: {model_name}")
+    
+    def _initialize_gemini_model(self):
+        """Initialize Gemini model for text analysis with robust fallback logic"""
+        preferred_models = self._build_model_priority(
+            env_var="GEMINI_TEXT_MODEL",
+            defaults=[
+                'gemini-1.5-pro',
+                'gemini-1.5-flash',
+                'gemini-pro',
+                'gemini-1.0-pro',
+                'gemini-1.0-pro-latest',
+            ]
+        )
+
+        for model_name in preferred_models:
+            model = self._warm_model(model_name)
+            if model:
                 return model
-            except Exception as e:
-                print(f"✗ Failed to initialize {model_name}: {str(e)[:150]}")
-                continue
-        
-        print("❌ Could not initialize any Gemini model for AI service")
+
+        print("❌ Could not initialize any Gemini text model for AI service")
         return None
     
     def _initialize_vision_model(self):
         """Initialize a vision-capable Gemini model for image analysis"""
         try:
             print("🔍 Initializing Vision model for image analysis...")
-            # Try vision-capable models in order of preference
-            vision_models = [
-                'gemini-1.5-flash',
-                'gemini-1.5-pro',
-                'gemini-2.0-flash-exp',
-            ]
-            
+            vision_models = self._build_model_priority(
+                env_var="GEMINI_VISION_MODEL",
+                defaults=[
+                    'gemini-1.5-flash',
+                    'gemini-1.5-pro',
+                    'gemini-2.0-flash-exp',
+                    'gemini-pro-vision',
+                    'gemini-1.0-pro-vision-latest',
+                ]
+            )
+
             for model_name in vision_models:
-                try:
-                    print(f"🔄 Trying vision model: {model_name}")
-                    model = genai.GenerativeModel(model_name)
-                    print(f"✅ Successfully initialized vision model: {model_name}")
+                model = self._warm_model(model_name)
+                if model:
                     return model
-                except Exception as e:
-                    print(f"✗ Failed to initialize {model_name} for vision: {str(e)[:150]}")
-                    continue
-            
+
             print("⚠️  Could not initialize any vision model - using text model as fallback")
             return self.model  # Fallback to text model if available
         except Exception as e:
