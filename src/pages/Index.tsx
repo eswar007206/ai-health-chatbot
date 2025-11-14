@@ -1,38 +1,22 @@
-import { useState, useRef, useEffect } from "react";
-import { ChatMessage } from "@/components/ChatMessage";
+import { useState, useEffect } from "react";
 import { ENDPOINTS } from "@/config/api";
 import { ChatInput } from "@/components/ChatInput";
-import { TypingIndicator } from "@/components/TypingIndicator";
-import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { Auth } from "@/components/Auth";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-import { Menu, Plus, LogOut, Stethoscope, AlertCircle, FileText } from "lucide-react";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
-import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
-import { Sidebar } from "@/components/Sidebar";
-import { Badge } from "@/components/ui/badge";
+import ChatHeader from "@/components/ChatHeader";
+import ChatMessages from "@/components/ChatMessages";
+import LeftPanel from "@/components/LeftPanel";
 
-interface Message {
+export interface Message {
   id: string;
   role: "user" | "assistant" | "system";
   content: string;
   timestamp: Date;
 }
 
-interface Conversation {
+export interface Conversation {
   id: string;
   created_at: string;
   title: string;
@@ -45,9 +29,7 @@ const Index = () => {
   const [currentConversationId, setCurrentConversationId] = useState<string | null>(null);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-  const navigate = useNavigate();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -160,7 +142,7 @@ const Index = () => {
   };
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Scroll handled in ChatMessages component
   };
 
   useEffect(() => {
@@ -355,169 +337,51 @@ const Index = () => {
   }
 
   return (
-    <div className="flex h-screen flex-col bg-background">
-      {/* Header */}
-      <header className="border-b bg-gradient-to-r from-blue-50 to-slate-50 shadow-sm">
-        <div className="flex h-auto flex-col gap-3 px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="shrink-0">
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="p-0">
-                <div>
-                  <Sidebar
-                  conversations={conversations}
-                  currentConversationId={currentConversationId}
-                  onSelectConversation={(id) => {
-                    setCurrentConversationId(id);
-                    loadMessages(id);
-                    setIsSidebarOpen(false);
-                  }}
-                  onDeleteConversation={handleDeleteConversation}
-                  onDeleteAllConversations={handleDeleteAllConversations}
-                  onNewChat={handleNewChat}
-                  onSignOut={handleSignOut}
-                />
-                </div>
-              </SheetContent>
-            </Sheet>
-            <div className="flex-1 flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="FeverEase" className="h-12 w-12 object-contain" />
-                <div>
-                  <h1 className="text-xl font-bold text-slate-900">FeverEase</h1>
-                  <p className="text-xs text-slate-500">AI Health Companion</p>
-                </div>
-              </div>
-              <div className="hidden sm:flex items-center gap-2 ml-auto">
-                
-              </div>
-              {/* Quick Tools: horizontal on md+, dropdown on small screens */}
-              <div className="ml-4 hidden md:flex items-center gap-2">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="px-3 py-1 text-sm emergency-pulse"
-                      onClick={() => handleSendMessage("What are the emergency symptoms I should watch out for? When should I seek immediate medical attention?")}
-                    >
-                      🚨 Emergency
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Emergency guide — use when immediate symptoms appear</TooltipContent>
-                </Tooltip>
+    <div className="flex h-screen flex-row bg-background">
+      {/* Left Panel - Permanent like ChatGPT */}
+      <LeftPanel
+        conversations={conversations}
+        currentConversationId={currentConversationId}
+        onSelectConversation={(id) => {
+          setCurrentConversationId(id);
+          loadMessages(id);
+        }}
+        onDeleteConversation={handleDeleteConversation}
+        onDeleteAllConversations={handleDeleteAllConversations}
+        onNewChat={handleNewChat}
+        onSignOut={handleSignOut}
+      />
 
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" className="px-3 py-1 text-sm" onClick={() => handleSendMessage("I want to check my symptoms and get medical advice")}>
-                      🌡️ Symptoms
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Run a symptom assessment</TooltipContent>
-                </Tooltip>
+      {/* Main Content Container */}
+      <div className="flex flex-col flex-1">
+        {/* Header */}
+        <ChatHeader
+          conversations={conversations}
+          currentConversationId={currentConversationId}
+          isSidebarOpen={isSidebarOpen}
+          onSidebarOpenChange={setIsSidebarOpen}
+          onSelectConversation={(id) => {
+            setCurrentConversationId(id);
+            loadMessages(id);
+          }}
+          onDeleteConversation={handleDeleteConversation}
+          onDeleteAllConversations={handleDeleteAllConversations}
+          onNewChat={handleNewChat}
+          onSignOut={handleSignOut}
+          onQuickAction={handleSendMessage}
+        />
 
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" className="px-3 py-1 text-sm" onClick={() => handleSendMessage("I need information about medications and dosage")}>
-                      💊 follow ups and Doses
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Get medication and dosage guidance</TooltipContent>
-                </Tooltip>
+        {/* Messages Area */}
+        <ChatMessages
+          messages={messages}
+          isTyping={isTyping}
+          userName={user?.user_metadata?.full_name}
+          onQuickAction={handleSendMessage}
+        />
 
-                
-              </div>
-
-              <div className="ml-2 md:hidden">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="px-3 py-1">
-                      Tools
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent sideOffset={8} className="w-56">
-                    <DropdownMenuLabel>Quick Access</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onSelect={() => handleSendMessage("What are the emergency symptoms I should watch out for? When should I seek immediate medical attention?")}>🚨 Emergency Guide</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => navigate('/doctor')}>👩‍⚕️ Doctor Consultation</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => handleSendMessage("I want to check my symptoms and get medical advice")}>🌡️ Symptom Assessment</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => handleSendMessage("I need information about medications and dosage")}>💊 Medication Information</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => handleSendMessage("What are some general health tips and preventive measures?")}>🩺 Health & Prevention</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => handleSendMessage("When should I follow up with a healthcare provider?")}>⏱️ Follow-up Guidance</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            </div>
-            <Button 
-              variant="outline"
-              onClick={() => navigate('/report-diagnosis')}
-              className="hidden sm:flex items-center gap-2 border-emerald-300 hover:bg-emerald-50"
-            >
-              <FileText className="h-4 w-4" />
-              <span className="hidden md:inline">Report Diagnosis</span>
-            </Button>
-            <Button 
-              variant="outline"
-              onClick={() => navigate('/doctor')}
-              className="hidden sm:flex items-center gap-2 border-blue-300 hover:bg-blue-50"
-            >
-              <Stethoscope className="h-4 w-4" />
-              <span className="hidden md:inline">Consult Doctor</span>
-            </Button>
-            <Button 
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate('/report-diagnosis')}
-              className="sm:hidden"
-              title="Upload medical report"
-            >
-              <FileText className="h-5 w-5 text-emerald-600" />
-            </Button>
-            <Button 
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate('/doctor')}
-              className="sm:hidden"
-              title="Consult with a doctor"
-            >
-              <Stethoscope className="h-5 w-5 text-blue-600" />
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto bg-gradient-to-b from-white to-slate-50">
-        {messages.length === 0 ? (
-          <WelcomeScreen onQuickAction={handleSendMessage} />
-        ) : (
-          <div className="mx-auto max-w-4xl">
-            <div className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-slate-200 px-6 py-3">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <p className="text-sm font-medium text-slate-700">Consultation in Progress</p>
-              </div>
-            </div>
-            {messages.map((message) => (
-              <ChatMessage
-                key={message.id}
-                role={message.role}
-                content={message.content}
-                timestamp={message.timestamp}
-                userName={user?.user_metadata?.full_name}
-              />
-            ))}
-            {isTyping && <TypingIndicator />}
-            <div ref={messagesEndRef} />
-          </div>
-        )}
+        {/* Input Area */}
+        <ChatInput onSendMessage={handleSendMessage} disabled={isTyping} />
       </div>
-
-      {/* Input Area */}
-      <ChatInput onSendMessage={handleSendMessage} disabled={isTyping} />
     </div>
   );
 };

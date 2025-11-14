@@ -94,15 +94,15 @@ export const WelcomeScreen = ({ onQuickAction }: WelcomeScreenProps) => {
       {/* Main Content Section */}
       <div className="flex-1 flex flex-col items-center py-8 md:py-12 px-6">
         {/* Emergency Banner */}
-        <div className="w-full max-w-4xl mb-8">
+        <div className="w-full max-w-4xl mb-8 animate-in slide-in-from-top-2 duration-500">
           <Button 
             variant="destructive"
             size="lg"
-            className="w-full h-14 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+            className="w-full h-14 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
             onClick={() => onQuickAction("What are the emergency symptoms I should watch out for? When should I seek immediate medical attention?")}
           >
-            <AlertTriangle className="h-5 w-5 mr-2" />
-            🚨 Emergency Medical Guide
+            <AlertTriangle className="h-5 w-5" />
+            <span>Emergency Medical Guide</span>
           </Button>
           <p className="text-xs text-slate-600 mt-2 text-center">
             For life-threatening emergencies, call your local emergency services immediately (911 in the US)
@@ -113,48 +113,49 @@ export const WelcomeScreen = ({ onQuickAction }: WelcomeScreenProps) => {
         <div className="w-full max-w-4xl">
           <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-6">Quick Access Tools</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {quickActions.map((item) => {
+            {quickActions.map((item, index) => {
               const Icon = item.icon;
               const isEmergency = item.priority === "high" && item.variant === "destructive";
               return (
-                <Card
-                  key={item.title}
-                  className={`group cursor-pointer border-2 p-6 transition-all hover:shadow-lg relative overflow-hidden ${
-                    isEmergency 
-                      ? 'border-red-300 bg-gradient-to-br from-red-50 to-red-50/50 hover:border-red-500 hover:shadow-red-200'
-                      : item.variant === 'destructive'
-                      ? 'border-red-200 bg-white hover:border-red-400 hover:bg-red-50/30'
-                      : 'border-blue-200 bg-white hover:border-blue-500 hover:bg-blue-50/30'
-                  }`}
-                  onClick={() => {
-                    if (item.isLink) {
-                      navigate(`/${item.action}`);
-                    } else {
-                      onQuickAction(item.action);
-                    }
-                  }}
-                >
-                  {isEmergency && (
-                    <div className="absolute top-0 right-0 h-full w-1 bg-gradient-to-b from-red-500 to-transparent"></div>
-                  )}
-                  <div className="flex flex-col items-start gap-3 h-full">
-                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-all ${
-                      isEmergency
-                        ? 'bg-red-500 text-white shadow-lg'
+                <div key={item.title} className="animate-in slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${index * 50}ms` }}>
+                  <Card
+                    className={`group cursor-pointer border-2 p-6 transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 relative overflow-hidden ${
+                      isEmergency 
+                        ? 'border-red-300 bg-gradient-to-br from-red-50 to-red-50/50 hover:border-red-500 hover:shadow-red-200'
                         : item.variant === 'destructive'
-                        ? 'bg-red-100 text-red-600 group-hover:bg-red-500 group-hover:text-white'
-                        : 'bg-blue-100 text-blue-600 group-hover:bg-blue-500 group-hover:text-white'
-                    }`}>
-                      <Icon className="h-6 w-6" />
+                        ? 'border-red-200 bg-white hover:border-red-400 hover:bg-red-50/30'
+                        : 'border-blue-200 bg-white hover:border-blue-500 hover:bg-blue-50/30'
+                    }`}
+                    onClick={() => {
+                      if (item.isLink) {
+                        navigate(`/${item.action}`);
+                      } else {
+                        onQuickAction(item.action);
+                      }
+                    }}
+                  >
+                    {isEmergency && (
+                      <div className="absolute top-0 right-0 h-full w-1 bg-gradient-to-b from-red-500 to-transparent"></div>
+                    )}
+                    <div className="flex flex-col items-start gap-3 h-full">
+                      <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-all duration-300 ${
+                        isEmergency
+                          ? 'bg-red-500 text-white shadow-lg group-hover:scale-110'
+                          : item.variant === 'destructive'
+                          ? 'bg-red-100 text-red-600 group-hover:bg-red-500 group-hover:text-white group-hover:scale-110'
+                          : 'bg-blue-100 text-blue-600 group-hover:bg-blue-500 group-hover:text-white group-hover:scale-110'
+                      }`}>
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-slate-900 text-sm md:text-base">{item.title}</h3>
+                        <p className="text-xs md:text-sm text-slate-600 leading-snug">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-slate-900 text-sm md:text-base">{item.title}</h3>
-                      <p className="text-xs md:text-sm text-slate-600 leading-snug">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                </Card>
+                  </Card>
+                </div>
               );
             })}
           </div>

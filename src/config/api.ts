@@ -21,5 +21,9 @@ export const API_BASE_URL = getApiUrl();
 // API endpoints
 export const ENDPOINTS = {
   CHAT: `${API_BASE_URL}/api/chat`,
+  ANALYZE_SYMPTOMS: `${API_BASE_URL}/api/analyze-symptoms`,
+  MEDICINE_INFO: `${API_BASE_URL}/api/medicine-info`,
+  MEDICINE_SEARCH: `${API_BASE_URL}/api/medicine-search`,
+  SPEECH_TO_TEXT: `${API_BASE_URL}/api/speech-to-text`,
   ANALYZE_REPORT: `${API_BASE_URL}/api/analyze-report`,
 };

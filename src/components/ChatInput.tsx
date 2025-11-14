@@ -145,7 +145,7 @@ export const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
   return (
     <form onSubmit={handleSubmit} className="border-t border-slate-200 bg-gradient-to-t from-slate-50 to-white p-4">
       <div className="mx-auto flex max-w-4xl flex-col gap-3">
-        <div className="flex gap-2">
+        <div className="flex gap-3 items-end">
           <div className="flex-1">
             <Textarea
               value={message}
@@ -153,38 +153,38 @@ export const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
               onKeyDown={handleKeyDown}
               placeholder="Describe your symptoms or ask a health question... (Press Enter to send, Shift+Enter for new line)"
               disabled={disabled || isListening}
-              className="min-h-[56px] max-h-[200px] resize-none border-slate-300 focus:ring-blue-500"
+              className="min-h-[48px] max-h-[200px] resize-none border-slate-300 focus:ring-blue-500 rounded-lg"
             />
           </div>
-          <div className="flex flex-col gap-2 shrink-0">
+          <div className="flex gap-2 shrink-0">
             <Button
               type="button"
               onClick={handleMicClick}
               disabled={disabled}
-              className={`h-[56px] w-[56px] rounded-lg shadow-md hover:shadow-lg transition-all ${
+              className={`h-10 w-10 rounded-lg transition-all duration-200 flex items-center justify-center ${
                 isListening
-                  ? "bg-red-600 hover:bg-red-700 animate-pulse"
-                  : "bg-slate-600 hover:bg-slate-700 text-white"
+                  ? "bg-red-500 text-white border-2 border-red-500"
+                  : "border-2 border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50"
               }`}
               title={isListening ? "Click to stop listening" : "Click to start voice input"}
             >
               {isListening ? (
-                <Square className="h-4 w-4" />
+                <Square className="h-5 w-5" />
               ) : (
-                <Mic className="h-4 w-4" />
+                <Mic className="h-5 w-5" />
               )}
             </Button>
             <Button
               type="submit"
               disabled={!message.trim() || disabled || isListening}
-              className="h-[56px] w-[56px] shrink-0 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transition-all"
+              className="h-10 w-10 shrink-0 rounded-lg border-2 border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition-all duration-200 disabled:opacity-50 disabled:border-slate-200 flex items-center justify-center"
             >
-              <Send className="h-4 w-4" />
+              <Send className="h-5 w-5" />
             </Button>
           </div>
         </div>
         {isListening && (
-          <div className="flex items-center gap-2 text-sm text-red-600 font-medium">
+          <div className="flex items-center gap-2 text-sm text-red-600 font-medium animate-in fade-in duration-300">
             <div className="h-3 w-3 rounded-full bg-red-600 animate-pulse"></div>
             Listening... Speak now
           </div>

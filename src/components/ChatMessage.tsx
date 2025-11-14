@@ -19,17 +19,17 @@ export const ChatMessage = ({ role, content, timestamp, userName }: ChatMessageP
     <div
       className={cn(
         "flex gap-4 px-4 md:px-6 py-4 animate-in fade-in slide-in-from-bottom-4 duration-500",
-        isUser ? "bg-white" : isSystem ? "bg-amber-50 border-l-4 border-amber-400" : "bg-blue-50/50"
+        isUser ? "bg-white" : isSystem ? "bg-amber-50 border-l-4 border-amber-400" : "bg-white"
       )}
     >
       <div
         className={cn(
-          "flex h-10 w-10 shrink-0 select-none items-center justify-center rounded-full font-semibold text-sm shadow-sm",
+          "flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-full font-semibold text-sm shadow-sm transition-all duration-300 hover:shadow-md",
           isUser
             ? "bg-blue-600 text-white"
             : isSystem
             ? "bg-amber-500 text-white"
-            : "bg-gradient-to-br from-blue-500 to-cyan-500 text-white"
+            : "bg-white text-slate-700 border-2 border-slate-200"
         )}
       >
         {isUser ? (
@@ -42,7 +42,7 @@ export const ChatMessage = ({ role, content, timestamp, userName }: ChatMessageP
       </div>
       <div className="flex-1 space-y-2 overflow-hidden min-w-0">
         <div className="flex items-center gap-3 flex-wrap">
-          <p className="text-sm font-semibold leading-none text-slate-900">
+          <p className="text-base font-semibold leading-none text-slate-900">
             {isUser ? (userName || "You") : isSystem ? "System Alert" : "FeverEase"}
           </p>
           {timestamp && (

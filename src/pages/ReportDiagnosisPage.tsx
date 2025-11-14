@@ -207,7 +207,7 @@ export function ReportDiagnosisPage() {
           <Alert className="border-emerald-200 bg-emerald-50">
             <ImageIcon className="h-4 w-4 text-emerald-600" />
             <AlertDescription className="text-slate-700">
-              <span className="font-semibold text-emerald-900">Tip:</span> For best results, ensure the report image is clear, well-lit, and captures all text legibly. Medical reports, lab results, X-rays, and ultrasounds are all supported.
+              <span className="font-semibold text-emerald-900">Tip:</span> For best results, ensure the report image is clear, well-lit, and captures all text legibly.
             </AlertDescription>
           </Alert>
 
