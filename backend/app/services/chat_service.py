@@ -283,7 +283,7 @@ class ChatService:
     def _predict_with_models(self, symptoms: List[str]) -> Dict[str, Any]:
         """Use trained models to make predictions"""
         predictions = {
-            'disease_prediction': None,
+            'disease_prediction': None,  # human-readable label or None
             'severity_prediction': None,
             'emergency_prediction': None,
             'model_confidence': {}
@@ -299,13 +299,27 @@ class ChatService:
             
             # Disease prediction
             if self.disease_classifier:
-                disease_pred = self.disease_classifier.predict([symptom_embedding])[0]
-                # Get prediction probabilities
+                raw_pred = self.disease_classifier.predict([symptom_embedding])[0]
+                disease_label = str(raw_pred)
+
+                max_prob = None
                 if hasattr(self.disease_classifier, 'predict_proba'):
                     proba = self.disease_classifier.predict_proba([symptom_embedding])[0]
-                    max_prob = max(proba)
-                    predictions['disease_prediction'] = disease_pred
-                    predictions['model_confidence']['disease'] = float(max_prob)
+                    max_prob = float(max(proba))
+
+                # ⚠️ Filter out low-confidence or meaningless labels like "Unknown_Fever"
+                if (
+                    disease_label.lower() == "unknown_fever".lower()
+                    or (max_prob is not None and max_prob < 0.6)
+                ):
+                    # Treat this as "no reliable disease prediction" so we don't surface it to users
+                    predictions['disease_prediction'] = None
+                else:
+                    # Make the label more human-friendly (remove underscores, title-case)
+                    formatted_label = disease_label.replace("_", " ").strip()
+                    predictions['disease_prediction'] = formatted_label
+                    if max_prob is not None:
+                        predictions['model_confidence']['disease'] = max_prob
             
             # Severity prediction
             if self.severity_classifier:
@@ -359,7 +373,9 @@ class ChatService:
             if diseases:
                 context_parts.append(f"\nPossible Conditions Based on Symptoms:")
                 for disease, confidence in list(diseases.items())[:5]:  # Top 5
-                    context_parts.append(f"- {disease} (confidence: {confidence:.1%})")
+                    # Make disease names nicer to read
+                    pretty_name = disease.replace("_", " ").strip()
+                    context_parts.append(f"- {pretty_name} (confidence: {confidence:.1%})")
             
             # Get severity assessment
             severity = self.knowledge_base.get_severity_assessment(symptoms)
@@ -538,7 +554,10 @@ class ChatService:
                 context_sections.append("🤖 **TRAINED MODEL PREDICTIONS**:")
                 if model_predictions.get('disease_prediction'):
                     conf = model_predictions.get('model_confidence', {}).get('disease', 0)
-                    context_sections.append(f"- Disease: {model_predictions['disease_prediction']} ({conf:.0%} confidence)")
+                    disease_label = model_predictions['disease_prediction']
+                    # Extra safety: never surface raw placeholders like 'Unknown_Fever'
+                    if disease_label and "unknown_fever" not in disease_label.lower():
+                        context_sections.append(f"- Disease: {disease_label} ({conf:.0%} confidence)")
                 if model_predictions.get('severity_prediction'):
                     context_sections.append(f"- Severity: {model_predictions['severity_prediction']:.1f}/10")
                 if model_predictions.get('emergency_prediction'):
@@ -574,6 +593,11 @@ Provide a clear, helpful response in this format:
 2. **Recommendations**: Clear actionable steps or advice
 3. **Important Notes**: Any warnings, precautions, or important information
 4. **When to Seek Medical Care**: Clear guidance on when to see a doctor
+
+When you talk about possible conditions:
+- Prefer real-world condition names (e.g., \"viral upper respiratory infection\", \"influenza\", \"COVID-19\") instead of internal labels.
+- If any internal model label is \"Unknown_Fever\" or very low confidence, IGNORE that label and base your reasoning on symptoms + medical knowledge instead.
+- Never show the literal string \"Unknown_Fever\" in the reply. If the cause is unclear, say that the cause is not certain and list the most likely possibilities instead.
 
 Keep each section concise and easy to understand. If using trained model predictions, mention them. Always include a reminder that you're an AI assistant."""
             else:

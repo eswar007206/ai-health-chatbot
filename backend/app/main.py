@@ -5,7 +5,7 @@ This file contains the FastAPI application setup and main endpoints,
 integrating AI-powered medical analysis and information retrieval.
 """
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 
 from app.services.symptom_analyzer import SymptomAnalyzer
 from app.services.ai_service import AIService
+from app.services.speech_service import speech_service
 
 # Optionally import ChatService
 try:
@@ -38,8 +39,13 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        # Local development (Vite)
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+        # Alternative Vite default port
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        # Deployed frontend
         "https://fever-ai-helper.onrender.com",  # ✅ your frontend on Render
     ],
     allow_credentials=True,
@@ -66,6 +72,10 @@ class MedicineRequest(BaseModel):
 class ChatMessage(BaseModel):
     message: str
     history: Optional[List[Dict]] = None
+
+class SpeechToTextResponse(BaseModel):
+    text: str
+    confidence: float
 
 class SymptomsResponse(BaseModel):
     ai_analysis: Dict[str, Any]
@@ -152,6 +162,79 @@ async def chat_endpoint(chat_message: ChatMessage):
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/speech-to-text", response_model=SpeechToTextResponse)
+async def speech_to_text(file: UploadFile = File(...)):
+    """
+    Convert speech audio to text using Gemini Speech API
+    
+    Accepts audio files in WebM, WAV, MP3, or other common formats.
+    Returns the transcribed text and confidence score.
+    
+    Example curl:
+    curl -X POST "http://localhost:8000/api/speech-to-text" \
+      -H "accept: application/json" \
+      -F "file=@audio.webm"
+    """
+    try:
+        # Validate file
+        if not file.filename:
+            raise HTTPException(status_code=400, detail="No file provided")
+        
+        # Read audio data
+        audio_data = await file.read()
+        
+        # Validate audio size (min 100 bytes, max 50MB)
+        if len(audio_data) < 100:
+            raise HTTPException(
+                status_code=400,
+                detail="No audio detected. Try again."
+            )
+        
+        if len(audio_data) > 50 * 1024 * 1024:  # 50MB
+            raise HTTPException(
+                status_code=413,
+                detail="Audio file too large (max 50MB)"
+            )
+        
+        # Get MIME type from file
+        mime_type = file.content_type or "audio/webm"
+        
+        # Transcribe using speech service
+        try:
+            result = await speech_service.transcribe_audio(audio_data, mime_type)
+            return SpeechToTextResponse(
+                text=result["text"],
+                confidence=result.get("confidence", 0.95)
+            )
+        except ValueError as e:
+            error_msg = str(e)
+            if "GEMINI_API_KEY" in error_msg or "not set" in error_msg:
+                raise HTTPException(
+                    status_code=500,
+                    detail="Speech recognition service not configured (GEMINI_API_KEY missing)"
+                )
+            elif "No audio" in error_msg or "audio data" in error_msg.lower():
+                raise HTTPException(
+                    status_code=400,
+                    detail="No audio detected. Try again."
+                )
+            else:
+                raise HTTPException(
+                    status_code=500,
+                    detail="Speech recognition failed — please try again or type your message."
+                )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Unexpected error in speech-to-text: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=500,
+            detail="Speech recognition failed — please try again or type your message."
+        )
 
 if __name__ == "__main__":
     import uvicorn

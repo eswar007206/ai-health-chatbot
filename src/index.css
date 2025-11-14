@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Medical theme colors */
+    /* Medical theme colors - Professional healthcare palette */
     --primary: 199 89% 48%;
     --primary-foreground: 0 0% 100%;
     
@@ -39,7 +39,7 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
     
-    /* Custom health theme colors */
+    /* Custom health theme colors - Medical grade */
     --health-safe: 142 76% 36%;
     --health-caution: 38 92% 50%;
     --health-urgent: 0 84% 60%;
@@ -124,5 +124,48 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Professional medical styling */
+  .medical-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold;
+  }
+
+  .medical-card {
+    @apply rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all;
+  }
+
+  .medical-button-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-md hover:shadow-lg transition-all;
+  }
+
+  .medical-button-secondary {
+    @apply bg-slate-100 hover:bg-slate-200 text-slate-900 font-medium transition-all;
+  }
+
+  /* Alert styling for medical context */
+  .alert-medical {
+    @apply border-l-4 border-blue-400 bg-blue-50 p-4 rounded-lg;
+  }
+
+  .alert-medical-warning {
+    @apply border-l-4 border-amber-400 bg-amber-50 p-4 rounded-lg;
+  }
+
+  .alert-medical-critical {
+    @apply border-l-4 border-red-500 bg-red-50 p-4 rounded-lg;
+  }
+
+  /* Chat message styling improvements */
+  .chat-user-message {
+    @apply bg-white border-l-4 border-blue-600;
+  }
+
+  .chat-assistant-message {
+    @apply bg-blue-50/50;
+  }
+
+  .chat-system-message {
+    @apply bg-amber-50 border-l-4 border-amber-400;
   }
 }
