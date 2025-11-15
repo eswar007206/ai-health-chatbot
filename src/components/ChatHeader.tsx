@@ -8,7 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Menu, FileText, Stethoscope, AlertTriangle, Thermometer, Heart } from "lucide-react";
+import { Menu, FileText, Stethoscope, AlertTriangle, Thermometer, Heart, Mic, Users, ClipboardList } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "@/components/Sidebar";
@@ -40,6 +41,7 @@ const ChatHeader = ({
   onQuickAction,
 }: ChatHeaderProps) => {
   const navigate = useNavigate();
+  const { role } = useAuth();
 
   return (
     <header className="border-b bg-gradient-to-r from-blue-50 to-slate-50 shadow-sm">
@@ -183,6 +185,22 @@ const ChatHeader = ({
                   >
                     ⏱️ Follow-up Guidance
                   </DropdownMenuItem>
+                  {role === "patient" && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onSelect={() => navigate("/doctors")}>
+                        👨‍⚕️ Find Doctors
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                  {role === "doctor" && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onSelect={() => navigate("/doctor-requests")}>
+                        📋 Patient Requests
+                      </DropdownMenuItem>
+                    </>
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -205,6 +223,35 @@ const ChatHeader = ({
             <Stethoscope className="h-4 w-4" />
             <span className="hidden md:inline">Consult Doctor</span>
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => navigate("/native-voice")}
+            className="hidden sm:flex items-center gap-2 border-purple-300 hover:bg-purple-50"
+          >
+            <Mic className="h-4 w-4" />
+            <span className="hidden md:inline">Speak in Your Language</span>
+          </Button>
+          {/* Role-based navigation */}
+          {role === "patient" && (
+            <Button
+              variant="outline"
+              onClick={() => navigate("/doctors")}
+              className="hidden sm:flex items-center gap-2 border-indigo-300 hover:bg-indigo-50"
+            >
+              <Users className="h-4 w-4" />
+              <span className="hidden md:inline">Find Doctors</span>
+            </Button>
+          )}
+          {role === "doctor" && (
+            <Button
+              variant="outline"
+              onClick={() => navigate("/doctor-requests")}
+              className="hidden sm:flex items-center gap-2 border-amber-300 hover:bg-amber-50"
+            >
+              <ClipboardList className="h-4 w-4" />
+              <span className="hidden md:inline">Requests</span>
+            </Button>
+          )}
 
           {/* Mobile Icons */}
           <Button
@@ -225,6 +272,37 @@ const ChatHeader = ({
           >
             <Stethoscope className="h-5 w-5 text-blue-600" />
           </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate("/native-voice")}
+            className="sm:hidden"
+            title="Speak in your language"
+          >
+            <Mic className="h-5 w-5 text-purple-600" />
+          </Button>
+          {role === "patient" && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate("/doctors")}
+              className="sm:hidden"
+              title="Find doctors"
+            >
+              <Users className="h-5 w-5 text-indigo-600" />
+            </Button>
+          )}
+          {role === "doctor" && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate("/doctor-requests")}
+              className="sm:hidden"
+              title="Patient requests"
+            >
+              <ClipboardList className="h-5 w-5 text-amber-600" />
+            </Button>
+          )}
         </div>
       </div>
     </header>

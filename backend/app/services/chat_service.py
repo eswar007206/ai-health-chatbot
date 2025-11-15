@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 import numpy as np
 from .symptom_analyzer import SymptomAnalyzer
 from .medical_knowledge_base import MedicalKnowledgeBase
+from .fever_triage import FeverTriageAssistant
 
 # Try to import model dependencies
 try:
@@ -64,6 +65,14 @@ class ChatService:
         except Exception as e:
             print(f"❌ Error initializing symptom analyzer: {e}")
             raise
+        
+        # Initialize fever triage assistant
+        try:
+            self.fever_triage = FeverTriageAssistant()
+            print("✓ Fever triage assistant initialized")
+        except Exception as e:
+            print(f"❌ Error initializing fever triage assistant: {e}")
+            self.fever_triage = None
         
         # Load trained models if available
         self.models_dir = Path(__file__).parent.parent.parent / 'models'
@@ -480,6 +489,99 @@ class ChatService:
             pass
         
         return "\n".join(context_parts)
+    
+    async def _process_fever_triage(self, message: str, chat_history: List[Dict] = None) -> Dict:
+        """
+        Process fever-related queries using the fever triage assistant.
+        This method handles structured input collection, triage assessment, and response generation.
+        """
+        if not self.fever_triage:
+            # If fever triage is not available, return a simple response
+            return {
+                "response": "I understand you're asking about fever. I'm currently setting up enhanced fever assessment capabilities. For now, please provide: your age, current temperature, how long you've had the fever, and any other symptoms. ⚠️ **IMPORTANT**: This is general medical guidance, not a diagnosis. Please consult a healthcare professional.",
+                "symptoms_detected": [],
+                "patient_info": {},
+                "knowledge_base_used": False,
+                "fever_triage": False
+            }
+        
+        # Extract patient data from current message
+        extracted = self.fever_triage.extract_structured_inputs(message, chat_history)
+        
+        # Build patient data from chat history (accumulate information across conversation)
+        patient_data = {}
+        if chat_history:
+            # Look for previous patient data in conversation
+            for msg in reversed(chat_history):
+                if msg.get('role') == 'user':
+                    prev_extracted = self.fever_triage.extract_structured_inputs(msg.get('content', ''), [])
+                    patient_data = self.fever_triage.update_patient_data(patient_data, prev_extracted)
+        
+        # Update with current message data
+        patient_data = self.fever_triage.update_patient_data(patient_data, extracted)
+        
+        # Generate triage response
+        triage_result = self.fever_triage.generate_triage_response(patient_data, chat_history)
+        
+        # If we're collecting inputs, enhance the response with Gemini for better natural language
+        if triage_result.get('triage_level') == 'collecting_inputs':
+            # Use Gemini to make the input collection more conversational
+            enhanced_prompt = f"""You are a medical AI assistant helping with fever assessment. 
+
+The user said: "{message}"
+
+I need to collect the following information: {', '.join(triage_result.get('missing_inputs', []))}
+
+The triage assistant has generated this response:
+{triage_result.get('response', '')}
+
+Please make this response more conversational and natural while keeping all the questions. Make it feel like a friendly medical assistant asking follow-up questions, not a form. Keep it concise and warm."""
+            
+            try:
+                import asyncio
+                enhanced_response = await asyncio.to_thread(
+                    self.chat_model.generate_content, enhanced_prompt
+                )
+                triage_result['response'] = enhanced_response.text
+            except Exception as e:
+                print(f"Warning: Could not enhance fever triage response: {e}")
+                # Use original response if enhancement fails
+        
+        # If we have a triage result, enhance it with Gemini for better language handling
+        elif triage_result.get('response'):
+            # Enhance the response to match user's language and make it more natural
+            enhancement_prompt = f"""The user said: "{message}"
+
+The fever triage assistant has generated this medical response:
+{triage_result.get('response', '')}
+
+Please:
+1. Ensure the response matches the user's language (detect from their message)
+2. Make it more natural and conversational while keeping all medical information
+3. Ensure the safety disclaimer is included
+4. Keep all the structured information (red/yellow/green flags, recommendations, etc.)
+
+Respond in the same language as the user's message."""
+            
+            try:
+                import asyncio
+                enhanced_response = await asyncio.to_thread(
+                    self.chat_model.generate_content, enhancement_prompt
+                )
+                triage_result['response'] = enhanced_response.text
+            except Exception as e:
+                print(f"Warning: Could not enhance fever triage response: {e}")
+                # Use original response if enhancement fails
+        
+        return {
+            "response": triage_result.get('response', ''),
+            "symptoms_detected": patient_data.get('symptoms', []),
+            "patient_info": patient_data,
+            "triage_level": triage_result.get('triage_level'),
+            "fever_pattern": triage_result.get('fever_pattern'),
+            "knowledge_base_used": True,
+            "fever_triage": True
+        }
             
     async def process_message(self, message: str, chat_history: List[Dict] = None) -> Dict:
         """
@@ -504,6 +606,10 @@ class ChatService:
                     "response": "I apologize, but the AI service is currently unavailable. Please try again later.",
                     "error": "Gemini AI not available"
                 }
+
+            # Check if this is a fever-related query and use fever triage assistant
+            if self.fever_triage and self.fever_triage.detect_fever_query(message):
+                return await self._process_fever_triage(message, chat_history)
 
             # Extract symptoms and patient info from message (FAST - no API calls)
             symptoms = self._extract_symptoms_from_message(message)
@@ -594,6 +700,10 @@ Provide a clear, helpful response in this format:
 3. **Important Notes**: Any warnings, precautions, or important information
 4. **When to Seek Medical Care**: Clear guidance on when to see a doctor
 
+Language Policy:
+- Detect the primary language of the **User Message** and respond entirely in that language.
+- Only change languages if the user explicitly requests a translation or a different language.
+
 When you talk about possible conditions:
 - Prefer real-world condition names (e.g., \"viral upper respiratory infection\", \"influenza\", \"COVID-19\") instead of internal labels.
 - If any internal model label is \"Unknown_Fever\" or very low confidence, IGNORE that label and base your reasoning on symptoms + medical knowledge instead.
@@ -609,7 +719,11 @@ Keep each section concise and easy to understand. If using trained model predict
 
 Provide a helpful, accurate medical response. Use your extensive medical knowledge. 
 Be clear, concise, and always remind: 'I'm an AI assistant, not a doctor. 
-Consult a healthcare professional for serious symptoms.'"""
+Consult a healthcare professional for serious symptoms.'
+
+Language Policy:
+- Detect the user's language and respond using that exact language.
+- Only switch languages if the user explicitly asks for a translation."""
 
             
             # Add chat history if available (concise)

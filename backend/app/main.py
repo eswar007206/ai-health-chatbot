@@ -5,12 +5,24 @@ This file contains the FastAPI application setup and main endpoints,
 integrating AI-powered medical analysis and information retrieval.
 """
 
+import asyncio
+import base64
+import json
+import os
+import re
+from typing import List, Dict, Any, Optional, Tuple, Set
+
 from fastapi import FastAPI, HTTPException, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Dict, Any, Optional
-import os
 from dotenv import load_dotenv
+
+try:
+    import google.generativeai as genai
+    HAS_GEMINI_SPEECH = True
+except ImportError:
+    genai = None  # type: ignore
+    HAS_GEMINI_SPEECH = False
 
 from app.services.symptom_analyzer import SymptomAnalyzer
 from app.services.ai_service import AIService
@@ -26,6 +38,10 @@ except ImportError:
 
 # Load environment variables
 load_dotenv()
+
+AVAILABLE_GEMINI_MODELS: Set[str] = set()
+speech_model_cache: Optional["genai.GenerativeModel"] = None
+speech_model_name: Optional[str] = None
 
 # Create FastAPI app
 app = FastAPI(
@@ -73,13 +89,294 @@ class ChatMessage(BaseModel):
     history: Optional[List[Dict]] = None
 
 class SpeechToTextResponse(BaseModel):
-    text: str
-    confidence: float
+    transcript: str
+    language: str
+    reply: str
+
+class SpeechStreamResponse(BaseModel):
+    transcript: str
+    language: str
 
 class SymptomsResponse(BaseModel):
     ai_analysis: Dict[str, Any]
     rule_based_analysis: Dict[str, Any]
     combined_recommendations: List[str]
+
+SUPPORTED_AUDIO_MIME_TYPES = {
+    "audio/webm",
+    "audio/webm;codecs=opus",
+    "audio/ogg",
+    "audio/mpeg",
+    "audio/mp3",
+    "audio/wav",
+    "audio/x-wav",
+    "audio/mp4",
+    "audio/aac",
+}
+MIN_AUDIO_BYTES = 500  # Require minimal speech (~0.5KB)
+MAX_AUDIO_BYTES = 25 * 1024 * 1024  # 25MB safety limit
+STREAM_MAX_AUDIO_BYTES = 2 * 1024 * 1024  # smaller per-chunk uploads
+TARGET_LANGUAGES = [
+    "Telugu",
+    "Hindi",
+    "Tamil",
+    "Kannada",
+    "Malayalam",
+    "Bengali",
+    "Marathi",
+    "Gujarati",
+    "Punjabi",
+    "Urdu",
+]
+
+async def _read_audio_upload(file: UploadFile, max_bytes: int) -> Tuple[bytes, str]:
+    """Read and validate audio upload, returning (bytes, mime_type)."""
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No audio file uploaded")
+    
+    mime_type = (file.content_type or "").lower()
+    if mime_type and mime_type not in SUPPORTED_AUDIO_MIME_TYPES:
+        raise HTTPException(
+            status_code=400,
+            detail="Unsupported audio format. Please record again (WebM, OGG, MP3, WAV)."
+        )
+
+    audio_bytes = await file.read()
+    if len(audio_bytes) < MIN_AUDIO_BYTES:
+        raise HTTPException(status_code=400, detail="Audio clip is too short. Please retry.")
+    if len(audio_bytes) > max_bytes:
+        raise HTTPException(
+            status_code=413,
+            detail=f"Audio file too large (max {(max_bytes // (1024 * 1024))}MB). Please shorten your recording."
+        )
+    return audio_bytes, (mime_type or "audio/webm")
+
+def _list_gemini_models() -> Set[str]:
+    """Query Gemini API for accessible models supporting generateContent."""
+    if not genai:
+        return set()
+    models: Set[str] = set()
+    try:
+        for model in genai.list_models():
+            methods = getattr(model, "supported_generation_methods", [])
+            if "generateContent" not in methods:
+                continue
+            name = model.name
+            models.add(name)
+            if "/" in name:
+                models.add(name.split("/")[-1])
+    except Exception as exc:
+        print(f"⚠️  Could not list Gemini models: {exc}")
+    return models
+
+def _build_model_priority(env_var: str, defaults: List[str]) -> List[str]:
+    env_value = os.getenv(env_var, "")
+    override = [item.strip() for item in env_value.split(",") if item.strip()]
+    ordered: List[str] = []
+    seen = set()
+    for name in override + defaults:
+        short = name.split("/")[-1]
+        if short in seen:
+            continue
+        ordered.append(name)
+        seen.add(short)
+    return ordered
+
+def _model_variants(model_name: str) -> Set[str]:
+    """Return canonical variants for matching listed models."""
+    variants = {model_name}
+    short = model_name.split("/")[-1]
+    variants.add(short)
+    if short.endswith("-latest"):
+        variants.add(short[:-7])
+    if model_name.startswith("models/"):
+        variants.add(short)
+    else:
+        variants.add(f"models/{short}")
+    variants = {v for v in variants if v}
+    return variants
+
+def _warm_gemini_model(model_name: str) -> Optional["genai.GenerativeModel"]:
+    if not genai:
+        return None
+    try:
+        model = genai.GenerativeModel(model_name)
+        model.count_tokens("ping")
+        return model
+    except Exception as exc:
+        print(f"✗ Model {model_name} unavailable: {exc}")
+        return None
+
+def _extract_text_from_response(response: Any) -> str:
+    """
+    Safely extract textual content from a Gemini response, even if the
+    convenience `.text` accessor raises due to finish_reason issues.
+    """
+    if not response:
+        return ""
+    try:
+        text = (getattr(response, "text", "") or "").strip()
+        if text:
+            return text
+    except ValueError:
+        # Fallback below
+        pass
+
+    collected: List[str] = []
+    candidates = getattr(response, "candidates", None) or []
+    for candidate in candidates:
+        content = getattr(candidate, "content", None)
+        if not content:
+            continue
+        parts = getattr(content, "parts", None) or []
+        for part in parts:
+            part_text = getattr(part, "text", None)
+            if part_text:
+                collected.append(part_text)
+
+    return "\n".join(collected).strip()
+
+def _try_parse_json_string(raw: str) -> Optional[Dict[str, Any]]:
+    """Attempt to parse JSON, tolerating trailing commas and code fences."""
+    raw = raw.strip()
+    if not raw:
+        return None
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        sanitized = re.sub(r",(\s*[}\]])", r"\1", raw)
+        if sanitized != raw:
+            try:
+                return json.loads(sanitized)
+            except json.JSONDecodeError:
+                pass
+    return None
+
+def _extract_json_payload(response_text: str) -> Dict[str, Any]:
+    """Extract JSON or fallback data from Gemini responses."""
+    text = response_text.strip()
+    if "```" in text:
+        parts = text.split("```")
+        for part in parts:
+            snippet = part.strip()
+            if snippet.lower().startswith("json"):
+                snippet = snippet[4:].strip()
+            parsed = _try_parse_json_string(snippet)
+            if parsed:
+                return parsed
+    parsed = _try_parse_json_string(text)
+    if parsed:
+        return parsed
+    # Fallback: treat raw content as transcript
+    return {
+        "transcript": text,
+        "raw_text": text,
+        "language": "Unknown",
+    }
+
+def _clean_text_field(text: Optional[str]) -> str:
+    if not text:
+        return ""
+    cleaned = text.strip()
+    # Remove markdown fences
+    cleaned = re.sub(r"^```(?:json)?", "", cleaned, flags=re.IGNORECASE).strip()
+    cleaned = cleaned.replace("```", "").strip()
+    # Remove leading json keyword
+    cleaned = re.sub(r"^\s*json\s*", "", cleaned, flags=re.IGNORECASE).strip()
+    # Remove surrounding quotes
+    if cleaned.startswith('"') and cleaned.endswith('"'):
+        cleaned = cleaned[1:-1].strip()
+    if cleaned.startswith("'") and cleaned.endswith("'"):
+        cleaned = cleaned[1:-1].strip()
+    return cleaned
+
+def _get_speech_model() -> "genai.GenerativeModel":
+    """Return a configured Gemini model for speech transcription with fallbacks."""
+    global AVAILABLE_GEMINI_MODELS, speech_model_cache, speech_model_name
+
+    if speech_model_cache is not None:
+        return speech_model_cache
+
+    if not HAS_GEMINI_SPEECH or not genai:
+        raise HTTPException(status_code=500, detail="Gemini SDK not available on server")
+
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="GEMINI_API_KEY is not configured")
+
+    genai.configure(api_key=api_key)
+
+    if not AVAILABLE_GEMINI_MODELS:
+        AVAILABLE_GEMINI_MODELS = _list_gemini_models()
+        if AVAILABLE_GEMINI_MODELS:
+            print(f"ℹ️  Gemini models accessible to this key: {sorted(AVAILABLE_GEMINI_MODELS)}")
+        else:
+            print("⚠️  Could not list Gemini models (will attempt fallbacks blindly).")
+
+    preferred_models = _build_model_priority(
+        env_var="GEMINI_SPEECH_MODEL",
+        defaults=[
+            "gemini-2.5-pro",
+            "models/gemini-2.5-pro",
+            "gemini-2.5-pro-preview-06-05",
+            "models/gemini-2.5-pro-preview-06-05",
+            "gemini-2.5-flash",
+            "models/gemini-2.5-flash",
+            "gemini-2.5-flash-preview-09-2025",
+            "models/gemini-2.5-flash-preview-09-2025",
+            "gemini-2.0-pro-exp",
+            "models/gemini-2.0-pro-exp",
+            "gemini-2.0-flash",
+            "models/gemini-2.0-flash",
+            "gemini-2.0-flash-001",
+            "models/gemini-2.0-flash-001",
+            "gemini-flash-latest",
+            "models/gemini-flash-latest",
+            "gemini-pro-latest",
+            "models/gemini-pro-latest",
+            "gemini-1.5-flash",
+            "models/gemini-1.5-flash",
+            "gemini-1.5-flash-latest",
+            "models/gemini-1.5-flash-latest",
+            "gemini-1.5-pro",
+            "models/gemini-1.5-pro",
+            "gemini-1.5-pro-latest",
+            "models/gemini-1.5-pro-latest",
+            "gemini-pro-vision",
+            "models/gemini-pro-vision",
+            "gemini-pro",
+            "models/gemini-pro",
+            "gemini-1.0-pro",
+            "models/gemini-1.0-pro",
+            "gemini-1.0-pro-latest",
+            "models/gemini-1.0-pro-latest",
+        ],
+    )
+
+    last_error: Optional[str] = None
+
+    for model_name in preferred_models:
+        if AVAILABLE_GEMINI_MODELS:
+            variants = _model_variants(model_name)
+            if not (variants & AVAILABLE_GEMINI_MODELS):
+                print(f"↷ {model_name} not reported by API; attempting anyway...")
+        warmed = _warm_gemini_model(model_name)
+        if warmed:
+            speech_model_cache = warmed
+            speech_model_name = model_name
+            print(f"✅ Speech transcription using model: {model_name}")
+            return warmed
+        else:
+            last_error = f"{model_name} unavailable"
+
+    raise HTTPException(
+        status_code=500,
+        detail=(
+            "No Gemini model with generateContent access is available for speech transcription. "
+            "Please set GEMINI_SPEECH_MODEL to one of your accessible models "
+            "(e.g., 'models/gemini-pro') in the backend environment."
+        ),
+    )
 
 @app.get("/")
 async def root():
@@ -165,52 +462,170 @@ async def chat_endpoint(chat_message: ChatMessage):
 @app.post("/api/speech-to-text", response_model=SpeechToTextResponse)
 async def speech_to_text(file: UploadFile = File(...)):
     """
-    Convert speech audio to text using Gemini Speech API
-    
-    Accepts audio files in WebM, WAV, MP3, or other common formats.
-    Returns the transcribed text and confidence score.
-    
-    Example curl:
-    curl -X POST "http://localhost:8000/api/speech-to-text" \
-      -H "accept: application/json" \
-      -F "file=@audio.webm"
+    Convert microphone audio to text using Gemini 1.5 Flash and return
+    a same-language AI reply.
     """
+    audio_bytes, mime_type = await _read_audio_upload(file, MAX_AUDIO_BYTES)
+
     try:
-        # Validate file
-        if not file.filename:
-            raise HTTPException(status_code=400, detail="No file provided")
-        
-        # Read audio data
-        audio_data = await file.read()
-        
-        # Validate audio size (min 100 bytes, max 50MB)
-        if len(audio_data) < 100:
-            raise HTTPException(
-                status_code=400,
-                detail="No audio detected. Try again."
-            )
-        
-        if len(audio_data) > 50 * 1024 * 1024:  # 50MB
-            raise HTTPException(
-                status_code=413,
-                detail="Audio file too large (max 50MB)"
-            )
-        
-        # Get MIME type from file
-        mime_type = file.content_type or "audio/webm"
-        
-    
-    
+        model = _get_speech_model()
     except HTTPException:
         raise
-    except Exception as e:
-        print(f"Unexpected error in speech-to-text: {e}")
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(
-            status_code=500,
-            detail="Speech recognition failed — please try again or type your message."
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Speech model unavailable: {exc}") from exc
+
+    audio_base64 = base64.b64encode(audio_bytes).decode("utf-8")
+    languages_str = ", ".join(TARGET_LANGUAGES)
+    instruction = f"""
+You are FeverEase's multilingual medical assistant.
+1. Detect the spoken language. Prioritize these languages: {languages_str}, but support any Indian language you recognize.
+2. Produce a verbatim transcription in the SAME language as the speaker.
+3. Provide a concise, empathetic medical reply in that exact language. Do not switch languages unless the user explicitly requests translation.
+Return STRICT JSON (no markdown, no commentary) shaped exactly as:
+{{
+  "language": "<language name in English>",
+  "transcript": "<verbatim transcript in the user's language>",
+  "reply": "<assistant response in the same language>"
+}}
+    """.strip()
+
+    parts = [
+        {
+            "role": "user",
+            "parts": [
+                {"text": instruction},
+                {
+                    "inline_data": {
+                        "mime_type": mime_type or "audio/webm",
+                        "data": audio_base64
+                    }
+                },
+            ],
+        }
+    ]
+
+    try:
+        generation_config = {
+            "temperature": 0.3,
+            "max_output_tokens": 512,
+        }
+        response = await asyncio.to_thread(
+            model.generate_content,
+            parts,
+            generation_config=generation_config,
+            safety_settings=[],
         )
+    except Exception as exc:
+        print(f"Gemini speech call failed: {exc}")
+        raise HTTPException(
+            status_code=502,
+            detail="Speech recognition failed. Please try recording again."
+        ) from exc
+
+    response_text = _extract_text_from_response(response)
+    if not response_text:
+        return {
+            "transcript": "",
+            "reply": "I couldn't clearly capture that audio. Please try speaking again.",
+            "language": "Unknown",
+        }
+
+    parsed = _extract_json_payload(response_text)
+    transcript = _clean_text_field(parsed.get("transcript") or parsed.get("text") or parsed.get("raw_text"))
+    reply = _clean_text_field(parsed.get("reply") or parsed.get("response"))
+    language = _clean_text_field(parsed.get("language") or parsed.get("detected_language") or "Unknown")
+
+    if not transcript:
+        return {
+            "transcript": "",
+            "reply": "We didn't detect clear speech in that clip. कृपया दोबारा बोलें।",
+            "language": "Unknown",
+        }
+    if not reply:
+        reply = "मैंने आपकी आवाज़ स्पष्ट रूप से नहीं सुनी। कृपया फिर से बोलें।"
+
+    return {
+        "transcript": transcript,
+        "reply": reply,
+        "language": language or "Unknown",
+    }
+
+@app.post("/api/speech-to-text/stream", response_model=SpeechStreamResponse)
+async def speech_to_text_stream(file: UploadFile = File(...)):
+    """
+    Transcribe short audio chunks during recording for real-time previews.
+    Returns only the transcript and detected language (no AI reply).
+    """
+    audio_bytes, mime_type = await _read_audio_upload(file, STREAM_MAX_AUDIO_BYTES)
+
+    try:
+        model = _get_speech_model()
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Speech model unavailable: {exc}") from exc
+
+    audio_base64 = base64.b64encode(audio_bytes).decode("utf-8")
+    languages_str = ", ".join(TARGET_LANGUAGES)
+    instruction = f"""
+You are a streaming speech recognizer for FeverEase.
+1. Detect the spoken language (focus on: {languages_str}, but allow any Indian language).
+2. Return an accurate transcript for ONLY the provided audio chunk in the same language.
+3. Do not add commentary or translations.
+Respond strictly with compact JSON:
+{{
+  "language": "<language name in English>",
+  "transcript": "<chunk transcript same language>"
+}}
+""".strip()
+
+    parts = [
+        {
+            "role": "user",
+            "parts": [
+                {"text": instruction},
+                {
+                    "inline_data": {
+                        "mime_type": mime_type,
+                        "data": audio_base64
+                    }
+                },
+            ],
+        }
+    ]
+
+    try:
+        response = await asyncio.to_thread(
+            model.generate_content,
+            parts,
+            generation_config={
+                "temperature": 0.2,
+                "max_output_tokens": 256,
+            },
+            safety_settings=[],
+        )
+    except Exception as exc:
+        print(f"Gemini stream chunk failed: {exc}")
+        raise HTTPException(
+            status_code=502,
+            detail="Live transcription failed. Please continue speaking."
+        ) from exc
+
+    response_text = _extract_text_from_response(response)
+    if not response_text:
+        return {
+            "transcript": "",
+            "language": "Unknown",
+        }
+
+    parsed = _extract_json_payload(response_text)
+    transcript = _clean_text_field(parsed.get("transcript") or parsed.get("text") or parsed.get("raw_text"))
+    language = _clean_text_field(parsed.get("language") or parsed.get("detected_language") or "Unknown")
+
+    return {
+        "transcript": transcript,
+        "language": language or "Unknown",
+    }
 
 @app.post("/api/analyze-report")
 async def analyze_report(file: UploadFile = File(...)):

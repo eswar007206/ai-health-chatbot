@@ -25,5 +25,6 @@ export const ENDPOINTS = {
   MEDICINE_INFO: `${API_BASE_URL}/api/medicine-info`,
   MEDICINE_SEARCH: `${API_BASE_URL}/api/medicine-search`,
   SPEECH_TO_TEXT: `${API_BASE_URL}/api/speech-to-text`,
+  SPEECH_STREAM: `${API_BASE_URL}/api/speech-to-text/stream`,
   ANALYZE_REPORT: `${API_BASE_URL}/api/analyze-report`,
 };
