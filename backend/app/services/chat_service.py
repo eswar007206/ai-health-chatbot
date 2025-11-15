@@ -353,6 +353,133 @@ class ChatService:
         
         return predictions
     
+    def _build_gemini_prompt(self, message: str, model_data: Dict[str, Any], chat_history: List[Dict] = None) -> str:
+        """
+        Build a prompt for Gemini to create a natural, human-like response based on trained model predictions.
+        
+        This method takes the structured output from trained models and knowledge base,
+        and creates a prompt that instructs Gemini to make it conversational and helpful.
+        """
+        prompt_parts = []
+        
+        # System context
+        prompt_parts.append("You are FeverEase, a friendly and empathetic medical AI assistant.")
+        prompt_parts.append("Your role is to help users understand their health concerns based on medical data analysis.")
+        prompt_parts.append("")
+        
+        # User's message
+        prompt_parts.append(f"**User's Message:** \"{message}\"")
+        prompt_parts.append("")
+        
+        # Trained Model Results Section
+        prompt_parts.append("**ANALYSIS FROM TRAINED MODELS:**")
+        prompt_parts.append("Our medical AI models have analyzed the symptoms and provided the following predictions:")
+        prompt_parts.append("")
+        
+        has_model_data = False
+        
+        # Disease prediction from trained models
+        if model_data.get('disease_prediction'):
+            conf = model_data.get('disease_confidence', 0)
+            disease = model_data['disease_prediction']
+            # Clean up disease name
+            if "unknown_fever" not in disease.lower():
+                prompt_parts.append(f"- **Predicted Condition:** {disease} (confidence: {conf:.0%})")
+                has_model_data = True
+        
+        # Severity prediction
+        if model_data.get('severity_prediction') is not None:
+            severity = model_data['severity_prediction']
+            prompt_parts.append(f"- **Severity Score:** {severity:.1f}/10")
+            has_model_data = True
+        
+        # Emergency prediction
+        if model_data.get('emergency_prediction') is not None:
+            is_emergency = model_data['emergency_prediction']
+            prompt_parts.append(f"- **Emergency Alert:** {'YES - Immediate medical attention may be needed' if is_emergency else 'NO'}")
+            has_model_data = True
+        
+        # Knowledge base diseases
+        if model_data.get('possible_diseases'):
+            diseases = model_data['possible_diseases']
+            if diseases:
+                prompt_parts.append(f"- **Possible Conditions:** {', '.join([d.replace('_', ' ').title() for d in list(diseases.keys())[:3]])}")
+                has_model_data = True
+        
+        # Severity assessment from knowledge base
+        if model_data.get('severity_assessment') and model_data['severity_assessment'].get('average_severity'):
+            avg_sev = model_data['severity_assessment']['average_severity']
+            prompt_parts.append(f"- **Severity Assessment:** {avg_sev:.1f}/10 (from medical knowledge base)")
+            has_model_data = True
+        
+        if not has_model_data:
+            prompt_parts.append("- No specific predictions available from trained models (this is okay - use your medical knowledge)")
+        
+        prompt_parts.append("")
+        
+        # Additional information
+        if model_data.get('precautions'):
+            prompt_parts.append(f"**Precautions to Consider:** {', '.join(model_data['precautions'][:3])}")
+            prompt_parts.append("")
+        
+        if model_data.get('treatment_recommendations'):
+            prompt_parts.append(f"**Treatment Recommendations:** {', '.join([str(t) for t in model_data['treatment_recommendations'][:3]])}")
+            prompt_parts.append("")
+        
+        if model_data.get('is_emergency'):
+            prompt_parts.append("⚠️ **EMERGENCY INDICATOR:** This case may require immediate medical attention.")
+            prompt_parts.append("")
+        
+        # Symptoms and patient info
+        symptoms = model_data.get('symptoms_detected', [])
+        patient_info = model_data.get('patient_info', {})
+        
+        if symptoms:
+            prompt_parts.append(f"**Symptoms Detected:** {', '.join(symptoms)}")
+        if patient_info:
+            prompt_parts.append(f"**Patient Information:** {patient_info}")
+        
+        prompt_parts.append("")
+        prompt_parts.append("**YOUR TASK:**")
+        prompt_parts.append("Based on the trained model predictions above, create a natural, conversational, and empathetic response.")
+        prompt_parts.append("")
+        prompt_parts.append("**Response Guidelines:**")
+        prompt_parts.append("1. **Be conversational and human-like** - Write as if you're a caring medical assistant talking to a friend")
+        prompt_parts.append("2. **Use the model predictions** - Reference the predictions naturally (e.g., 'Based on your symptoms, our analysis suggests...')")
+        prompt_parts.append("3. **Explain in simple terms** - Convert medical jargon into easy-to-understand language")
+        prompt_parts.append("4. **Be empathetic** - Acknowledge the user's concerns and show understanding")
+        prompt_parts.append("5. **Provide actionable advice** - Give clear, practical recommendations")
+        prompt_parts.append("6. **Include safety warnings** - If emergency indicators are present, emphasize seeking immediate care")
+        prompt_parts.append("7. **Mention limitations** - Always remind that you're an AI assistant and they should consult healthcare professionals")
+        prompt_parts.append("")
+        prompt_parts.append("**Format your response naturally** - Don't use bullet points unless necessary. Write in flowing, conversational paragraphs.")
+        prompt_parts.append("Make it feel like a real conversation, not a medical report.")
+        prompt_parts.append("")
+        prompt_parts.append("**Language Policy:**")
+        prompt_parts.append("- Detect the user's language from their message and respond in that exact language")
+        prompt_parts.append("- Only switch languages if the user explicitly requests it")
+        prompt_parts.append("")
+        prompt_parts.append("**Important:**")
+        prompt_parts.append("- If model predictions show 'Unknown_Fever' or low confidence, don't mention that label")
+        prompt_parts.append("- Instead, say the cause is uncertain and list the most likely possibilities based on symptoms")
+        prompt_parts.append("- Always prioritize user safety - if emergency indicators are present, emphasize immediate medical care")
+        prompt_parts.append("")
+        prompt_parts.append("Now, write a natural, helpful response to the user:")
+        
+        # Add chat history context if available
+        if chat_history:
+            recent_context = []
+            for msg in chat_history[-3:]:  # Last 3 messages
+                role = msg.get('role', 'user')
+                content = msg.get('content', '')[:100]  # First 100 chars
+                recent_context.append(f"{role}: {content}")
+            if recent_context:
+                prompt_parts.append("")
+                prompt_parts.append("**Recent Conversation Context:**")
+                prompt_parts.append("\n".join(recent_context))
+        
+        return "\n".join(prompt_parts)
+    
     def _build_comprehensive_context(self, message: str, symptoms: List[str], patient_info: Dict) -> str:
         """Build comprehensive context from all knowledge base data and trained models"""
         context_parts = []
@@ -493,49 +620,21 @@ class ChatService:
     async def _process_fever_triage(self, message: str, chat_history: List[Dict] = None) -> Dict:
         """
         Process fever-related queries using the fever triage assistant.
-        This method handles structured input collection, triage assessment, and response generation.
-        
-        MANDATORY: Must ask 3 questions FIRST before any diagnosis:
-        1. Age
-        2. Current temperature
-        3. Days since fever started
+        NOTE: This method is currently disabled - chatbot works normally without mandatory questions.
         """
-        if not self.fever_triage:
-            # If fever triage is not available, return a simple response
-            return {
-                "response": "I understand you're asking about fever. Before I can help, I need 3 important details:\n\n1. What is your age?\n2. What is your current temperature? (in °C or °F)\n3. Since how many days have you had the fever?\n\n⚠️ **IMPORTANT**: This is general medical guidance, not a diagnosis. Please consult a healthcare professional.",
-                "symptoms_detected": [],
-                "patient_info": {},
-                "knowledge_base_used": False,
-                "fever_triage": False
-            }
+        # DISABLED: Fever triage with mandatory questions is disabled
+        # The chatbot now works normally without forcing questions
+        # This method is kept for potential future use but is not called
+        return {
+            "response": "Fever triage is currently disabled. Please use normal chatbot flow.",
+            "symptoms_detected": [],
+            "patient_info": {},
+            "knowledge_base_used": False,
+            "fever_triage": False
+        }
         
-        # Extract patient data from current message
-        extracted = self.fever_triage.extract_structured_inputs(message, chat_history)
-        
-        # Build patient data from chat history (accumulate information across conversation)
-        patient_data = {}
-        if chat_history:
-            # Look for previous patient data in conversation
-            for msg in reversed(chat_history):
-                if msg.get('role') == 'user':
-                    prev_extracted = self.fever_triage.extract_structured_inputs(msg.get('content', ''), [])
-                    patient_data = self.fever_triage.update_patient_data(patient_data, prev_extracted)
-        
-        # Update with current message data
-        patient_data = self.fever_triage.update_patient_data(patient_data, extracted)
-        
-        # MANDATORY CHECK: Verify all 3 required questions are answered
-        missing_mandatory = []
-        if not patient_data.get('age'):
-            missing_mandatory.append('age')
-        if not patient_data.get('temperature'):
-            missing_mandatory.append('temperature')
-        if not patient_data.get('duration_days') and not patient_data.get('duration_hours'):
-            missing_mandatory.append('duration')
-        
-        # If any mandatory question is missing, ask for them FIRST
-        if missing_mandatory:
+        # OLD CODE BELOW - DISABLED
+        if False:  # This block never executes
             questions_to_ask = []
             if 'age' in missing_mandatory:
                 questions_to_ask.append("What is your age?")
@@ -545,10 +644,19 @@ class ChatService:
                 questions_to_ask.append("Since how many days have you had the fever?")
             
             # Build friendly response asking for missing information
+            # Check if user already provided some info in current message
+            user_provided_info = bool(extracted.get('age') or extracted.get('temperature') or extracted.get('duration_hours') or extracted.get('duration_days'))
+            
             if len(questions_to_ask) == 3:
-                response_text = "Hello! Before I can help assess your fever, I need to ask you 3 important questions:\n\n"
+                if user_provided_info:
+                    response_text = "Thank you for that information! I just need a couple more details to help you better:\n\n"
+                else:
+                    response_text = "Oh no, I'm sorry to hear you're feeling unwell. Having a high temperature and a cough is no fun at all.\n\nTo help me understand a little more about what's going on, could you please tell me a few things first?\n\n"
             else:
-                response_text = "I still need a few more details to help you properly:\n\n"
+                if user_provided_info:
+                    response_text = "Thanks! I just need one more detail:\n\n"
+                else:
+                    response_text = "I still need a few more details to help you properly:\n\n"
             
             for i, question in enumerate(questions_to_ask, 1):
                 response_text += f"{i}. {question}\n"
@@ -558,12 +666,26 @@ class ChatService:
             # Use Gemini to make it more conversational if available
             if self.chat_model:
                 try:
+                    # Build context about what user already provided
+                    provided_context = []
+                    if patient_data.get('age'):
+                        provided_context.append(f"Age: {patient_data.get('age')}")
+                    if patient_data.get('temperature'):
+                        provided_context.append(f"Temperature: {patient_data.get('temperature')}°F")
+                    if patient_data.get('duration_hours') or patient_data.get('duration_days'):
+                        duration = patient_data.get('duration_days') or (patient_data.get('duration_hours', 0) / 24)
+                        provided_context.append(f"Duration: {duration} days")
+                    
+                    context_str = f"User has already provided: {', '.join(provided_context)}" if provided_context else "User hasn't provided any information yet"
+                    
                     enhancement_prompt = f"""The user said: "{message}"
 
-I need to ask these mandatory questions before any diagnosis:
+{context_str}
+
+I still need to ask these questions:
 {chr(10).join(questions_to_ask)}
 
-Generate a friendly, warm, and conversational response asking for these details. Be polite and explain that I need this information first before I can help. Keep it simple and clear. Match the user's language if possible."""
+Generate a friendly, warm, and conversational response asking for these remaining details. Be polite and acknowledge any information they've already shared. Keep it simple and clear. Match the user's language if possible. Don't repeat the same message if they've already answered some questions."""
                     
                     import asyncio
                     enhanced_response = await asyncio.to_thread(
@@ -670,35 +792,39 @@ Respond in the same language as the user's message."""
                     "error": "Gemini AI not available"
                 }
 
-            # Check if this is a fever-related query and use fever triage assistant
-            if self.fever_triage and self.fever_triage.detect_fever_query(message):
-                return await self._process_fever_triage(message, chat_history)
+            # REMOVED: Fever triage mandatory questions - chatbot now works normally
+            # The chatbot will work like a normal conversational AI without forcing mandatory questions
+            # Fever triage is disabled to allow natural conversation flow
 
-            # Extract symptoms and patient info from message (FAST - no API calls)
+            # STEP 1: Extract symptoms and patient info from message (FAST - no API calls)
             symptoms = self._extract_symptoms_from_message(message)
             patient_info = self._extract_patient_info(message)
             
-            # Get predictions from TRAINED MODELS (fast, local)
+            print(f"[STEP 1] Extracted - Symptoms: {symptoms}, Patient Info: {patient_info}")
+            
+            # STEP 2: Get predictions from TRAINED MODELS first (fast, local)
             model_predictions = {}
             if symptoms:
                 try:
                     model_predictions = self._predict_with_models(symptoms)
                     if model_predictions:
-                        print(f"🤖 Trained Model Predictions: {model_predictions}")
+                        print(f"[STEP 2] 🤖 Trained Model Predictions: {model_predictions}")
                 except Exception as e:
-                    print(f"⚠️ Model prediction error: {e}")
+                    print(f"[STEP 2] ⚠️ Model prediction error: {e}")
             
-            # Get knowledge base data (with safe fallbacks)
+            # STEP 3: Get knowledge base data (with safe fallbacks)
             diseases = {}
             severity = {}
             emergency_info = {}
             precautions = []
+            treatment_recommendations = []
             
             if symptoms:
                 try:
                     diseases = self.knowledge_base.get_diseases_for_symptoms(symptoms) or {}
-                except:
-                    pass
+                    print(f"[STEP 3] Knowledge Base - Diseases: {list(diseases.keys())[:3] if diseases else 'None'}")
+                except Exception as e:
+                    print(f"[STEP 3] Error getting diseases: {e}")
                 try:
                     severity = self.knowledge_base.get_severity_assessment(symptoms) or {}
                 except:
@@ -714,94 +840,51 @@ Respond in the same language as the user's message."""
                     precautions = self.knowledge_base.get_precautions_for_symptoms(symptoms) or []
                 except:
                     pass
+                try:
+                    # Get treatment recommendations
+                    disease_list = list(diseases.keys()) if diseases else []
+                    avg_severity = severity.get('average_severity', 5) if severity else 5
+                    is_emergency = emergency_info.get('is_emergency', False) if emergency_info else False
+                    treatment_recommendations = self.knowledge_base.get_treatment_recommendations(
+                        symptoms, disease_list, avg_severity, is_emergency
+                    ) or []
+                except:
+                    pass
             
-            # Build concise context (only if we have data - otherwise let Gemini handle it)
-            context_sections = []
+            # STEP 4: Build structured data from trained models and knowledge base
+            model_data = {
+                "disease_prediction": model_predictions.get('disease_prediction'),
+                "disease_confidence": model_predictions.get('model_confidence', {}).get('disease', 0),
+                "severity_prediction": model_predictions.get('severity_prediction'),
+                "emergency_prediction": model_predictions.get('emergency_prediction'),
+                "possible_diseases": dict(list(diseases.items())[:5]) if diseases else {},
+                "severity_assessment": severity,
+                "is_emergency": emergency_info.get('is_emergency', False),
+                "precautions": precautions[:5] if precautions else [],
+                "treatment_recommendations": treatment_recommendations[:5] if treatment_recommendations else [],
+                "symptoms_detected": symptoms,
+                "patient_info": patient_info
+            }
             
-            # Trained model predictions
-            if model_predictions and (model_predictions.get('disease_prediction') or model_predictions.get('severity_prediction')):
-                context_sections.append("🤖 **TRAINED MODEL PREDICTIONS**:")
-                if model_predictions.get('disease_prediction'):
-                    conf = model_predictions.get('model_confidence', {}).get('disease', 0)
-                    disease_label = model_predictions['disease_prediction']
-                    # Extra safety: never surface raw placeholders like 'Unknown_Fever'
-                    if disease_label and "unknown_fever" not in disease_label.lower():
-                        context_sections.append(f"- Disease: {disease_label} ({conf:.0%} confidence)")
-                if model_predictions.get('severity_prediction'):
-                    context_sections.append(f"- Severity: {model_predictions['severity_prediction']:.1f}/10")
-                if model_predictions.get('emergency_prediction'):
-                    context_sections.append(f"- Emergency: {'YES' if model_predictions['emergency_prediction'] else 'NO'}")
+            print(f"[STEP 4] Model Data Summary: Disease={model_data['disease_prediction']}, Severity={model_data['severity_prediction']}, Emergency={model_data['is_emergency']}")
             
-            # Knowledge base data (only if available)
-            if diseases or severity or emergency_info or precautions:
-                context_sections.append("📚 **KNOWLEDGE BASE**:")
-                if diseases:
-                    top = list(diseases.items())[:2]
-                    context_sections.append(f"- Conditions: {', '.join([d[0] for d in top])}")
-                if severity.get('average_severity'):
-                    context_sections.append(f"- Severity: {severity['average_severity']:.1f}/10")
-                if emergency_info.get('is_emergency'):
-                    context_sections.append("- ⚠️ EMERGENCY")
-                if precautions:
-                    context_sections.append(f"- Precautions: {', '.join(precautions[:2])}")
+            # STEP 5: Use Gemini to create a natural, human-like response based on model predictions
+            prompt = self._build_gemini_prompt(message, model_data, chat_history)
             
-            # Build concise prompt - if no local data, rely on Gemini
-            if context_sections:
-                context_text = "\n".join(context_sections)
-                prompt = f"""You are FeverEase, a medical AI assistant. Use the following data from our trained models and knowledge base, BUT if this data is limited or missing, use your extensive medical knowledge to provide the best answer.
+            print(f"[STEP 5] Sending to Gemini for human-like response enhancement...")
 
-{context_text}
-
-**User Message**: "{message}"
-**Symptoms**: {', '.join(symptoms) if symptoms else 'None detected'}
-**Patient Info**: {patient_info if patient_info else 'Not provided'}
-
-Provide a clear, helpful response in this format:
-
-1. **Analysis**: Brief analysis of symptoms and condition based on the data and your knowledge
-2. **Recommendations**: Clear actionable steps or advice
-3. **Important Notes**: Any warnings, precautions, or important information
-4. **When to Seek Medical Care**: Clear guidance on when to see a doctor
-
-Language Policy:
-- Detect the primary language of the **User Message** and respond entirely in that language.
-- Only change languages if the user explicitly requests a translation or a different language.
-
-When you talk about possible conditions:
-- Prefer real-world condition names (e.g., \"viral upper respiratory infection\", \"influenza\", \"COVID-19\") instead of internal labels.
-- If any internal model label is \"Unknown_Fever\" or very low confidence, IGNORE that label and base your reasoning on symptoms + medical knowledge instead.
-- Never show the literal string \"Unknown_Fever\" in the reply. If the cause is unclear, say that the cause is not certain and list the most likely possibilities instead.
-
-Keep each section concise and easy to understand. If using trained model predictions, mention them. Always include a reminder that you're an AI assistant."""
-            else:
-                prompt = f"""You are a medical AI assistant helping with health questions.
-
-**User Message**: "{message}"
-**Symptoms Detected**: {', '.join(symptoms) if symptoms else 'None'}
-**Patient Details**: {patient_info if patient_info else 'Not provided'}
-
-Provide a helpful, accurate medical response. Use your extensive medical knowledge. 
-Be clear, concise, and always remind: 'I'm an AI assistant, not a doctor. 
-Consult a healthcare professional for serious symptoms.'
-
-Language Policy:
-- Detect the user's language and respond using that exact language.
-- Only switch languages if the user explicitly asks for a translation."""
-
-            
-            # Add chat history if available (concise)
-            if chat_history:
-                recent = "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')[:80]}" for m in chat_history[-2:]])
-                prompt += f"\n\n**Recent conversation**:\n{recent}"
             
             # Generate response using Gemini - SINGLE FAST CALL
             import asyncio
             response = await asyncio.to_thread(self.chat_model.generate_content, prompt)
             
+            print(f"[STEP 5] ✅ Gemini response generated")
+            
             return {
                 "response": response.text,
                 "symptoms_detected": symptoms,
                 "patient_info": patient_info,
+                "model_predictions": model_predictions,
                 "knowledge_base_used": len(symptoms) > 0
             }
             

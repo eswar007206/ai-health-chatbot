@@ -83,78 +83,132 @@ class FeverTriageAssistant:
         }
     
     def detect_fever_query(self, message: str) -> bool:
-        """Detect if the message is about fever"""
-        fever_keywords = [
-            'fever', 'temperature', 'temp', 'febrile', 'pyrexia',
-            'hot', 'burning', 'high temp', 'running temperature',
-            'feverish', 'have fever', 'got fever', 'fever since'
-        ]
+        """Detect if the message is about fever - be more specific to avoid false positives"""
         message_lower = message.lower()
-        return any(keyword in message_lower for keyword in fever_keywords)
+        
+        # Strong fever indicators (must have one of these)
+        strong_indicators = [
+            'fever', 'febrile', 'pyrexia', 'feverish',
+            'have fever', 'got fever', 'fever since', 'running a fever',
+            'high fever', 'low fever', 'fever with'
+        ]
+        
+        # Weak indicators (need context)
+        weak_indicators = [
+            'temperature', 'temp', 'hot', 'burning', 'high temp'
+        ]
+        
+        # Check for strong indicators first
+        has_strong = any(keyword in message_lower for keyword in strong_indicators)
+        
+        # For weak indicators, only trigger if they appear with fever context
+        has_weak_with_context = False
+        if any(keyword in message_lower for keyword in weak_indicators):
+            # Only trigger if it's clearly about having a fever, not just mentioning temperature
+            context_words = ['have', 'got', 'my', 'feeling', 'symptom', 'unwell', 'sick', 'ill']
+            has_weak_with_context = any(ctx in message_lower for ctx in context_words)
+        
+        # Only return True if we have strong indicators OR weak indicators with context
+        # This prevents simple answers like "101" or "temperature is 98" from triggering
+        return has_strong or has_weak_with_context
     
     def extract_structured_inputs(self, message: str, chat_history: List[Dict] = None) -> Dict[str, Any]:
         """Extract structured inputs from message and chat history"""
         message_lower = message.lower()
         extracted = {}
         
-        # Extract age
+        # Extract age - more flexible patterns
         age_patterns = [
             r'(\d+)\s*(?:year|yr|y\.o|years old|age|month|months)',
             r'age[:\s]*(\d+)',
             r'i\s*(?:am|m)\s*(\d+)',
-            r'(\d+)\s*(?:year|month)'
+            r'(\d+)\s*(?:year|month)',
+            r'^(\d+)$',  # Just a number (if it's a reasonable age)
+            r'(\d{1,2})\s*(?:years?|yrs?|y\.o\.?)',  # More flexible
         ]
         for pattern in age_patterns:
             match = re.search(pattern, message, re.IGNORECASE)
             if match:
                 age = int(match.group(1))
-                if 'month' in message_lower and age < 12:
-                    extracted['age_months'] = age
-                    extracted['age'] = age / 12
-                else:
-                    extracted['age'] = age
-                break
+                # Only accept if it's a reasonable age (1-120)
+                if 1 <= age <= 120:
+                    if 'month' in message_lower and age < 12:
+                        extracted['age_months'] = age
+                        extracted['age'] = age / 12
+                    else:
+                        extracted['age'] = age
+                    break
         
-        # Extract temperature
+        # Extract temperature - more flexible patterns
         temp_patterns = [
             r'(\d+\.?\d*)\s*(?:degree|deg|°)?\s*(?:f|F|fahrenheit)',
             r'(\d+\.?\d*)\s*(?:degree|deg|°)?\s*(?:c|C|celsius|celcius)',
             r'temp[erature]*\s*(?:of|is|:)?\s*(\d+\.?\d*)',
-            r'(\d+\.?\d*)\s*(?:°|degree)'
+            r'(\d+\.?\d*)\s*(?:°|degree)',
+            r'^(\d{2,3}\.?\d*)$',  # Just a number (if it's a reasonable temperature)
+            r'(\d{2,3}\.?\d*)\s*(?:f|F|c|C|°)?',  # Number with optional unit
         ]
         for pattern in temp_patterns:
             match = re.search(pattern, message, re.IGNORECASE)
             if match:
                 temp_value = float(match.group(1))
-                if 'c' in message_lower or 'celsius' in message_lower or temp_value > 50:
-                    extracted['temperature'] = (temp_value * 9/5) + 32  # Convert to Fahrenheit
-                    extracted['temperature_celsius'] = temp_value
-                    extracted['temperature_unit'] = 'C'
-                else:
-                    extracted['temperature'] = temp_value
-                    extracted['temperature_celsius'] = (temp_value - 32) * 5/9
-                    extracted['temperature_unit'] = 'F'
-                break
+                # Determine unit and validate
+                is_celsius = 'c' in message_lower or 'celsius' in message_lower
+                is_fahrenheit = 'f' in message_lower or 'fahrenheit' in message_lower
+                
+                # If no unit specified, guess based on value
+                if not is_celsius and not is_fahrenheit:
+                    # If > 50, likely Celsius; if 90-110, likely Fahrenheit
+                    if temp_value > 50:
+                        is_celsius = True
+                    elif 90 <= temp_value <= 110:
+                        is_fahrenheit = True
+                    elif 30 <= temp_value <= 45:
+                        is_celsius = True
+                
+                # Only accept if it's a reasonable temperature
+                if (is_fahrenheit and 90 <= temp_value <= 110) or (is_celsius and 30 <= temp_value <= 45) or (not is_celsius and not is_fahrenheit and (90 <= temp_value <= 110 or 30 <= temp_value <= 45)):
+                    if is_celsius or temp_value > 50:
+                        extracted['temperature'] = (temp_value * 9/5) + 32  # Convert to Fahrenheit
+                        extracted['temperature_celsius'] = temp_value
+                        extracted['temperature_unit'] = 'C'
+                    else:
+                        extracted['temperature'] = temp_value
+                        extracted['temperature_celsius'] = (temp_value - 32) * 5/9
+                        extracted['temperature_unit'] = 'F'
+                    break
         
-        # Extract duration
+        # Extract duration - more flexible patterns
         duration_patterns = [
             r'(\d+)\s*(?:hour|hr|h)\s*(?:ago|since)',
             r'(\d+)\s*(?:day|days)\s*(?:ago|since)',
             r'for\s*(\d+)\s*(?:hour|day|days)',
             r'since\s*(\d+)\s*(?:hour|day|days)',
-            r'(\d+)\s*(?:hour|day|days)'
+            r'(\d+)\s*(?:hour|day|days)',
+            r'^(\d+)\s*(?:day|days?|hour|hours?|hr|hrs?)$',  # Just number with unit
+            r'^(\d+)$',  # Just a number (assume days if > 1, hours if <= 1)
         ]
         for pattern in duration_patterns:
             match = re.search(pattern, message, re.IGNORECASE)
             if match:
                 duration = int(match.group(1))
-                if 'day' in message_lower:
-                    extracted['duration_days'] = duration
-                    extracted['duration_hours'] = duration * 24
-                else:
-                    extracted['duration_hours'] = duration
-                    extracted['duration_days'] = duration / 24 if duration >= 24 else 0
-                break
+                # Only accept if it's a reasonable duration (1 hour to 30 days)
+                if 1 <= duration <= 720:  # 30 days * 24 hours
+                    if 'day' in message_lower or (duration > 24 and 'hour' not in message_lower):
+                        extracted['duration_days'] = duration
+                        extracted['duration_hours'] = duration * 24
+                    elif 'hour' in message_lower or duration <= 24:
+                        extracted['duration_hours'] = duration
+                        extracted['duration_days'] = duration / 24 if duration >= 24 else 0
+                    else:
+                        # Default: if number > 24, assume days; otherwise hours
+                        if duration > 24:
+                            extracted['duration_days'] = duration
+                            extracted['duration_hours'] = duration * 24
+                        else:
+                            extracted['duration_hours'] = duration
+                            extracted['duration_days'] = 0
+                    break
         
         # Extract symptoms
         detected_symptoms = []
