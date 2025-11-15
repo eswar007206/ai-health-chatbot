@@ -7,8 +7,9 @@
  * All data is static/dummy; distances computed client-side using Haversine formula.
  */
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Card,
   CardContent,
@@ -123,152 +124,15 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 // ============================================================================
-// STATIC DUMMY DATA
+// REAL DATA - Loaded from Supabase
 // ============================================================================
 
 // Sample user coordinates (Bengaluru, India - Indiranagar area)
 const SAMPLE_USER_LAT = 12.972;
 const SAMPLE_USER_LON = 77.6421;
 
-const DUMMY_DOCTORS: DoctorEntry[] = [
-  {
-    id: "doc-001",
-    name: "Dr. Sarah Johnson",
-    clinicName: "FeverEase Health Clinic",
-    specialty: "General Physician",
-    phone: "+91-9876543210",
-    rating: 4.8,
-    address: "No 394, Shubash Nagar TC Palaya Main Road, Bengaluru, Karnataka 560049",
-    lat: 12.9716,
-    lon: 77.6412,
-    availableSlots: [
-      { dateTime: "2025-11-16T09:00:00", available: true },
-      { dateTime: "2025-11-16T10:30:00", available: true },
-      { dateTime: "2025-11-16T14:00:00", available: false },
-      { dateTime: "2025-11-16T15:30:00", available: true },
-      { dateTime: "2025-11-17T09:00:00", available: true },
-      { dateTime: "2025-11-17T11:00:00", available: true },
-    ],
-    abhaLinked: true,
-    bio: "15+ years of clinical experience in general medicine and patient care.",
-  },
-  {
-    id: "doc-002",
-    name: "Dr. Amit Patel",
-    specialty: "Cardiologist",
-    phone: "+91-9876543211",
-    rating: 4.6,
-    address: "Cardiac Care Center, 5th Cross Road, Indiranagar, Bengaluru",
-    lat: 12.9735,
-    lon: 77.6442,
-    availableSlots: [
-      { dateTime: "2025-11-16T10:00:00", available: true },
-      { dateTime: "2025-11-16T16:00:00", available: true },
-      { dateTime: "2025-11-17T10:00:00", available: false },
-      { dateTime: "2025-11-17T14:00:00", available: true },
-    ],
-    abhaLinked: false,
-    bio: "Specialist in cardiac care and hypertension management.",
-  },
-  {
-    id: "doc-003",
-    name: "Dr. Priya Sharma",
-    clinicName: "Women's Health Center",
-    specialty: "Gynecologist",
-    phone: "+91-9876543212",
-    rating: 4.9,
-    address: "Women's Health Center, MG Road, Bengaluru, Karnataka",
-    lat: 12.9629,
-    lon: 77.5985,
-    availableSlots: [
-      { dateTime: "2025-11-16T09:30:00", available: true },
-      { dateTime: "2025-11-16T13:00:00", available: true },
-      { dateTime: "2025-11-17T09:00:00", available: true },
-      { dateTime: "2025-11-17T15:00:00", available: true },
-      { dateTime: "2025-11-18T10:00:00", available: true },
-    ],
-    abhaLinked: true,
-    bio: "Expert in women's health, pregnancy care, and reproductive medicine.",
-  },
-  {
-    id: "clinic-001",
-    name: "Dr. James Wilson & Dr. Lisa Kumar",
-    clinicName: "MultiSpecialty Health Care",
-    specialty: "Multi-Specialty",
-    phone: "+91-9876543213",
-    rating: 4.7,
-    address: "123 Health Plaza, Whitefield Road, Bengaluru, Karnataka 560066",
-    lat: 12.9698,
-    lon: 77.6991,
-    availableSlots: [
-      { dateTime: "2025-11-16T08:00:00", available: true },
-      { dateTime: "2025-11-16T09:30:00", available: true },
-      { dateTime: "2025-11-16T11:00:00", available: true },
-      { dateTime: "2025-11-16T14:00:00", available: false },
-      { dateTime: "2025-11-16T16:00:00", available: true },
-      { dateTime: "2025-11-17T09:00:00", available: true },
-      { dateTime: "2025-11-17T10:30:00", available: true },
-    ],
-    abhaLinked: false,
-    bio: "Full-service clinic with multiple specialists under one roof.",
-  },
-  {
-    id: "doc-004",
-    name: "Dr. Rajesh Verma",
-    specialty: "Dermatologist",
-    phone: "+91-9876543214",
-    rating: 4.5,
-    address: "Skin Care Clinic, Brigade Road, Bengaluru",
-    lat: 12.9627,
-    lon: 77.5903,
-    availableSlots: [
-      { dateTime: "2025-11-16T10:00:00", available: true },
-      { dateTime: "2025-11-16T12:00:00", available: true },
-      { dateTime: "2025-11-17T09:00:00", available: false },
-      { dateTime: "2025-11-17T15:00:00", available: true },
-    ],
-    abhaLinked: false,
-    bio: "Specialized in dermatology and cosmetic skin treatments.",
-  },
-  {
-    id: "doc-005",
-    name: "Dr. Meera Singh",
-    specialty: "Neurologist",
-    phone: "+91-9876543215",
-    rating: 4.8,
-    address: "Neuro Care Center, Koramangala, Bengaluru",
-    lat: 12.9352,
-    lon: 77.6245,
-    availableSlots: [
-      { dateTime: "2025-11-16T11:00:00", available: true },
-      { dateTime: "2025-11-16T14:30:00", available: true },
-      { dateTime: "2025-11-17T09:30:00", available: true },
-      { dateTime: "2025-11-17T16:00:00", available: true },
-    ],
-    abhaLinked: true,
-    bio: "Expert neurologist with 12+ years in neurology and migraine management.",
-  },
-  {
-    id: "clinic-002",
-    name: "Dr. Vikram Kapoor & Team",
-    clinicName: "Apollo Health Clinic",
-    specialty: "Multi-Specialty",
-    phone: "+91-9876543216",
-    rating: 4.6,
-    address: "Apollo Health Center, Banjara Hills, Hyderabad Road, Bengaluru",
-    lat: 12.9773,
-    lon: 77.5896,
-    availableSlots: [
-      { dateTime: "2025-11-16T08:30:00", available: true },
-      { dateTime: "2025-11-16T10:00:00", available: true },
-      { dateTime: "2025-11-16T13:00:00", available: true },
-      { dateTime: "2025-11-17T09:00:00", available: true },
-      { dateTime: "2025-11-17T14:30:00", available: true },
-    ],
-    abhaLinked: false,
-    bio: "Multi-specialty clinic with advanced diagnostic facilities.",
-  },
-];
+// Empty array - will be populated from database
+const DUMMY_DOCTORS: DoctorEntry[] = [];
 
 // ============================================================================
 // DETAIL VIEW (SLIDE-OVER / MODAL)
@@ -489,7 +353,60 @@ export function PatientDoctorsPage() {
   const [sortBy, setSortBy] = useState<string>("distance");
   const [selectedDoctor, setSelectedDoctor] = useState<DoctorEntry | null>(null);
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [myRequests, setMyRequests] = useState<any[]>([]);
   const { toast } = useToast();
+
+  // Load patient's requests to show status
+  useEffect(() => {
+    if (!user) return;
+
+    const loadMyRequests = async () => {
+      const { data, error } = await supabase
+        .from("doctor_requests")
+        .select("*")
+        .eq("patient_id", user.id)
+        .order("created_at", { ascending: false });
+
+      if (!error && data) {
+        setMyRequests(data);
+      }
+    };
+
+    loadMyRequests();
+
+    // Set up real-time subscription for status updates
+    const subscription = supabase
+      .channel("doctor_requests_changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "doctor_requests",
+          filter: `patient_id=eq.${user.id}`,
+        },
+        (payload) => {
+          loadMyRequests();
+          if (payload.eventType === "UPDATE" && payload.new.status === "rejected") {
+            toast({
+              title: "Request Rejected",
+              description: "Your appointment request was rejected by the doctor.",
+              variant: "destructive",
+            });
+          } else if (payload.eventType === "UPDATE" && payload.new.status === "accepted") {
+            toast({
+              title: "Request Accepted!",
+              description: "Your appointment request has been accepted by the doctor.",
+            });
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [user, toast]);
 
   // Compute distances and filter
   const doctorsWithDistance = useMemo(() => {
@@ -552,17 +469,155 @@ export function PatientDoctorsPage() {
     return sorted;
   }, [filteredDoctors, sortBy]);
 
-  // Handle booking
-  const handleBookAppointment = (doctorId: string, slot: AvailableSlot) => {
-    const slotKey = `${doctorId}-${slot.dateTime}`;
-    setBookedSlots([...bookedSlots, slotKey]);
+  // Handle booking - Create real request in database
+  const handleBookAppointment = async (doctorId: string, slot: AvailableSlot) => {
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to book an appointment.",
+        variant: "destructive",
+      });
+      return;
+    }
 
-    toast({
-      title: "Appointment booked!",
-      description: `Your appointment has been confirmed. Check your email for details.`,
-    });
+    try {
+      // Get patient profile data
+      const { data: profile } = await supabase
+        .from("user_profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
 
-    setSelectedDoctor(null);
+      // Get doctor user ID (for now, we'll use a mapping or get from doctor list)
+      // In a real system, doctorId would map to actual user IDs
+      // For now, we'll create a request with the doctor's email or ID from the doctor list
+      const selectedDoctor = doctors.find(d => d.id === doctorId);
+      if (!selectedDoctor) {
+        toast({
+          title: "Error",
+          description: "Doctor not found.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Get or create doctor entry in doctors table
+      let doctorEntry = null;
+      const { data: existingDoctor } = await supabase
+        .from("doctors")
+        .select("*")
+        .eq("id", doctorId)
+        .single();
+
+      if (!existingDoctor) {
+        // Create doctor entry if it doesn't exist
+        const { data: newDoctor, error: createError } = await supabase
+          .from("doctors")
+          .insert({
+            id: doctorId,
+            name: selectedDoctor.name,
+            clinic_name: selectedDoctor.clinicName,
+            specialty: selectedDoctor.specialty,
+            phone: selectedDoctor.phone,
+            address: selectedDoctor.address,
+            lat: selectedDoctor.lat,
+            lon: selectedDoctor.lon,
+            rating: selectedDoctor.rating,
+            abha_linked: selectedDoctor.abhaLinked || false,
+            bio: selectedDoctor.bio,
+          })
+          .select()
+          .single();
+
+        if (createError) {
+          console.error("Error creating doctor entry:", createError);
+        } else {
+          doctorEntry = newDoctor;
+        }
+      } else {
+        doctorEntry = existingDoctor;
+      }
+
+      // Get doctor user ID - try to find a doctor user or use the first available
+      let doctorUserId: string | null = doctorEntry?.user_id || null;
+
+      if (!doctorUserId) {
+        // If no user_id linked, find any doctor user
+        const { data: doctorUsers } = await supabase
+          .from("user_profiles")
+          .select("id")
+          .eq("role", "doctor")
+          .limit(1)
+          .single();
+
+        if (doctorUsers) {
+          doctorUserId = doctorUsers.id;
+          // Link the doctor entry to the user
+          if (doctorEntry) {
+            await supabase
+              .from("doctors")
+              .update({ user_id: doctorUserId })
+              .eq("id", doctorId);
+          }
+        }
+      }
+
+      if (!doctorUserId) {
+        toast({
+          title: "Error",
+          description: "No doctors available. Please try again later.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Create the request
+      const { data: request, error } = await supabase
+        .from("doctor_requests")
+        .insert({
+          patient_id: user.id,
+          doctor_id: doctorUserId,
+          doctor_entry_id: doctorId,
+          patient_name: user.user_metadata?.full_name || user.email?.split("@")[0] || "Patient",
+          patient_email: user.email || "",
+          patient_phone: profile?.phone || user.user_metadata?.phone || "",
+          patient_age: null, // Can be added later
+          patient_gender: null, // Can be added later
+          abha_id: profile?.abha_id || user.user_metadata?.abha_id || "",
+          symptoms_summary: `Appointment requested for ${selectedDoctor.name} at ${new Date(slot.dateTime).toLocaleString()}`,
+          appointment_date: slot.dateTime,
+          status: "pending",
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error("Error creating request:", error);
+        toast({
+          title: "Booking Failed",
+          description: error.message || "Failed to create booking request.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const slotKey = `${doctorId}-${slot.dateTime}`;
+      setBookedSlots([...bookedSlots, slotKey]);
+
+      toast({
+        title: "Request Sent!",
+        description: `Your appointment request has been sent to ${selectedDoctor.name}. You'll be notified when they respond.`,
+      });
+
+      setSelectedDoctor(null);
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   // Export to CSV
@@ -630,6 +685,64 @@ export function PatientDoctorsPage() {
 
       {/* Main Content */}
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        {/* My Requests Status Section */}
+        {myRequests.length > 0 && (
+          <Card className="mb-6 border-blue-200 bg-gradient-to-br from-blue-50 to-white">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Clock className="h-5 w-5 text-blue-600" />
+                My Appointment Requests
+              </CardTitle>
+              <CardDescription>
+                Track the status of your appointment requests
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {myRequests.slice(0, 3).map((request) => (
+                  <div
+                    key={request.id}
+                    className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-4"
+                  >
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <p className="font-semibold text-slate-900">
+                          {request.symptoms_summary?.split(" for ")[1]?.split(" at ")[0] || "Doctor"}
+                        </p>
+                        <Badge
+                          variant={
+                            request.status === "accepted"
+                              ? "secondary"
+                              : request.status === "rejected"
+                              ? "destructive"
+                              : "default"
+                          }
+                          className="gap-1"
+                        >
+                          {request.status === "pending" && <Clock className="h-3 w-3" />}
+                          {request.status === "accepted" && <CheckCircle2 className="h-3 w-3" />}
+                          {request.status === "rejected" && <AlertCircle className="h-3 w-3" />}
+                          {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-slate-600">
+                        {request.appointment_date
+                          ? new Date(request.appointment_date).toLocaleString()
+                          : "Date TBD"}
+                      </p>
+                      {request.rejection_reason && (
+                        <p className="mt-1 text-xs text-red-600">
+                          Reason: {request.rejection_reason}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Controls */}
         <Card className="mb-6 border-slate-200">
           <CardContent className="pt-6">

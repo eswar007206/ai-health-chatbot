@@ -5,6 +5,43 @@ import type { Database } from './types';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
+// Debug: Log environment variables (only in development)
+if (import.meta.env.DEV) {
+  console.log('🔍 Environment Check:');
+  console.log('  VITE_SUPABASE_URL:', SUPABASE_URL ? '✅ Set' : '❌ Missing');
+  console.log('  VITE_SUPABASE_PUBLISHABLE_KEY:', SUPABASE_PUBLISHABLE_KEY ? '✅ Set' : '❌ Missing');
+  if (SUPABASE_URL) {
+    console.log('  Supabase URL:', SUPABASE_URL);
+    console.log('  Full URL length:', SUPABASE_URL.length);
+  }
+  // Log all env vars that start with VITE_ to help debug
+  console.log('  All VITE_ env vars:', Object.keys(import.meta.env).filter(key => key.startsWith('VITE_')));
+}
+
+// Validate environment variables
+if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+  const missing = [];
+  if (!SUPABASE_URL) missing.push('VITE_SUPABASE_URL');
+  if (!SUPABASE_PUBLISHABLE_KEY) missing.push('VITE_SUPABASE_PUBLISHABLE_KEY');
+  
+  console.error('❌ Missing Supabase environment variables:', missing.join(', '));
+  console.error('📝 Please check your .env file in the root directory');
+  console.error('   Make sure it contains:');
+  console.error('   VITE_SUPABASE_URL=https://your-project.supabase.co');
+  console.error('   VITE_SUPABASE_PUBLISHABLE_KEY=your-anon-key');
+  console.error('📖 See ENV_SETUP_INSTRUCTIONS.md for details');
+  console.error('⚠️ IMPORTANT: After updating .env, restart your dev server!');
+  
+  throw new Error(`Missing required environment variables: ${missing.join(', ')}. Please check your .env file and restart the server.`);
+}
+
+// Warn if using old Supabase URL
+if (SUPABASE_URL.includes('wgkcbkuvoblmnqghjyhg')) {
+  console.warn('⚠️ You are using an OLD Supabase URL. Please update your .env file with your new Supabase credentials.');
+  console.warn('📖 See ENV_SETUP_INSTRUCTIONS.md for instructions');
+  console.warn('⚠️ Don\'t forget to restart your dev server after updating .env!');
+}
+
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 

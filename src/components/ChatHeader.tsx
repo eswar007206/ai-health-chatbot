@@ -8,7 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Menu, FileText, Stethoscope, AlertTriangle, Thermometer, Heart, Mic, Users, ClipboardList } from "lucide-react";
+import { Menu, FileText, Mic, Users, ClipboardList } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { useNavigate } from "react-router-dom";
@@ -81,55 +81,6 @@ const ChatHeader = ({
 
             {/* Quick Tools: horizontal on md+, dropdown on small screens */}
             <div className="ml-4 hidden md:flex items-center gap-2">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="px-3 py-1.5 text-sm hover:bg-red-100 transition-all duration-200 flex items-center gap-1.5 font-medium"
-                    onClick={() =>
-                      onQuickAction(
-                        "What are the emergency symptoms I should watch out for? When should I seek immediate medical attention?"
-                      )
-                    }
-                  >
-                    <AlertTriangle className="h-4 w-4 text-red-600" />
-                    <span>Emergency</span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>Emergency guide — use when immediate symptoms appear</TooltipContent>
-              </Tooltip>
-
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="px-3 py-1.5 text-sm hover:bg-orange-100 transition-all duration-200 flex items-center gap-1.5 font-medium"
-                    onClick={() =>
-                      onQuickAction("I want to check my symptoms and get medical advice")
-                    }
-                  >
-                    <Thermometer className="h-4 w-4 text-orange-600" />
-                    <span>Symptoms</span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>Run a symptom assessment</TooltipContent>
-              </Tooltip>
-
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="px-3 py-1.5 text-sm hover:bg-green-100 transition-all duration-200 flex items-center gap-1.5 font-medium"
-                    onClick={() =>
-                      onQuickAction("I need information about medications and dosage")
-                    }
-                  >
-                    <Heart className="h-4 w-4 text-green-600" />
-                    <span>Follow ups</span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>Get medication and dosage guidance</TooltipContent>
-              </Tooltip>
             </div>
 
             {/* Tools Dropdown - Mobile */}
@@ -145,25 +96,6 @@ const ChatHeader = ({
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onSelect={() =>
-                      onQuickAction(
-                        "What are the emergency symptoms I should watch out for? When should I seek immediate medical attention?"
-                      )
-                    }
-                  >
-                    🚨 Emergency Guide
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={() => navigate("/doctor")}>
-                    👩‍⚕️ Doctor Consultation
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onSelect={() =>
-                      onQuickAction("I want to check my symptoms and get medical advice")
-                    }
-                  >
-                    🌡️ Symptom Assessment
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onSelect={() =>
                       onQuickAction("I need information about medications and dosage")
                     }
                   >
@@ -177,13 +109,6 @@ const ChatHeader = ({
                     }
                   >
                     🩺 Health & Prevention
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onSelect={() =>
-                      onQuickAction("When should I follow up with a healthcare provider?")
-                    }
-                  >
-                    ⏱️ Follow-up Guidance
                   </DropdownMenuItem>
                   {role === "patient" && (
                     <>
@@ -214,14 +139,6 @@ const ChatHeader = ({
           >
             <FileText className="h-4 w-4" />
             <span className="hidden md:inline">Report Diagnosis</span>
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => navigate("/doctor")}
-            className="hidden sm:flex items-center gap-2 border-blue-300 hover:bg-blue-50"
-          >
-            <Stethoscope className="h-4 w-4" />
-            <span className="hidden md:inline">Consult Doctor</span>
           </Button>
           <Button
             variant="outline"
@@ -262,15 +179,6 @@ const ChatHeader = ({
             title="Upload medical report"
           >
             <FileText className="h-5 w-5 text-emerald-600" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate("/doctor")}
-            className="sm:hidden"
-            title="Consult with a doctor"
-          >
-            <Stethoscope className="h-5 w-5 text-blue-600" />
           </Button>
           <Button
             variant="ghost"

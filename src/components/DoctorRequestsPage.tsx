@@ -1,5 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import {
   Card,
   CardContent,
@@ -42,160 +44,32 @@ interface HistoryEntry {
 }
 
 interface DoctorRequest {
-  requestId: string;
-  abhaId: string;
+  id: string;
+  requestId?: string;
+  abhaId?: string;
   patientName: string;
-  age: number;
-  gender: string;
-  phone: string;
+  patientEmail?: string;
+  patientPhone?: string;
+  age?: number;
+  gender?: string;
+  phone?: string;
   symptomsSummary: string;
-  history: HistoryEntry[];
+  history?: HistoryEntry[];
   requestedOn: string;
-  status: "pending" | "attended" | "rejected";
-  attachments: string[];
+  appointmentDate?: string;
+  status: "pending" | "accepted" | "rejected";
+  rejectionReason?: string;
+  attachments?: string[];
 }
 
-const DUMMY_REQUESTS: DoctorRequest[] = [
-  {
-    requestId: "REQ-001",
-    abhaId: "ABHA-1234-5678-90",
-    patientName: "Raj Kumar",
-    age: 35,
-    gender: "Male",
-    phone: "+91-9876543210",
-    symptomsSummary: "High fever (39.5°C), severe headache, and body aches",
-    history: [
-      {
-        date: "2025-11-14",
-        note: "Prescribed antibiotics and advised bed rest",
-        doctor: "Dr. Sarah Johnson",
-      },
-      {
-        date: "2025-11-12",
-        note: "Initial consultation - suspected viral infection",
-        doctor: "Dr. Amit Patel",
-      },
-      {
-        date: "2025-11-10",
-        note: "Follow-up call - fever reduced to 38.2°C",
-        doctor: "Dr. Sarah Johnson",
-      },
-      {
-        date: "2025-11-08",
-        note: "First consultation - ran basic blood tests",
-        doctor: "Dr. Amit Patel",
-      },
-    ],
-    requestedOn: "2025-11-08",
-    status: "attended",
-    attachments: ["blood_test_report.pdf", "prescription_001.pdf"],
-  },
-  {
-    requestId: "REQ-002",
-    abhaId: "ABHA-1234-5678-90",
-    patientName: "Priya Sharma",
-    age: 28,
-    gender: "Female",
-    phone: "+91-9876543211",
-    symptomsSummary: "Persistent cough for 5 days, mild fever",
-    history: [
-      {
-        date: "2025-11-14",
-        note: "Prescription issued for cough syrup",
-        doctor: "Dr. Sarah Johnson",
-      },
-    ],
-    requestedOn: "2025-11-13",
-    status: "attended",
-    attachments: ["chest_xray.pdf"],
-  },
-  {
-    requestId: "REQ-003",
-    abhaId: "ABHA-1234-5678-90",
-    patientName: "Arjun Verma",
-    age: 42,
-    gender: "Male",
-    phone: "+91-9876543212",
-    symptomsSummary: "Severe stomach pain and nausea for 2 days",
-    history: [],
-    requestedOn: "2025-11-15",
-    status: "pending",
-    attachments: [],
-  },
-  {
-    requestId: "REQ-004",
-    abhaId: "ABHA-1234-5678-90",
-    patientName: "Meera Singh",
-    age: 31,
-    gender: "Female",
-    phone: "+91-9876543213",
-    symptomsSummary: "Migraine attacks, sensitivity to light and sound",
-    history: [
-      {
-        date: "2025-11-05",
-        note: "Issued migraine management plan",
-        doctor: "Dr. James Wilson",
-      },
-    ],
-    requestedOn: "2025-11-05",
-    status: "rejected",
-    attachments: ["ct_scan_report.pdf", "treatment_plan.pdf"],
-  },
-  {
-    requestId: "REQ-005",
-    abhaId: "ABHA-1234-5678-90",
-    patientName: "Vikram Patel",
-    age: 55,
-    gender: "Male",
-    phone: "+91-9876543214",
-    symptomsSummary: "High blood pressure, chest discomfort",
-    history: [
-      {
-        date: "2025-11-15",
-        note: "ECG performed - results normal",
-        doctor: "Dr. Amit Patel",
-      },
-      {
-        date: "2025-11-14",
-        note: "Prescribed hypertension medication",
-        doctor: "Dr. Amit Patel",
-      },
-    ],
-    requestedOn: "2025-11-12",
-    status: "pending",
-    attachments: ["ecg_report.pdf", "blood_pressure_log.pdf"],
-  },
-  {
-    requestId: "REQ-006",
-    abhaId: "ABHA-1234-5678-90",
-    patientName: "Anjali Gupta",
-    age: 26,
-    gender: "Female",
-    phone: "+91-9876543215",
-    symptomsSummary: "Skin rash on arms and legs, itching",
-    history: [
-      {
-        date: "2025-11-13",
-        note: "Prescribed topical cream and antihistamine",
-        doctor: "Dr. Sarah Johnson",
-      },
-      {
-        date: "2025-11-11",
-        note: "Initial consultation - allergy test ordered",
-        doctor: "Dr. James Wilson",
-      },
-    ],
-    requestedOn: "2025-11-11",
-    status: "attended",
-    attachments: ["allergy_test_results.pdf"],
-  },
-];
+// Real data will be loaded from Supabase doctor_requests table
+const DUMMY_REQUESTS: DoctorRequest[] = [];
 
 function getStatusIcon(status: string) {
   switch (status) {
     case "pending":
       return <Clock className="h-4 w-4" />;
-    case "attended":
+    case "accepted":
       return <CheckCircle2 className="h-4 w-4" />;
     case "rejected":
       return <AlertCircle className="h-4 w-4" />;
@@ -210,7 +84,7 @@ function getStatusColor(
   switch (status) {
     case "pending":
       return "default";
-    case "attended":
+    case "accepted":
       return "secondary";
     case "rejected":
       return "destructive";
@@ -256,7 +130,7 @@ function RequestDetailView({
               <h2 className="text-xl font-bold text-slate-900">
                 {request.patientName}
               </h2>
-              <p className="text-sm text-slate-600">Request ID: {request.requestId}</p>
+              <p className="text-sm text-slate-600">Request ID: {request.requestId || request.id.substring(0, 8).toUpperCase()}</p>
             </div>
             <Button
               variant="ghost"
@@ -313,15 +187,31 @@ function RequestDetailView({
                       </a>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-5 w-5 text-slate-400" />
-                    <div>
-                      <p className="text-xs font-medium text-slate-600">ABHA ID</p>
-                      <p className="text-sm font-semibold text-slate-900">
-                        {request.abhaId}
-                      </p>
+                  {request.abhaId && (
+                    <div className="flex items-center gap-3">
+                      <Mail className="h-5 w-5 text-slate-400" />
+                      <div>
+                        <p className="text-xs font-medium text-slate-600">ABHA ID</p>
+                        <p className="text-sm font-semibold text-slate-900">
+                          {request.abhaId}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
+                  {request.patientEmail && (
+                    <div className="flex items-center gap-3">
+                      <Mail className="h-5 w-5 text-slate-400" />
+                      <div>
+                        <p className="text-xs font-medium text-slate-600">Email</p>
+                        <a
+                          href={`mailto:${request.patientEmail}`}
+                          className="text-sm font-semibold text-blue-600 hover:underline"
+                        >
+                          {request.patientEmail}
+                        </a>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -332,6 +222,9 @@ function RequestDetailView({
                 <p className="text-xs text-slate-600">
                   <Calendar className="mb-0.5 inline h-3 w-3 mr-1" />
                   Requested on {request.requestedOn}
+                  {request.appointmentDate && (
+                    <> • Appointment: {new Date(request.appointmentDate).toLocaleString()}</>
+                  )}
                 </p>
               </div>
 
@@ -408,26 +301,42 @@ function RequestDetailView({
                 Download PDF History
               </Button>
               {request.status === "pending" && (
-                <Button
-                  className="flex-1 gap-2 bg-green-600 hover:bg-green-700"
-                  onClick={() => onMarkAttended(request.requestId)}
-                >
-                  <CheckCircle2 className="h-4 w-4" />
-                  Attend
-                </Button>
+                <>
+                  <Button
+                    className="flex-1 gap-2 bg-green-600 hover:bg-green-700"
+                    onClick={() => onMarkAttended(request.id)}
+                  >
+                    <CheckCircle2 className="h-4 w-4" />
+                    Accept
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    className="flex-1 gap-2"
+                    onClick={() => {
+                      const reason = prompt("Please provide a reason for rejection (optional):");
+                      onRejectRequest(request.id, reason || undefined);
+                    }}
+                  >
+                    <AlertCircle className="h-4 w-4" />
+                    Reject
+                  </Button>
+                </>
               )}
-              {request.status === "attended" && (
-                <Button
-                  variant="secondary"
-                  className="flex-1 gap-2"
-                  onClick={() => onRejectRequest(request.requestId)}
-                >
-                  <AlertCircle className="h-4 w-4" />
-                  Reject
-                </Button>
+              {request.status === "accepted" && (
+                <div className="flex-1 rounded-lg bg-green-50 p-3 text-center">
+                  <p className="text-sm font-medium text-green-800">Request Accepted</p>
+                </div>
               )}
-              <Button variant="ghost" className="flex-1" onClick={onClose}>
-                Reject
+              {request.status === "rejected" && (
+                <div className="flex-1 rounded-lg bg-red-50 p-3 text-center">
+                  <p className="text-sm font-medium text-red-800">Request Rejected</p>
+                  {request.rejectionReason && (
+                    <p className="mt-1 text-xs text-red-600">{request.rejectionReason}</p>
+                  )}
+                </div>
+              )}
+              <Button variant="outline" className="flex-1" onClick={onClose}>
+                Close
               </Button>
             </div>
           </div>
@@ -439,19 +348,95 @@ function RequestDetailView({
 
 export function DoctorRequestsPage() {
   const { user } = useAuth();
-  const [requests, setRequests] = useState<DoctorRequest[]>(DUMMY_REQUESTS);
+  const [requests, setRequests] = useState<DoctorRequest[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("recent");
   const [selectedRequest, setSelectedRequest] = useState<DoctorRequest | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
+
+  // Load requests from database
+  useEffect(() => {
+    if (!user) return;
+
+    const loadRequests = async () => {
+      setIsLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from("doctor_requests")
+          .select("*")
+          .eq("doctor_id", user.id)
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.error("Error loading requests:", error);
+          toast({
+            title: "Error",
+            description: "Failed to load requests.",
+            variant: "destructive",
+          });
+        } else if (data) {
+          // Transform database data to component format
+          const transformedRequests: DoctorRequest[] = data.map((req: any) => ({
+            id: req.id,
+            requestId: req.id.substring(0, 8).toUpperCase(),
+            abhaId: req.abha_id,
+            patientName: req.patient_name,
+            patientEmail: req.patient_email,
+            patientPhone: req.patient_phone,
+            age: req.patient_age,
+            gender: req.patient_gender,
+            phone: req.patient_phone,
+            symptomsSummary: req.symptoms_summary || "No symptoms provided",
+            history: [], // Can be loaded separately if needed
+            requestedOn: new Date(req.created_at).toLocaleDateString(),
+            appointmentDate: req.appointment_date,
+            status: req.status,
+            rejectionReason: req.rejection_reason,
+            attachments: [],
+          }));
+          setRequests(transformedRequests);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadRequests();
+
+    // Set up real-time subscription
+    const subscription = supabase
+      .channel("doctor_requests_updates")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "doctor_requests",
+          filter: `doctor_id=eq.${user.id}`,
+        },
+        () => {
+          loadRequests();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [user, toast]);
 
   // Filter and search
   const filteredRequests = requests.filter((request) => {
     const matchesSearch =
       request.patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.requestId.toLowerCase().includes(searchQuery.toLowerCase());
+      (request.requestId || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (request.abhaId || "").toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesStatus =
       statusFilter === "all" || request.status === statusFilter;
@@ -471,22 +456,75 @@ export function DoctorRequestsPage() {
     return 0;
   });
 
-  const handleMarkAttended = (requestId: string) => {
-    setRequests(
-      requests.map((req) =>
-        req.requestId === requestId ? { ...req, status: "attended" } : req
-      )
-    );
-    setSelectedRequest(null);
+  const handleMarkAttended = async (requestId: string) => {
+    try {
+      const { error } = await supabase
+        .from("doctor_requests")
+        .update({ status: "accepted", responded_at: new Date().toISOString() })
+        .eq("id", requestId);
+
+      if (error) {
+        console.error("Error accepting request:", error);
+        toast({
+          title: "Error",
+          description: "Failed to accept request.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Request Accepted",
+        description: "The patient has been notified of your acceptance.",
+      });
+
+      setSelectedRequest(null);
+    } catch (error) {
+      console.error("Error:", error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred.",
+        variant: "destructive",
+      });
+    }
   };
 
-  const handleRejectRequest = (requestId: string) => {
-    setRequests(
-      requests.map((req) =>
-        req.requestId === requestId ? { ...req, status: "rejected" } : req
-      )
-    );
-    setSelectedRequest(null);
+  const handleRejectRequest = async (requestId: string, reason?: string) => {
+    try {
+      const { error } = await supabase
+        .from("doctor_requests")
+        .update({
+          status: "rejected",
+          rejection_reason: reason || "Request rejected by doctor",
+          responded_at: new Date().toISOString(),
+        })
+        .eq("id", requestId);
+
+      if (error) {
+        console.error("Error rejecting request:", error);
+        toast({
+          title: "Error",
+          description: "Failed to reject request.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Request Rejected",
+        description: "The patient has been notified of the rejection.",
+        variant: "destructive",
+      });
+
+      setSelectedRequest(null);
+    } catch (error) {
+      console.error("Error:", error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleDownloadPDF = (request: DoctorRequest) => {
@@ -495,7 +533,7 @@ export function DoctorRequestsPage() {
   };
 
   const pendingCount = requests.filter((r) => r.status === "pending").length;
-  const attendedCount = requests.filter((r) => r.status === "attended").length;
+  const attendedCount = requests.filter((r) => r.status === "accepted").length;
   const rejectedCount = requests.filter((r) => r.status === "rejected").length;
 
   return (
@@ -591,10 +629,10 @@ export function DoctorRequestsPage() {
                     <SelectValue placeholder="Filter by status" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Status</SelectItem>
-                    <SelectItem value="pending">Pending</SelectItem>
-                    <SelectItem value="attended">Attended</SelectItem>
-                    <SelectItem value="rejected">Rejected</SelectItem>
+                  <SelectItem value="all">All Status</SelectItem>
+                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="accepted">Accepted</SelectItem>
+                  <SelectItem value="rejected">Rejected</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -618,7 +656,14 @@ export function DoctorRequestsPage() {
         </Card>
 
         {/* Requests List */}
-        {sortedRequests.length === 0 ? (
+        {isLoading ? (
+          <Card className="border-slate-200 text-center">
+            <CardContent className="py-12">
+              <Clock className="mx-auto mb-4 h-12 w-12 text-slate-400 animate-spin" />
+              <p className="text-slate-600">Loading requests...</p>
+            </CardContent>
+          </Card>
+        ) : sortedRequests.length === 0 ? (
           <Card className="border-slate-200 text-center">
             <CardContent className="py-12">
               <AlertCircle className="mx-auto mb-4 h-12 w-12 text-slate-400" />
@@ -643,7 +688,9 @@ export function DoctorRequestsPage() {
                             {request.patientName}
                           </h3>
                           <p className="text-xs text-slate-600">
-                            {request.requestId} • {request.age} years • {request.gender}
+                            {request.requestId || request.id.substring(0, 8).toUpperCase()}
+                            {request.age && ` • ${request.age} years`}
+                            {request.gender && ` • ${request.gender}`}
                           </p>
                         </div>
                       </div>

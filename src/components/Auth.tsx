@@ -36,11 +36,14 @@ export const Auth = () => {
             </TabsContent>
 
             <TabsContent value="signup" className="mt-6">
-              <Signup onSuccess={() => {
-                // Switch to sign in tab after successful signup
-                setActiveTab("signin");
-                handleSuccess();
-              }} />
+              <Signup 
+                onSuccess={() => {
+                  // Switch to sign in tab after successful signup
+                  setActiveTab("signin");
+                  handleSuccess();
+                }}
+                onSwitchToSignIn={() => setActiveTab("signin")}
+              />
             </TabsContent>
           </Tabs>
         </CardContent>

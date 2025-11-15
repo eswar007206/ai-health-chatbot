@@ -140,18 +140,20 @@ class FeverTriageAssistant:
         duration_patterns = [
             r'(\d+)\s*(?:hour|hr|h)\s*(?:ago|since)',
             r'(\d+)\s*(?:day|days)\s*(?:ago|since)',
-            r'for\s*(\d+)\s*(?:hour|day)',
-            r'since\s*(\d+)\s*(?:hour|day)',
-            r'(\d+)\s*(?:hour|day)'
+            r'for\s*(\d+)\s*(?:hour|day|days)',
+            r'since\s*(\d+)\s*(?:hour|day|days)',
+            r'(\d+)\s*(?:hour|day|days)'
         ]
         for pattern in duration_patterns:
             match = re.search(pattern, message, re.IGNORECASE)
             if match:
                 duration = int(match.group(1))
                 if 'day' in message_lower:
+                    extracted['duration_days'] = duration
                     extracted['duration_hours'] = duration * 24
                 else:
                     extracted['duration_hours'] = duration
+                    extracted['duration_days'] = duration / 24 if duration >= 24 else 0
                 break
         
         # Extract symptoms
@@ -399,6 +401,94 @@ class FeverTriageAssistant:
         
         return missing
     
+    def calculate_severity_score(self, patient_data: Dict[str, Any]) -> int:
+        """
+        Calculate Severity Score (1-10) based on:
+        - Temperature points
+        - Duration points
+        - Symptom danger points
+        """
+        score = 0
+        
+        # Temperature Points
+        temp = patient_data.get('temperature')  # In Fahrenheit
+        temp_c = patient_data.get('temperature_celsius')
+        
+        # Use Celsius if available, otherwise convert Fahrenheit
+        if temp_c:
+            temp_value = temp_c
+        elif temp:
+            temp_value = (temp - 32) * 5/9  # Convert to Celsius
+        else:
+            temp_value = None
+        
+        if temp_value:
+            if temp_value < 37.2:  # < 99°F / 37.2°C
+                score += 0
+            elif 37.2 <= temp_value < 38.0:  # 99–100.4°F / 37.2–38°C
+                score += 2
+            elif 38.0 <= temp_value < 39.0:  # 100.4–102.2°F / 38–39°C
+                score += 4
+            elif 39.0 <= temp_value < 39.7:  # 102.2–103.5°F / 39–39.7°C
+                score += 6
+            else:  # >103.5°F / 39.7°C
+                score += 8
+        
+        # Duration Points
+        duration_days = patient_data.get('duration_days')
+        duration_hours = patient_data.get('duration_hours', 0)
+        
+        if duration_days:
+            days = duration_days
+        else:
+            days = duration_hours / 24 if duration_hours else 0
+        
+        if 0 <= days <= 1:
+            score += 1
+        elif 2 <= days <= 3:
+            score += 2
+        elif 4 <= days <= 5:
+            score += 3
+        elif days >= 6:
+            score += 4
+        
+        # Symptom Danger Points
+        symptoms = patient_data.get('symptoms', [])
+        
+        if 'headache' in symptoms:
+            score += 1
+        if 'vomiting' in symptoms or 'severe_vomiting' in symptoms:
+            score += 1
+        if 'rash' in symptoms or 'purple_rash' in symptoms:
+            score += 2
+        if 'difficulty_breathing' in symptoms:
+            score += 3
+        
+        # Check for serious conditions
+        if patient_data.get('mosquito_exposure') or 'dengue' in str(patient_data).lower() or 'malaria' in str(patient_data).lower() or 'typhoid' in str(patient_data).lower():
+            score += 4
+        
+        if 'confusion' in symptoms or 'seizures' in symptoms:
+            score += 5
+        
+        # Ensure score is between 1 and 10
+        score = max(1, min(10, score))
+        
+        return score
+    
+    def get_severity_tag(self, severity_score: int) -> str:
+        """Get the appropriate color tag based on severity score"""
+        if 1 <= severity_score <= 3:
+            return "green"
+        elif 4 <= severity_score <= 6:
+            return "yellow"
+        elif 7 <= severity_score <= 8:
+            return "red"
+        elif 9 <= severity_score <= 10:
+            return "purple"
+        else:
+            return "green"  # Default
+    
     def generate_triage_response(self, patient_data: Dict[str, Any], chat_history: List[Dict] = None) -> Dict[str, Any]:
         """Generate appropriate triage response based on patient data"""
         
@@ -413,16 +503,30 @@ class FeverTriageAssistant:
         if missing and not has_red:
             return self._generate_input_collection_response(missing, patient_data)
         
+        # Calculate severity score
+        severity_score = self.calculate_severity_score(patient_data)
+        severity_tag = self.get_severity_tag(severity_score)
+        
         # Classify fever pattern
         fever_pattern = self.classify_fever_pattern(patient_data)
         
         # Generate response based on triage level
         if has_red:
-            return self._generate_red_flag_response(red_flags, patient_data, fever_pattern)
+            response = self._generate_red_flag_response(red_flags, patient_data, fever_pattern)
         elif has_yellow:
-            return self._generate_yellow_flag_response(yellow_flags, patient_data, fever_pattern)
+            response = self._generate_yellow_flag_response(yellow_flags, patient_data, fever_pattern)
         else:
-            return self._generate_green_flag_response(patient_data, fever_pattern)
+            response = self._generate_green_flag_response(patient_data, fever_pattern)
+        
+        # Add severity score and wrap in color tag
+        response['severity_score'] = severity_score
+        response['severity_tag'] = severity_tag
+        
+        # Wrap the response text in the appropriate color tag
+        original_response = response.get('response', '')
+        response['response'] = f"<{severity_tag}>\nSeverity Score: {severity_score}/10\n\n{original_response}\n</{severity_tag}>"
+        
+        return response
     
     def _generate_input_collection_response(self, missing: List[str], patient_data: Dict[str, Any]) -> Dict[str, Any]:
         """Generate response to collect missing inputs"""

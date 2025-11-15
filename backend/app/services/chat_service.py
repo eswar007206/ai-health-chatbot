@@ -494,11 +494,16 @@ class ChatService:
         """
         Process fever-related queries using the fever triage assistant.
         This method handles structured input collection, triage assessment, and response generation.
+        
+        MANDATORY: Must ask 3 questions FIRST before any diagnosis:
+        1. Age
+        2. Current temperature
+        3. Days since fever started
         """
         if not self.fever_triage:
             # If fever triage is not available, return a simple response
             return {
-                "response": "I understand you're asking about fever. I'm currently setting up enhanced fever assessment capabilities. For now, please provide: your age, current temperature, how long you've had the fever, and any other symptoms. ⚠️ **IMPORTANT**: This is general medical guidance, not a diagnosis. Please consult a healthcare professional.",
+                "response": "I understand you're asking about fever. Before I can help, I need 3 important details:\n\n1. What is your age?\n2. What is your current temperature? (in °C or °F)\n3. Since how many days have you had the fever?\n\n⚠️ **IMPORTANT**: This is general medical guidance, not a diagnosis. Please consult a healthcare professional.",
                 "symptoms_detected": [],
                 "patient_info": {},
                 "knowledge_base_used": False,
@@ -520,6 +525,64 @@ class ChatService:
         # Update with current message data
         patient_data = self.fever_triage.update_patient_data(patient_data, extracted)
         
+        # MANDATORY CHECK: Verify all 3 required questions are answered
+        missing_mandatory = []
+        if not patient_data.get('age'):
+            missing_mandatory.append('age')
+        if not patient_data.get('temperature'):
+            missing_mandatory.append('temperature')
+        if not patient_data.get('duration_days') and not patient_data.get('duration_hours'):
+            missing_mandatory.append('duration')
+        
+        # If any mandatory question is missing, ask for them FIRST
+        if missing_mandatory:
+            questions_to_ask = []
+            if 'age' in missing_mandatory:
+                questions_to_ask.append("What is your age?")
+            if 'temperature' in missing_mandatory:
+                questions_to_ask.append("What is your current temperature? (Please specify in °C or °F)")
+            if 'duration' in missing_mandatory:
+                questions_to_ask.append("Since how many days have you had the fever?")
+            
+            # Build friendly response asking for missing information
+            if len(questions_to_ask) == 3:
+                response_text = "Hello! Before I can help assess your fever, I need to ask you 3 important questions:\n\n"
+            else:
+                response_text = "I still need a few more details to help you properly:\n\n"
+            
+            for i, question in enumerate(questions_to_ask, 1):
+                response_text += f"{i}. {question}\n"
+            
+            response_text += "\nPlease provide these details so I can give you appropriate guidance. ⚠️ **IMPORTANT**: This is general medical guidance, not a diagnosis. Please consult a healthcare professional."
+            
+            # Use Gemini to make it more conversational if available
+            if self.chat_model:
+                try:
+                    enhancement_prompt = f"""The user said: "{message}"
+
+I need to ask these mandatory questions before any diagnosis:
+{chr(10).join(questions_to_ask)}
+
+Generate a friendly, warm, and conversational response asking for these details. Be polite and explain that I need this information first before I can help. Keep it simple and clear. Match the user's language if possible."""
+                    
+                    import asyncio
+                    enhanced_response = await asyncio.to_thread(
+                        self.chat_model.generate_content, enhancement_prompt
+                    )
+                    response_text = enhanced_response.text
+                except Exception as e:
+                    print(f"Warning: Could not enhance mandatory questions response: {e}")
+            
+            return {
+                "response": response_text,
+                "symptoms_detected": patient_data.get('symptoms', []),
+                "patient_info": patient_data,
+                "triage_level": "collecting_mandatory_inputs",
+                "knowledge_base_used": False,
+                "fever_triage": True
+            }
+        
+        # All mandatory questions answered - proceed with triage
         # Generate triage response
         triage_result = self.fever_triage.generate_triage_response(patient_data, chat_history)
         

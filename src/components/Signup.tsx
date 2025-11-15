@@ -37,9 +37,10 @@ import type { UserRole } from "@/contexts/AuthContext";
 
 interface SignupProps {
   onSuccess?: () => void;
+  onSwitchToSignIn?: () => void;
 }
 
-export function Signup({ onSuccess }: SignupProps) {
+export function Signup({ onSuccess, onSwitchToSignIn }: SignupProps) {
   const { signUp } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
@@ -64,9 +65,10 @@ export function Signup({ onSuccess }: SignupProps) {
 
     if (email) {
       const detectedRole = detectRoleFromEmail(email);
-      if (detectedRole !== selectedRole) {
+      // Only show warning if a role was detected AND it doesn't match selected role
+      if (detectedRole && detectedRole !== selectedRole) {
         setEmailWarning(
-          `Your email suggests you're a ${getRoleLabel(detectedRole)}, but you're signing up as a ${getRoleLabel(selectedRole)}`
+          `Your email suggests you're a ${getRoleLabel(detectedRole)}, but you're signing up as a ${getRoleLabel(selectedRole)}. Please confirm if this is correct.`
         );
       } else {
         setEmailWarning(null);
@@ -152,11 +154,40 @@ export function Signup({ onSuccess }: SignupProps) {
 
         onSuccess?.();
       } else {
-        toast({
-          title: "Sign up failed",
-          description: result.error || "Please try again",
-          variant: "destructive",
-        });
+        // Check if user already exists - check for specific Supabase error patterns
+        const errorMessage = result.error || "Please try again";
+        const errorLower = errorMessage.toLowerCase();
+        
+        // Supabase returns different error messages for existing users
+        const isUserExists = 
+          errorLower.includes("already") || 
+          errorLower.includes("exists") ||
+          errorLower.includes("registered") ||
+          errorLower.includes("user already") ||
+          errorLower.includes("email address") && errorLower.includes("already") ||
+          errorMessage.includes("User already registered");
+        
+        if (isUserExists) {
+          toast({
+            title: "Account Already Exists",
+            description: "An account with this email already exists. Switching to Sign In...",
+            variant: "destructive",
+          });
+          // Auto-switch to sign in tab after a short delay
+          if (onSwitchToSignIn) {
+            setTimeout(() => {
+              onSwitchToSignIn();
+            }, 1500);
+          }
+        } else {
+          // Show full error for debugging
+          console.error("SignUp Error Details:", errorMessage);
+          toast({
+            title: "Sign up failed",
+            description: errorMessage,
+            variant: "destructive",
+          });
+        }
       }
     } finally {
       setLoading(false);

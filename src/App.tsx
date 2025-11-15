@@ -13,12 +13,12 @@ import {
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import DoctorConsultPage from "./pages/DoctorConsultPage";
 import { ReportDiagnosisPage } from "./pages/ReportDiagnosisPage";
 import ReportResults from "./pages/ReportResults";
 import NativeVoiceChat from "./pages/NativeVoiceChat";
-import { PatientDoctorsPage } from "@/components/PatientDoctorsPage";
-import { DoctorRequestsPage } from "@/components/DoctorRequestsPage";
+import VideoConsultation from "./pages/VideoConsultation";
+import { PatientDoctorsPage } from "@/components/PatientDoctorsPage_NEW";
+import { DoctorRequestsPage } from "@/components/DoctorRequestsPage_NEW";
 import { RequireAuth } from "@/components/RequireAuth";
 
 const queryClient = new QueryClient();
@@ -28,7 +28,6 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<Index />} />
-      <Route path="/doctor" element={<DoctorConsultPage />} />
       <Route path="/native-voice" element={<NativeVoiceChat />} />
       <Route path="/report-diagnosis" element={<ReportDiagnosisPage />} />
       <Route path="/report-results" element={<ReportResults />} />
@@ -38,6 +37,14 @@ const router = createBrowserRouter(
         element={
           <RequireAuth allowedRoles={["patient"]}>
             <PatientDoctorsPage />
+          </RequireAuth>
+        } 
+      />
+      <Route 
+        path="/video-consultation" 
+        element={
+          <RequireAuth allowedRoles={["patient"]}>
+            <VideoConsultation />
           </RequireAuth>
         } 
       />

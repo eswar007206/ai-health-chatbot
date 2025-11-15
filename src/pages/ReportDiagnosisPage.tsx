@@ -153,7 +153,7 @@ export function ReportDiagnosisPage() {
             <CardHeader className="bg-gradient-to-r from-blue-50 to-cyan-50 border-b border-blue-200">
               <CardTitle>Upload Medical Report</CardTitle>
               <CardDescription>
-                Upload a lab report, X-ray, or any medical document for AI-powered analysis
+                Upload a medical document for AI-powered analysis
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-6">

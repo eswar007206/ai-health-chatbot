@@ -11,9 +11,42 @@ interface ChatMessageProps {
   userName?: string;
 }
 
+// Function to extract color tags and their content
+const extractColorTags = (text: string): Array<{ type: 'text' | 'color'; color?: string; content: string }> => {
+  const parts: Array<{ type: 'text' | 'color'; color?: string; content: string }> = [];
+  const colorTagPattern = /<(green|yellow|red|purple)>(.*?)<\/\1>/gs;
+  let lastIndex = 0;
+  let match;
+  
+  while ((match = colorTagPattern.exec(text)) !== null) {
+    // Add text before the tag
+    if (match.index > lastIndex) {
+      parts.push({ type: 'text', content: text.substring(lastIndex, match.index) });
+    }
+    // Add the color-tagged content
+    parts.push({ type: 'color', color: match[1], content: match[2].trim() });
+    lastIndex = match.index + match[0].length;
+  }
+  
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push({ type: 'text', content: text.substring(lastIndex) });
+  }
+  
+  // If no tags found, return the whole text as a single part
+  if (parts.length === 0) {
+    parts.push({ type: 'text', content: text });
+  }
+  
+  return parts;
+};
+
 export const ChatMessage = ({ role, content, timestamp, userName }: ChatMessageProps) => {
   const isUser = role === "user";
   const isSystem = role === "system";
+  
+  // Extract color tags from content
+  const contentParts = extractColorTags(content);
 
   return (
     <div
@@ -59,31 +92,75 @@ export const ChatMessage = ({ role, content, timestamp, userName }: ChatMessageP
           "prose prose-sm max-w-none text-slate-800 dark:prose-invert",
           isSystem && "text-amber-900"
         )}>
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={{
-              p: ({ children }) => <p className="whitespace-pre-wrap my-1 leading-relaxed text-base">{children}</p>,
-              ul: ({ children }) => <ul className="list-disc pl-5 my-2 space-y-1">{children}</ul>,
-              ol: ({ children }) => <ol className="list-decimal pl-5 my-2 space-y-1">{children}</ol>,
-              li: ({ children }) => <li className="my-0 text-base">{children}</li>,
-              strong: ({ children }) => <strong className="font-semibold text-slate-900">{children}</strong>,
-              em: ({ children }) => <em className="italic text-slate-700">{children}</em>,
-              code: ({ children }) => (
-                <code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>
-              ),
-              pre: ({ children }) => (
-                <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded-lg my-2 overflow-x-auto border border-slate-300">{children}</pre>
-              ),
-              blockquote: ({ children }) => (
-                <blockquote className="border-l-4 border-blue-400 pl-4 italic text-slate-700 my-2">{children}</blockquote>
-              ),
-              h1: ({ children }) => <h1 className="text-lg font-bold my-2 text-slate-900">{children}</h1>,
-              h2: ({ children }) => <h2 className="text-base font-bold my-2 text-slate-900">{children}</h2>,
-              h3: ({ children }) => <h3 className="text-base font-semibold my-1.5 text-slate-900">{children}</h3>,
-            }}
-          >
-            {content}
-          </ReactMarkdown>
+          {contentParts.map((part, index) => {
+            if (part.type === 'color') {
+              const colorClasses = {
+                green: "bg-green-50 border-l-4 border-green-500 p-4 rounded-lg my-3",
+                yellow: "bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg my-3",
+                red: "bg-red-50 border-l-4 border-red-500 p-4 rounded-lg my-3",
+                purple: "bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg my-3"
+              };
+              
+              const textColors = {
+                green: "text-green-900",
+                yellow: "text-yellow-900",
+                red: "text-red-900",
+                purple: "text-purple-900"
+              };
+              
+              return (
+                <div
+                  key={index}
+                  className={colorClasses[part.color as keyof typeof colorClasses]}
+                >
+                  <div className={textColors[part.color as keyof typeof textColors]}>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        p: ({ children }) => <p className="whitespace-pre-wrap my-1 leading-relaxed text-base">{children}</p>,
+                        ul: ({ children }) => <ul className="list-disc pl-5 my-2 space-y-1">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal pl-5 my-2 space-y-1">{children}</ol>,
+                        li: ({ children }) => <li className="my-0 text-base">{children}</li>,
+                        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                        em: ({ children }) => <em className="italic">{children}</em>,
+                      }}
+                    >
+                      {part.content}
+                    </ReactMarkdown>
+                  </div>
+                </div>
+              );
+            } else {
+              return (
+                <ReactMarkdown
+                  key={index}
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    p: ({ children }) => <p className="whitespace-pre-wrap my-1 leading-relaxed text-base">{children}</p>,
+                    ul: ({ children }) => <ul className="list-disc pl-5 my-2 space-y-1">{children}</ul>,
+                    ol: ({ children }) => <ol className="list-decimal pl-5 my-2 space-y-1">{children}</ol>,
+                    li: ({ children }) => <li className="my-0 text-base">{children}</li>,
+                    strong: ({ children }) => <strong className="font-semibold text-slate-900">{children}</strong>,
+                    em: ({ children }) => <em className="italic text-slate-700">{children}</em>,
+                    code: ({ children }) => (
+                      <code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>
+                    ),
+                    pre: ({ children }) => (
+                      <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded-lg my-2 overflow-x-auto border border-slate-300">{children}</pre>
+                    ),
+                    blockquote: ({ children }) => (
+                      <blockquote className="border-l-4 border-blue-400 pl-4 italic text-slate-700 my-2">{children}</blockquote>
+                    ),
+                    h1: ({ children }) => <h1 className="text-lg font-bold my-2 text-slate-900">{children}</h1>,
+                    h2: ({ children }) => <h2 className="text-base font-bold my-2 text-slate-900">{children}</h2>,
+                    h3: ({ children }) => <h3 className="text-base font-semibold my-1.5 text-slate-900">{children}</h3>,
+                  }}
+                >
+                  {part.content}
+                </ReactMarkdown>
+              );
+            }
+          })}
         </div>
       </div>
     </div>
