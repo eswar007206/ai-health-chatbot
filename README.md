@@ -9,9 +9,9 @@ This project was developed during a highly competitive nationwide hackathon cond
 
 The application is a comprehensive **AI Health Chatbot and Doctor Booking System**. It bridges the gap between patients and healthcare providers by offering a seamless, real-time appointment booking and management platform. 
 
-## 🚀 What We Built
+## 🚀 What I Built
 
-We designed and implemented a full-stack, real-time healthcare portal with specialized workflows for both **Patients** and **Doctors**. The system leverages modern web technologies to provide a secure and instant experience.
+I designed and implemented a full-stack, real-time healthcare portal with specialized workflows for both **Patients** and **Doctors**. The system leverages modern web technologies to provide a secure and instant experience.
 
 ### 👥 Patient Features
 - **Smart Doctor Search:** Browse and search for doctors by name or medical specialty.
@@ -35,7 +35,7 @@ We designed and implemented a full-stack, real-time healthcare portal with speci
 
 ## 🔐 Security & Architecture
 
-We prioritized data privacy and security, implementing:
+I prioritized data privacy and security, implementing:
 - **Row Level Security (RLS):** Patients can only see their own bookings, and doctors can only see requests assigned to them.
 - **Role-Based Access:** Distinct metadata roles ensure users only access the appropriate interfaces.
 - **Instant Sync:** Utilizing WebSockets via Supabase to instantly sync state across different clients.
